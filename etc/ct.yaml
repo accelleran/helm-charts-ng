@@ -1,0 +1,9 @@
+chart-dirs:
+  - charts
+check-version-increment: false
+validate-yaml: true
+lint-conf: "etc/lintconf.yaml"
+validate-chart-schema: true
+chart-yaml-schema: "etc/chart_schema.yaml"
+validate-maintainers: false
+helm-extra-args: --timeout 600s

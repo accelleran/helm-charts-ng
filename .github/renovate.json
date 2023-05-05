@@ -1,0 +1,31 @@
+{
+  "branchPrefix": "renovate/",
+  "semanticCommits": "enabled",
+  "semanticCommitType": "fix",
+  "semanticCommitScope": "deps",
+  "commitMessagePrefix": "fix(deps):",
+  "dependencyDashboard": true,
+  "dependencyDashboardApproval": false,
+  "dependencyDashboardAutoclose": false,
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":semanticCommits"
+  ],
+  "helmv3": {
+    "fileMatch": [
+      "(^|/)Chart\\.yaml$"
+    ],
+    "commitMessageTopic": "update {{depName}}",
+    "registryAliases": {}
+  },
+  "regexManagers": [
+    {
+      "datasourceTemplate": "docker",
+      "fileMatch": ["(^|/)Chart\\.yaml$"],
+      "matchStrings": [
+        "#\\s?renovate: image=(?<depName>.*?)\\s?appVersion:\\s?\\\"??(?<currentValue>[\\w+\\.\\-]*)\"?"
+      ]
+    }
+  ]
+}

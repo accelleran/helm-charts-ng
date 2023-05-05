@@ -1,0 +1,91 @@
+#!/bin/bash
+
+BASE_DIR=$(dirname "$0")
+GIT_ROOT=$(cd "${BASE_DIR}/.." && pwd)
+
+function usage() {
+    echo "Usage:"
+    echo "create-release-branch"
+    echo "    -h                      Display usage."
+    echo "    chart version           Create a release branch for chart and version."
+    echo "        -p                  Push the release branch."
+    echo "        -s                  Stay on the current branch."
+    echo "        -c <ref>            Start the release branch from commit <ref> (default HEAD)."
+    exit 0
+}
+
+function error() {
+    echo "${1}" 1>&2
+    exit 1
+}
+
+while getopts ":h" opt; do
+    case ${opt} in
+        h )
+            usage
+        ;;
+        \? )
+            error "Invalid Option: -${OPTARG}"
+        ;;
+    esac
+done
+shift $((OPTIND -1))
+
+if [ ${#} -lt 2 ]; then
+    error "Invalid number of arguments: require at least 2 (chart and version)"
+fi
+
+chart="${1}"; shift
+version="${1}"; shift
+
+if [ ! -f "${GIT_ROOT}/charts/${chart}/Chart.yaml" ]; then
+    error "${chart} is not a valid chart"
+fi
+
+if [[ ! "${version}" =~ ^[[:digit:]]+\.[[:digit:]]+$ ]]; then
+    error "${version} is not a valid version: use format MAJOR.MINOR (i.e. no PATCH)"
+fi
+
+push=false
+stay_on_current_branch=false
+commit="HEAD"
+
+while getopts ":hpsc:" opt; do
+    case ${opt} in
+        h )
+            usage
+        ;;
+        p )
+            push=true
+        ;;
+        s )
+            stay_on_current_branch=true
+        ;;
+        c )
+            commit="${OPTARG}"
+        ;;
+        \? )
+            error "Invalid Option: -${OPTARG}"
+        ;;
+        : )
+            error "Invalid option: ${OPTARG} requires an argument"
+        ;;
+    esac
+done
+shift $((OPTIND -1))
+
+git checkout -b "releases/${chart}-${version}" "${commit}" || error "Branch releases/${chart}-${version} already exists"
+
+contents="$(jq '.versioning = "always-bump-patch"' "${GIT_ROOT}"/etc/release-please-config.json)" && \
+echo -E "${contents}" > "${GIT_ROOT}"/etc/release-please-config.json
+
+git add "${GIT_ROOT}"/etc/release-please-config.json
+git commit -m "chore: prepare ${chart} ${version} release branch"
+
+if [[ "${push}" == true ]]; then
+    git push --set-upstream origin "releases/${chart}-${version}"
+fi
+
+if [[ "${stay_on_current_branch}" == true ]]; then
+    git checkout -
+fi

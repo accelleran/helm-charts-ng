@@ -1,0 +1,178 @@
+name: Helm Charts
+
+on:
+  push:
+    branches:
+      - main
+      - releases/**
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+
+  vars:
+    name: Variables
+    # This is a work-around to be able to properly use variables.
+    # This job should be made a dependency in order to be able to use its outputs.
+    runs-on: ubuntu-latest
+    outputs:
+      is_main_branch: ${{ github.ref_type == 'branch' && github.ref_name == 'main' }}
+      is_release_branch: ${{ github.ref_type == 'branch' && startsWith(github.ref_name, 'releases/') }}
+      is_pull_request: ${{ github.event_name == 'pull_request' }}
+      target_branch: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.ref || github.ref_name }}
+      charts: ${{ steps.list-charts.outputs.charts }}
+    timeout-minutes: 1
+    steps:
+      - name: Expose variables
+        run: echo "Exposing variables for proper usage"
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: List charts
+        id: list-charts
+        run: echo "charts=$(ls -dm charts/*/ | tr -d ' ')" >> $GITHUB_OUTPUT
+
+  lint-charts:
+    name: Lint Charts
+    needs:
+      - vars
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ needs.vars.outputs.is_pull_request == 'true' && '0' || '1' }}
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          check-latest: true
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.4.0
+
+      - name: Add helm repositories
+        run: ./bin/add-repos
+
+      - name: List changed
+        id: list-changed
+        run: |
+          changed_charts="all"
+          if [ "${{ needs.vars.outputs.is_pull_request }}" == "true" ]; then
+            changed_charts="$(ct list-changed --config etc/ct.yaml --target-branch ${{ needs.vars.outputs.target_branch }})"
+          fi
+
+          if [[ -n "${changed_charts}" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Lint charts
+        if: ${{ steps.list-changed.outputs.changed == 'true' }}
+        run: ct lint --config etc/ct.yaml ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch {0}', needs.vars.outputs.target_branch) || format('--charts {0}', needs.vars.outputs.charts) }}
+
+  test-charts:
+    name: Test Charts
+    needs:
+      - vars
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ needs.vars.outputs.is_pull_request == 'true' && '0' || '1' }}
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          check-latest: true
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.4.0
+
+      - name: Add helm repositories
+        run: ./bin/add-repos
+
+      - name: List changed
+        id: list-changed
+        run: |
+          changed_charts="all"
+          if [ "${{ needs.vars.outputs.is_pull_request }}" == "true" ]; then
+            changed_charts="$(ct list-changed --config etc/ct.yaml --target-branch ${{ needs.vars.outputs.target_branch }})"
+          fi
+
+          if [[ -n "${changed_charts}" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create kind cluster
+        if: ${{ steps.list-changed.outputs.changed == 'true' }}
+        uses: helm/kind-action@v1.5.0
+
+      - name: Test charts
+        if: ${{ steps.list-changed.outputs.changed == 'true' }}
+        run: ct install --config etc/ct.yaml ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch {0}', needs.vars.outputs.target_branch) || format('--charts {0}', needs.vars.outputs.charts) }}
+
+  release-charts:
+    name: Release Charts
+    if: ${{ needs.vars.outputs.is_main_branch == 'true' || needs.vars.outputs.is_release_branch == 'true' }}
+    needs:
+      - vars
+      - lint-charts
+      - test-charts
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set git user
+        uses: git-actions/set-user@v1
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add helm repositories
+        run: ./bin/add-repos
+
+      - name: Run chart releaser
+        uses: helm/chart-releaser-action@v1.5.0
+        with:
+          config: etc/cr.yaml
+          mark_as_latest: ${{ needs.vars.outputs.is_main_branch == 'true' }}
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+  release-please:
+    name: Release
+    if: ${{ needs.vars.outputs.is_main_branch == 'true' || needs.vars.outputs.is_release_branch == 'true' }}
+    # Run after release-charts so that the tag exists in case of release commits.
+    # Otherwise release please will create a new PR
+    # as it doesn't yet have the release to compare changes with.
+    needs:
+      - release-charts
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: ./.github/workflows/release-please.yaml

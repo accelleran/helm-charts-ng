@@ -1,0 +1,17 @@
+{
+  "release-type": "helm",
+  "versioning": "default",
+  "skip-github-release": true,
+  "label": "release: pending",
+  "release-label": "release: approved",
+  "include-component-in-tag": true,
+  "include-v-in-tag": false,
+  "separate-pull-requests": true,
+  "pull-request-title-pattern": "chore: release${component} ${version}",
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "plugins": [
+    "sentence-case"
+  ],
+  "packages": {}
+}

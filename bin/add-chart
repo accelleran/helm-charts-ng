@@ -1,0 +1,50 @@
+#!/bin/bash
+
+BASE_DIR=$(dirname "$0")
+GIT_ROOT=$(cd "${BASE_DIR}/.." && pwd)
+
+function print_error() {
+    echo "${1}" 1>&2
+}
+
+function error() {
+    print_error "${1}"
+    exit 1
+}
+
+function warn() {
+    print_error "${1}"
+}
+
+if [ ${#} -lt 1 ]; then
+    error "Invalid number of arguments: requires at least 1 (chart)"
+fi
+
+chart="${1}"
+version="${2:-0.1.0}"
+
+if [ -f "${GIT_ROOT}/charts/${chart}/Chart.yaml" ]; then
+    warn "Chart ${chart} already exists"
+else
+    helm create "${GIT_ROOT}/charts/${chart}"
+fi
+
+version="${version}" yq --inplace \
+    '.version = env(version)' \
+    "${GIT_ROOT}/charts/${chart}/Chart.yaml"
+
+contents="$(jq \
+    --arg chart_path "charts/${chart}" \
+    --arg chart "${chart}" \
+    '.packages[$chart_path].component = $chart | .packages[$chart_path]."package-name" = $chart' \
+    "${GIT_ROOT}"/etc/release-please-config.json)"
+echo -E "${contents}" > "${GIT_ROOT}"/etc/release-please-config.json
+
+# chart releaser will create release on first commit
+# so include version in release please manifest
+contents="$(jq \
+    --arg chart_path "charts/${chart}" \
+    --arg version "${version}" \
+    '.[$chart_path] = $version' \
+    "${GIT_ROOT}"/etc/.release-please-manifest.json)"
+echo -E "${contents}" > "${GIT_ROOT}"/etc/.release-please-manifest.json

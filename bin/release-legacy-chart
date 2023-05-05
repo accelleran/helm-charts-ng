@@ -1,0 +1,157 @@
+#!/bin/bash
+
+BASE_DIR=$(dirname "$0")
+GIT_ROOT=$(cd "${BASE_DIR}/.." && pwd)
+
+function usage() {
+    echo "Usage:"
+    echo "release-legacy-chart"
+    echo "    -h                Display usage."
+    echo "    -f <file>         Release a single file (also provide the index)."
+    echo "    -i <index.yaml>   The legacy index file (only valid i.c.w. -f)."
+    echo "    -d <dir>          Release all .tgz files within the provided directory."
+    echo "                      The index file defaults to <dir>/index.yaml."
+    echo ""
+    echo "All provided files need to follow the format:"
+    echo "  <chart-name>-<semantic-version>.tgz"
+    echo ""
+    echo "Make sure to set the GITHUB_TOKEN!"
+    echo ""
+    exit 0
+}
+
+function error() {
+    echo "${1}" 1>&2
+    exit 1
+}
+
+function create_release() {
+    # Source: https://gist.github.com/schell/2fe896953b6728cc3c5d8d5f9f3a17a3
+    file="${1}"
+    index="${2}"
+
+    if [[ ! -f ${file} ]]; then
+        error "${file} is not a file"
+    fi
+
+    if [[ ! -f ${index} ]]; then
+        error "${index} is not a file"
+    fi
+
+    file_name=$(basename "${file}")
+    if [[ ! "${file_name}" =~ ^([[:alpha:][:digit:]\.\_\-]+)-([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+(-[[:alpha:][:digit:]\.\-]+)?)\.tgz$ ]]; then
+        error "${file_name} is not valid: use format <chart-name>-<semantic-version>.tgz"
+    fi
+
+    tag="${file_name%.*}"
+    chart="${BASH_REMATCH[1]}"
+    version="${BASH_REMATCH[2]}"
+
+    mkdir -p "/tmp/github/${tag}"
+
+    command="curl -s -o \"/tmp/github/${tag}/release.json\" -w '%{http_code}' \
+        --request POST \
+        --header 'authorization: Bearer ${GITHUB_TOKEN}' \
+        --header 'content-type: application/json' \
+        --data '{\"tag_name\": \"${tag}\"}' \
+        https://api.github.com/repos/accelleran/helm-charts-ng/releases"
+    http_code=$(eval "${command}")
+    if [ "${http_code}" != "201" ]; then
+        error "Release ${tag} failed with code '${http_code}'"
+    fi
+
+    echo "Created release ${tag}"
+
+    url=$(jq -r .upload_url "/tmp/github/${tag}/release.json" | cut -d '{' -f '1')
+    command="curl -s -o \"/tmp/github/${tag}/upload.json\" -w '%{http_code}' \
+        --request POST \
+        --header 'authorization: Bearer ${GITHUB_TOKEN}' \
+        --header 'Content-Type: application/octet-stream' \
+        --data-binary @\"${file}\" \
+        ${url}?name=${file_name}"
+    http_code=$(eval "${command}")
+    if [ "${http_code}" != "201" ]; then
+        error "Upload ${file_name} failed with code '${http_code}'"
+    fi
+
+    echo "Asset ${file_name} uploaded"
+
+    yq ".entries.${chart}[] | select(.version == \"${version}\")" "${index}" > "/tmp/github/${tag}/index.yaml"
+    yq -i ".urls[0] = \"https://github.com/accelleran/helm-charts-ng/releases/download/${tag}/${file_name}\"" "/tmp/github/${tag}/index.yaml"
+    yq -i ".entries.${chart} += [load(\"/tmp/github/${tag}/index.yaml\")]" "${GIT_ROOT}/index.yaml"
+
+    echo "Index file updated"
+}
+
+function handle_file() {
+    file="${1}"
+    index="${2}"
+
+    echo "Got ${file} with ${index}"
+    create_release "${file}" "${index}"
+}
+
+if [ ${#} -eq 0 ]; then
+    echo "release-legacy-chart needs at least a file or directory"
+    echo "  and an index file"
+    echo ""
+    usage
+fi
+
+file=""
+directory=""
+index=""
+
+while getopts ":hf:d:i:" opt; do
+    case ${opt} in
+        h )
+            usage
+        ;;
+        f )
+            file="${OPTARG}"
+        ;;
+        i )
+            index="${OPTARG}"
+        ;;
+        d )
+            directory="${OPTARG}"
+            if [[ "${index}" == "" ]]; then
+                index="${directory}/index.yaml"
+            fi
+        ;;
+        \? )
+            error "Invalid Option: -${OPTARG}"
+        ;;
+        : )
+            error "Invalid option: ${OPTARG} requires an argument"
+        ;;
+    esac
+done
+shift $((OPTIND -1))
+
+if [[ ! "$(yq --version)" =~ .*mikefarah/yq.* ]]; then
+    error "Make sure to install mikefarah/yq"
+fi
+
+if [[ "${index}" == "" ]]; then
+    error "No legacy index file is provided"
+fi
+
+git checkout gh-pages > /dev/null
+
+if [[ "${file}" != "" ]]; then
+    handle_file "${file}" "${index}"
+fi
+
+if [[ "${directory}" != "" ]]; then
+    echo "Looking into ${directory}"
+    for file in "${directory}"/*.tgz; do
+        handle_file "${file}" "${index}"
+    done
+fi
+
+git add "${GIT_ROOT}/index.yaml"
+git commit -m "Update index.yaml with legacy charts"
+git push
+
+git checkout - > /dev/null
