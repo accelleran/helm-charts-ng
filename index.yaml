@@ -1,3 +1,108 @@
 apiVersion: v1
-entries: {}
+entries:
+  cell-wrapper:
+    - apiVersion: v2
+      appVersion: CW2.2.0-alpha.0
+      created: "2023-04-27T15:01:16.211252325+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: cw-ctrl.enabled
+          name: cw-ctrl
+          repository: file://charts/cw-ctrl
+          version: 2.2.0-alpha.0
+        - condition: cw-inst.enabled
+          name: cw-inst
+          repository: file://charts/cw-inst
+          version: 2.2.0-alpha.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.3.1
+      description: Accelleran Cell Wrapper Components
+      digest: c6d1d6e2c397d3fa164a66a00d43e35289d2b0a81e49baf38c26297782b29b64
+      name: cell-wrapper
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/cell-wrapper-2.2.0-alpha.0/cell-wrapper-2.2.0-alpha.0.tgz
+      version: 2.2.0-alpha.0
+    - apiVersion: v2
+      appVersion: CW2.2.0-alpha.1
+      created: "2023-04-27T15:01:16.218580941+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: cw-ctrl.enabled
+          name: cw-ctrl
+          repository: file://charts/cw-ctrl
+          version: 2.2.0-alpha.1
+        - condition: cw-inst.enabled
+          name: cw-inst
+          repository: file://charts/cw-inst
+          version: 2.2.0-alpha.1
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.3.1
+      description: Accelleran Cell Wrapper Components
+      digest: 2ab395ba40c1fe2e5dbe5260a6597b8f96051615144fb512c3008bf1851f57d4
+      name: cell-wrapper
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/cell-wrapper-2.2.0-alpha.1/cell-wrapper-2.2.0-alpha.1.tgz
+      version: 2.2.0-alpha.1
+    - apiVersion: v2
+      appVersion: CW2.2.0-rc.1
+      created: "2023-04-27T15:01:16.228585548+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: cw-ctrl.enabled
+          name: cw-ctrl
+          repository: file://charts/cw-ctrl
+          version: 2.2.0-rc.1
+        - condition: cw-inst.enabled
+          name: cw-inst
+          repository: file://charts/cw-inst
+          version: 2.2.0-rc.1
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.3.1
+      description: Accelleran Cell Wrapper Components
+      digest: e46d0fbd9f69bd5284e15f7b45508fc0ae70e7d3c6321f52e4ed2efc6d1a9b65
+      name: cell-wrapper
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/cell-wrapper-2.2.0-rc.1/cell-wrapper-2.2.0-rc.1.tgz
+      version: 2.2.0-rc.1
+    - apiVersion: v2
+      appVersion: CW2.2.0-rc.2
+      created: "2023-04-27T15:01:16.236026218+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: cw-ctrl.enabled
+          name: cw-ctrl
+          repository: file://charts/cw-ctrl
+          version: 2.2.0-rc.2
+        - condition: cw-inst.enabled
+          name: cw-inst
+          repository: file://charts/cw-inst
+          version: 2.2.0-rc.2
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.3.1
+      description: Accelleran Cell Wrapper Components
+      digest: 02bc14d4a9c3054772834781e184ef4aeb1cdb47818633e0ff0bfdd0a97e5727
+      name: cell-wrapper
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/cell-wrapper-2.2.0-rc.2/cell-wrapper-2.2.0-rc.2.tgz
+      version: 2.2.0-rc.2
 generated: "2023-05-05T17:10:02.813819167+02:00"
