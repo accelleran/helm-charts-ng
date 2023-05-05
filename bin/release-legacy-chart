@@ -53,7 +53,7 @@ function create_release() {
         --request POST \
         --header 'authorization: Bearer ${GITHUB_TOKEN}' \
         --header 'content-type: application/json' \
-        --data '{\"tag_name\": \"${tag}\"}' \
+        --data '{\"tag_name\": \"${tag}\", \"name\": \"${tag}\", \"body\": \"Legacy chart release\"}' \
         https://api.github.com/repos/accelleran/helm-charts-ng/releases"
     http_code=$(eval "${command}")
     if [ "${http_code}" != "201" ]; then
