@@ -4,4 +4,4 @@ description: Accelleran Renovate test
 type: application
 version: 1.0.0
 # renovate: image=accelleran/test-renovate
-appVersion: "v1.0.0"
+appVersion: "v2.0.0"
