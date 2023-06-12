@@ -21,6 +21,8 @@ jobs:
       is_pull_request: ${{ github.event_name == 'pull_request' }}
       target_branch: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.ref || github.ref_name }}
       charts: ${{ steps.list-charts.outputs.charts }}
+      app_charts: ${{ steps.list-app-charts.outputs.charts }}
+      lib_charts: ${{ steps.list-lib-charts.outputs.charts }}
     timeout-minutes: 1
     steps:
       - name: Expose variables
@@ -31,7 +33,15 @@ jobs:
 
       - name: List charts
         id: list-charts
-        run: echo "charts=$(ls -dm charts/*/ | tr -d ' ')" >> $GITHUB_OUTPUT
+        run: echo "charts=$(./bin/list-charts)" >> $GITHUB_OUTPUT
+
+      - name: List application charts
+        id: list-app-charts
+        run: echo "charts=$(./bin/list-charts -a)" >> $GITHUB_OUTPUT
+      
+      - name: List library charts
+        id: list-lib-charts
+        run: echo "charts=$(./bin/list-charts -l)" >> $GITHUB_OUTPUT
 
   lint-charts:
     name: Lint Charts
@@ -74,6 +84,16 @@ jobs:
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Prepare library charts
+        if: ${{ steps.list-changed.outputs.changed == 'true' }}
+        run: |
+          lib_charts="${{ needs.vars.outputs.lib_charts }}"
+          for lc in "${lib_charts//,/ }" ; do
+              # Add values.yaml file so the linter doesn't complain
+              echo "${lc}/values.yaml"
+              touch "${lc}/values.yaml"
+          done
 
       - name: Lint charts
         if: ${{ steps.list-changed.outputs.changed == 'true' }}
@@ -127,7 +147,7 @@ jobs:
 
       - name: Test charts
         if: ${{ steps.list-changed.outputs.changed == 'true' }}
-        run: ct install --config etc/ct.yaml ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch {0}', needs.vars.outputs.target_branch) || format('--charts {0}', needs.vars.outputs.charts) }}
+        run: ct install --config etc/ct.yaml ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch {0} --excluded-charts {1}', needs.vars.outputs.target_branch, needs.vars.outputs.lib_charts) || format('--charts {0}', needs.vars.outputs.app_charts) }}
 
   release-charts:
     name: Release Charts

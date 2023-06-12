@@ -1,0 +1,53 @@
+#!/bin/bash
+
+GIT_ROOT=$(cd "$(dirname "$0")/.." && pwd)
+
+function usage() {
+    echo "Usage:"
+    echo "list-charts"
+    echo "    -h                      Display usage."
+    echo "    -a                      List only application charts."
+    echo "    -l                      List only library charts."
+    exit 0
+}
+
+function error() {
+    echo "${1}" 1>&2
+    exit 1
+}
+
+list_application_charts=false
+list_library_charts=false
+
+while getopts ":hal" opt; do
+    case ${opt} in
+        h )
+            usage
+        ;;
+        a )
+            list_application_charts=true
+        ;;
+        l )
+            list_library_charts=true
+        ;;
+        \? )
+            error "Invalid Option: -${OPTARG}"
+        ;;
+    esac
+done
+shift $((OPTIND -1))
+
+if [[ "${list_application_charts}" == false && "${list_library_charts}" == false ]]; then
+    list_application_charts=true
+    list_library_charts=true
+fi
+
+if [[ "${list_application_charts}" == true && "${list_library_charts}" == true ]]; then
+    output=$(find "${GIT_ROOT}"/charts/ -type f -name 'Chart.yaml')
+elif [[ "${list_application_charts}" == true ]]; then
+    output=$(find "${GIT_ROOT}"/charts/ -type f -name 'Chart.yaml' -exec sh -c 'yq -e '\''.type == "application"'\'' ${0} >/dev/null 2>&1 && echo ${0}' {} \;)
+elif [[ "${list_library_charts}" == true ]]; then
+    output=$(find "${GIT_ROOT}"/charts/ -type f -name 'Chart.yaml' -exec sh -c 'yq -e '\''.type == "library"'\'' ${0} >/dev/null 2>&1 && echo ${0}' {} \;)
+fi
+
+echo "${output}" | sed -r 's|/[^/]+$||' | sort -u | sed -z 's/\n/,/g;s/,$/\n/'
