@@ -13,5 +13,10 @@
   "plugins": [
     "sentence-case"
   ],
-  "packages": {}
+  "packages": {
+    "charts/acc-common": {
+      "component": "acc-common",
+      "package-name": "acc-common"
+    }
+  }
 }
