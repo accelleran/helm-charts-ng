@@ -48,6 +48,8 @@ jobs:
 
   lint-charts:
     name: Lint Charts
+    # Work around having no charts in the repository
+    if: ${{ needs.vars.outputs.is_pull_request != 'true' && needs.vars.outputs.charts != '' }}
     needs:
       - vars
     runs-on: ubuntu-latest
@@ -104,6 +106,8 @@ jobs:
 
   test-charts:
     name: Test Charts
+    # Work around having only library charts in the repository
+    if: ${{ needs.vars.outputs.is_pull_request != 'true' && needs.vars.outputs.app_charts != '' }}
     needs:
       - vars
     runs-on: ubuntu-latest
