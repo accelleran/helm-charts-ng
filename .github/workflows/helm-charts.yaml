@@ -100,7 +100,7 @@ jobs:
 
       - name: Lint charts
         if: ${{ steps.list-changed.outputs.changed == 'true' }}
-        run: ct lint --config etc/ct.yaml ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch {0}', needs.vars.outputs.target_branch) || format('--charts {0}', needs.vars.outputs.charts) }}
+        run: ct lint --config etc/ct.yaml ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch "{0}"', needs.vars.outputs.target_branch) || format('--charts "{0}"', needs.vars.outputs.charts) }}
 
   test-charts:
     name: Test Charts
@@ -150,7 +150,7 @@ jobs:
 
       - name: Test charts
         if: ${{ steps.list-changed.outputs.changed == 'true' }}
-        run: ct install --config etc/ct.yaml ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch {0} --excluded-charts {1}', needs.vars.outputs.target_branch, needs.vars.outputs.lib_chart_names) || format('--charts {0}', needs.vars.outputs.app_charts) }}
+        run: ct install --config etc/ct.yaml ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch "{0}" --excluded-charts "{1}"', needs.vars.outputs.target_branch, needs.vars.outputs.lib_chart_names) || format('--charts "{0}"', needs.vars.outputs.app_charts) }}
 
   release-charts:
     name: Release Charts
