@@ -183,7 +183,6 @@ jobs:
         uses: helm/chart-releaser-action@v1.5.0
         with:
           config: etc/cr.yaml
-          mark_as_latest: ${{ needs.vars.outputs.is_main_branch == 'true' }}
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
