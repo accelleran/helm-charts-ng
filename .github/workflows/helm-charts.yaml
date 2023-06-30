@@ -48,8 +48,6 @@ jobs:
 
   lint-charts:
     name: Lint Charts
-    # Work around having no charts in the repository
-    if: ${{ needs.vars.outputs.is_pull_request != 'true' && needs.vars.outputs.charts != '' }}
     needs:
       - vars
     runs-on: ubuntu-latest
@@ -79,7 +77,7 @@ jobs:
       - name: List changed
         id: list-changed
         run: |
-          changed_charts="all"
+          changed_charts="${{ needs.vars.outputs.charts }}"
           if [ "${{ needs.vars.outputs.is_pull_request }}" == "true" ]; then
             changed_charts="$(ct list-changed --config etc/ct.yaml --target-branch ${{ needs.vars.outputs.target_branch }})"
           fi
@@ -106,8 +104,6 @@ jobs:
 
   test-charts:
     name: Test Charts
-    # Work around having only library charts in the repository
-    if: ${{ needs.vars.outputs.is_pull_request != 'true' && needs.vars.outputs.app_charts != '' }}
     needs:
       - vars
     runs-on: ubuntu-latest
@@ -137,7 +133,7 @@ jobs:
       - name: List changed
         id: list-changed
         run: |
-          changed_charts="all"
+          changed_charts="${{ needs.vars.outputs.app_charts }}"
           if [ "${{ needs.vars.outputs.is_pull_request }}" == "true" ]; then
             changed_charts="$(ct list-changed --config etc/ct.yaml --target-branch ${{ needs.vars.outputs.target_branch }})"
           fi
