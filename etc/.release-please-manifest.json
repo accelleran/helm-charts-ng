@@ -1,3 +1,4 @@
 {
-  "charts/acc-common": "0.1.0"
+  "charts/acc-common": "0.1.0",
+  "charts/netconf": "3.0.0"
 }

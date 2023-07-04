@@ -1,0 +1,57 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  # Required
+  repository: null
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+initImage:
+  repository: accelleran/acc-generic-img
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets:
+  - name: accelleran-secret
+
+env:
+  # Required
+  configMapName: null
+  extra: []
+  #  - name: SOME_ENV
+  #    value: "value"
+
+service:
+  enabled: true
+  type: NodePort
+  port: 8300
+  name: netconf
+  protocol: TCP
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: 
+  # capabilities:
+  #   drop:
+  #   - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+  privileged: false
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

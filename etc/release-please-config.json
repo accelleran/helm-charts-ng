@@ -17,6 +17,10 @@
     "charts/acc-common": {
       "component": "acc-common",
       "package-name": "acc-common"
+    },
+    "charts/netconf": {
+      "component": "netconf",
+      "package-name": "netconf"
     }
   }
 }

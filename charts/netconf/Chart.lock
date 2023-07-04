@@ -1,0 +1,6 @@
+dependencies:
+- name: acc-common
+  repository: https://accelleran.github.io/helm-charts-ng/
+  version: 0.1.0
+digest: sha256:d9b923685ca6f418de373422eca8f2a3e14d9ee16525237c7df61cdbe4340554
+generated: "2023-06-30T08:43:22.624865374+02:00"

@@ -1,0 +1,9 @@
+apiVersion: v2
+name: netconf
+description: Netconf server
+type: application
+version: 3.0.0
+dependencies:
+  - name: acc-common
+    version: 0.2.0
+    repository: https://accelleran.github.io/helm-charts-ng/

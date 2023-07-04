@@ -1,0 +1,19 @@
+{{- if .Values.service.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "acc-common.name" . }}-{{ include "acc-common.drax.instanceId" . }}
+  labels:
+    {{- include "acc-common.labels.5g" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      protocol: {{ .Values.service.protocol }}
+      name: {{ .Values.service.name }}
+      {{- if contains "NodePort" .Values.service.type }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{- end }}
+  selector:
+    {{- include "acc-common.selectorLabels" . | nindent 4 }}
+{{- end -}}
