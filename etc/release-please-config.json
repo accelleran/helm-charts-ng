@@ -14,9 +14,9 @@
     "sentence-case"
   ],
   "packages": {
-    "charts/acc-common": {
-      "component": "acc-common",
-      "package-name": "acc-common"
+    "charts/common": {
+      "component": "common",
+      "package-name": "common"
     }
   }
 }
