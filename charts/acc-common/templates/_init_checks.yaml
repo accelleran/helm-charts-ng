@@ -1,0 +1,59 @@
+{{/* vim: set filetype=mustache syntax=helm: */}}
+
+{{/*
+Init container check waiting until redis is available
+*/}}
+{{- define "acc-common.init-check.redis" -}}
+name: {{ include "acc-common.name" . }}-check-redis
+image: "{{ .Values.initImage.repository }}:{{ tpl .Values.initImage.tag . }}"
+imagePullPolicy: "{{ .Values.initImage.pullPolicy }}"
+command:
+- "/bin/bash"
+- "-c"
+- |
+    until [ "$(redis-cli -h ${REDIS_HOSTNAME} -p ${REDIS_PORT} ping)" == "PONG" ]
+    do
+      sleep 1
+    done
+    echo "$(date) Redis ready"
+env:
+- name: REDIS_HOSTNAME
+  valueFrom:
+  configMapKeyRef:
+      name: "{{ tpl .Values.env.configMapName . }}"
+      key: REDIS_HOSTNAME
+- name: REDIS_PORT
+  valueFrom:
+  configMapKeyRef:
+      name: "{{ tpl .Values.env.configMapName . }}"
+      key: REDIS_PORT
+{{- end -}} 
+
+{{/*
+Init container check waiting until NATS is available
+*/}}
+{{- define "acc-common.init-check.nats" -}}
+name: {{ include "acc-common.name" . }}-check-nats
+image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
+imagePullPolicy: "{{ .Values.initImage.pullPolicy }}"
+command:
+  - "/bin/bash"
+  - "-c"
+  - |
+    until nc -z -v -w1 ${NATS_HOSTNAME} ${NATS_PORT}
+    do
+      sleep 1
+    done
+    echo "$(date) NATS ready"
+env:
+  - name: NATS_HOSTNAME
+    valueFrom:
+      configMapKeyRef:
+        name: "{{ tpl .Values.env.configMapName . }}"
+        key: NATS_HOSTNAME
+  - name: NATS_PORT
+    valueFrom:
+      configMapKeyRef:
+        name: "{{ tpl .Values.env.configMapName . }}"
+        key: NATS_PORT
+{{- end -}} 
