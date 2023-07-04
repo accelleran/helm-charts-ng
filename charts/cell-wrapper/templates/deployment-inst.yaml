@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-cw-inst
+  labels:
+    {{- include "acc-common.labels.5g" . | nindent 4 }}
+spec:
+  replicas: {{ include "cell-wrapper.instance.replicas" . }}
+  selector:
+    matchLabels:
+      {{- include "acc-common.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+    {{- with .Values.cw-inst.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "acc-common.labels.5g" . | nindent 8 }}
+    spec:
+      {{- with .Values.cw-inst.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      
+      volumes:
+        - name: {{ include "acc-common.fullname" . }}-ssh-key
+          secret:
+            secretName: {{ tpl .Values.cw-inst.secrets.sshKey . }}
+            defaultMode: 256
+        {{- range $vendor, $v := .Values.cw-inst.baseConfig.vendors }}
+        - name: {{ include "acc-common.fullname" $ }}-{{ $vendor }}
+          configMap:
+            name: {{ include "acc-common.fullname" $ }}-{{ $vendor }}
+        {{- end }}
+
+      containers:
+        - name: cw-inst
+          securityContext:
+            {{- toYaml .Values.cw-inst.securityContext | nindent 12 }}
+          image: "{{ .Values.cw-inst.image.repository }}:{{ tpl .Values.cw-inst.image.tag . | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.cw-inst.image.pullPolicy }}
+          env:
+            - name: __APPNAME
+              value: cellWrapperInstance
+            - name: __APPID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            {{- with .Values.cw-inst.env.extra }}
+            {{ toYaml . | nindent 12 }}
+            {{- end }}
+          envFrom:
+            - configMapRef:
+                name: "{{ include "cell-wrapper.bootstrap.configMapName" .Values.cw-inst }}"
+
+          volumeMounts:
+            - name: {{ include "acc-common.fullname" . }}-ssh-key
+              mountPath: "/home/accelleran/5G/ssh/"
+              readOnly: true
+            {{- range $vendor, $v := .Values.cw-inst.baseConfig.vendors }}
+            {{- range $v }}
+            - name: {{ include "acc-common.fullname" $ }}-{{ $vendor }}
+              mountPath: "{{ $.Values.cw-inst.baseConfig.configDir }}/{{ $vendor }}/{{ .file }}"
+              subPath: "{{ .file }}"
+              readOnly: true
+            {{- end }}
+            {{- end }}
+
+          {{- with .Values.cw-inst.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          {{- with .Values.cw-inst.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+      {{- with .Values.cw-inst.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- if or (.Values.cw-inst.nodeSelector) (eq (tpl .Values.cw-inst.draxNodeSelectorEnabled .) "true") }}
+      nodeSelector:
+        {{ if .Values.cw-inst.nodeSelector }}
+          {{- toYaml .Values.cw-inst.nodeSelector | nindent 8 }}
+        {{ end }}
+        {{ if eq (tpl .Values.cw-inst.draxNodeSelectorEnabled .) "true" }}
+          {{- tpl (toYaml .Values.cw-inst.draxNodeSelector) $ | nindent 8 }}
+        {{ end }}
+      {{- end }}
+
+      {{- with .Values.cw-inst.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- with .Values.cw-inst.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

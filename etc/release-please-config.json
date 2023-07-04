@@ -21,6 +21,10 @@
     "charts/netconf": {
       "component": "netconf",
       "package-name": "netconf"
+    },
+    "charts/cell-wrapper": {
+      "component": "cell-wrapper",
+      "package-name": "cell-wrapper"
     }
   }
 }

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "acc-common.fullname" . }}-bootstrap
+  labels:
+    {{- include "acc-common.labels.5g" . | nindent 4 }}
+data:
+  REDIS_HOSTNAME: "{{ tpl .Values.redis.hostname . }}"
+  REDIS_PORT: "{{ tpl .Values.redis.port . }}"
+  INSTANCE_FILTER: {{ include "acc-common.drax.instanceId" . }}
+  NATS_HOSTNAME: "{{ tpl .Values.nats.hostname . }}"
+  NATS_PORT: "{{ tpl .Values.nats.port . }}"

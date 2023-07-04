@@ -1,0 +1,73 @@
+{{- if and (.Values.netconf.initEditConfig.enabled) (gt (len .Values.netconf.initEditConfig.config) 0) }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-netconf-init-config"
+  labels:
+    {{- include "acc-common.labels.5g" . | nindent 4 }}
+spec:
+  # ttlSecondsAfterFinished: 600 # k8s v1.23
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: OnFailure
+      {{- with .Values.netconf.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: netconf-init-config
+        image: "{{ .Values.netconf.image.repository }}:{{ tpl .Values.netconf.image.tag . | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.netconf.image.pullPolicy }}
+
+        command:
+          - "./ncclient"
+          - "--host"
+          - "{{ include "acc-common.name" .Values.netconf }}-{{ include "acc-common.drax.instanceId" .Values.netconf }}"
+          - "--port"
+          - "{{ .Values.netconf.service.port }}"
+          {{- range $index, $configRpc := .Values.netconf.initEditConfig.config }}
+          - "--edit"
+          - "/rpcs/init-edit-config-{{- $index -}}.xml"
+          {{- end }}
+
+        {{- with .Values.netconf.env.extra }}
+        env:
+          {{ toYaml . | nindent 10 }}
+        {{- end }}
+
+        volumeMounts:
+          - name: {{ include "acc-common.fullname" . }}-netconf-init-rpcs
+            mountPath: /rpcs
+
+        {{- with .Values.netconf.securityContext }}
+        securityContext:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+
+      {{- if or (.Values.netconf.nodeSelector) (eq (tpl .Values.netconf.draxNodeSelectorEnabled .) "true") }}
+      nodeSelector:
+      {{- if .Values.netconf.nodeSelector }}
+        {{- toYaml .Values.netconf.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if eq (tpl .Values.netconf.draxNodeSelectorEnabled .) "true" }}
+        {{- tpl (toYaml .Values.netconf.draxNodeSelector) $ | nindent 8 }}
+      {{- end }}
+      {{- end }}
+
+      {{- with .Values.netconf.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- with .Values.netconf.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      volumes:
+        - name: {{ include "acc-common.fullname" . }}-netconf-init-rpcs
+          configMap:
+            name: {{ include "acc-common.fullname" . }}-netconf-init-rpcs
+            defaultMode: 0777
+{{- end }}
