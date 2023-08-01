@@ -1,0 +1,53 @@
+{{- include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.cell-wrapper.instance.deployment.args" $))
+-}}
+
+{{- define "accelleran.cell-wrapper.instance.deployment.args" -}}
+{{- $ := . -}}
+{{- $values := index $.Values "cw-inst" -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{
+    (mergeOverwrite
+      (deepCopy $values)
+      (dict "replicaCount" ($values.replicaCount | default (add (include "accelleran.cell-wrapper.duCount" $) $values.spareInstanceCount)))
+    ) | toYaml | nindent 2
+  }}
+
+volumes:
+  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-ssh-key
+    secret:
+      secretName: {{ tpl $values.secrets.sshKey $ }}
+      defaultMode: 256
+  {{- range $vendor, $v := $values.baseConfig.vendors }}
+  - name: "{{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-{{ $vendor }}"
+    configMap:
+      name: "{{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-{{ $vendor }}"
+  {{- end }}
+volumeMounts:
+  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-ssh-key
+    mountPath: "/home/accelleran/5G/ssh/"
+    readOnly: true
+  {{- range $vendor, $v := $values.baseConfig.vendors }}
+  {{- range $v }}
+  - name: "{{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-{{ $vendor }}"
+    mountPath: "{{ $values.baseConfig.configDir }}/{{ $vendor }}/{{ .file }}"
+    subPath: "{{ .file }}"
+    readOnly: true
+  {{- end }}
+  {{- end }}
+
+env:
+  - name: __APPNAME
+    value: cellWrapperInstance
+  - name: __APPID
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+envFrom:
+  - configMapRef:
+      name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+{{- end -}}

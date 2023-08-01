@@ -1,0 +1,11 @@
+{{- include
+      "accelleran.common.service"
+      (dict
+        "top" $
+        "values" (mergeOverwrite
+          (deepCopy (index $.Values "cw-ctrl"))
+          $.Values.netconf.service
+          (dict "service" (dict "name" (include "accelleran.cell-wrapper.netconf.service.name" .)))
+        )
+      )
+-}}

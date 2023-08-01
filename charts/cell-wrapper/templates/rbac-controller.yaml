@@ -1,0 +1,16 @@
+{{ include
+      "accelleran.common.serviceAccount"
+      (dict
+        "top" $
+        "values" (index $.Values "cw-ctrl")
+      )
+}}
+---
+{{ include
+      "accelleran.common.rbac"
+      (dict
+        "top" $
+        "values" (index $.Values "instance-scaler")
+        "serviceAccountName" (include "accelleran.common.serviceAccount.name" (dict "top" $ "values" (index $.Values "cw-ctrl")))
+      )
+}}

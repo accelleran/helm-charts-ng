@@ -1,0 +1,30 @@
+{{- $values := index $.Values "cw-inst" -}}
+{{- range $vendor, $vendorData := ($values.baseConfig).vendors -}}
+{{- if $vendorData }}
+---
+{{- include
+      "accelleran.common.configMap"
+      (fromYaml (include "accelleran.cell-wrapper.instance.vendor.configMap.args" (list $ $values $vendor $vendorData)))
+-}}
+{{- end }}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.instance.vendor.configMap.args" -}}
+{{- $ := first . -}}
+{{- $values := index . 1 -}}
+{{- $vendor := index . 2 -}}
+{{- $vendorData := index . 3 -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+name: {{ printf "%s-%s" (include "accelleran.common.fullname" (dict "top" $ "values" $values)) $vendor | quote }}
+data:
+  {{- range $vendorData }}
+  {{ .file }}: |-
+    {{- .data | nindent 4 }}
+{{- end }}
+{{- end -}}

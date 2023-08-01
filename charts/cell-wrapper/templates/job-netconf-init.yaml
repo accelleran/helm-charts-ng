@@ -1,0 +1,73 @@
+{{- $values := index $.Values "netconf" -}}
+{{- if and (eq (tpl ($values.initEditConfig).enabled $) "true") (($values.initEditConfig).config) -}}
+{{- include
+      "accelleran.common.job"
+      (fromYaml (include "accelleran.cell-wrapper.netconf.init.job.args" .))
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.netconf.init.job.args" -}}
+{{- $ := . -}}
+{{- $values := index $.Values "netconf" -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+name: "{{ .Release.Name }}-netconf-init-config"
+backoffLimit: 2
+
+volumes:
+  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-init-rpcs
+    configMap:
+      name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-init-rpcs
+      defaultMode: 0777
+
+containers:
+  - {{ fromYaml (include "accelleran.cell-wrapper.netconf.init.container" .) | toYaml | nindent 4 }}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.netconf.init.container" -}}
+{{- $ := . -}}
+{{- $values := $.Values.netconf -}}
+{{- include
+      "accelleran.common.container"
+      (fromYaml (include "accelleran.cell-wrapper.netconf.init.container.args" $))
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.netconf.init.container.args" -}}
+{{- $ := . -}}
+{{- $values := $.Values.netconf -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ (mergeOverwrite (deepCopy $values) (fromYaml (include "accelleran.cell-wrapper.netconf.init.container.valueOverrides" .))) | toYaml | nindent 2 }}
+
+volumeMounts:
+  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-init-rpcs
+    mountPath: /rpcs
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.netconf.init.container.valueOverrides" -}}
+{{- $ := . -}}
+{{- $values := $.Values.netconf -}}
+containerName: netconf-init-config
+command:
+  - "./ncclient"
+args:
+  - "--host"
+  - {{ include "accelleran.cell-wrapper.netconf.service.name" $ | quote }}
+  - "--port"
+  - "{{ $values.service.port }}"
+  {{- range $index, $configRpc := $values.initEditConfig.config }}
+  - "--edit"
+  - "/rpcs/init-edit-config-{{- $index -}}.xml"
+  {{- end }}
+{{- end -}}

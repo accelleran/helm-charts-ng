@@ -1,0 +1,10 @@
+apiVersion: v2
+name: cell-wrapper
+description: Accelleran's cell-wrapper helm chart
+type: application
+version: 2.2.1
+appVersion: "CW2.2.1"
+dependencies:
+  - name: common
+    version: 0.2.0
+    repository: https://accelleran.github.io/helm-charts-ng/
