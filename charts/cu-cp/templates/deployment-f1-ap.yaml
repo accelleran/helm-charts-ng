@@ -1,0 +1,30 @@
+{{- include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.cu-cp.f1-ap.deployment.args" $))
+-}}
+
+{{- define "accelleran.cu-cp.f1-ap.deployment.args" -}}
+{{- $ := . -}}
+{{- $values := index $.Values "f1-ap" -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{
+    (mergeOverwrite
+      (deepCopy $values)
+      (dict "replicaCount" ($values.replicaCount | default (include "accelleran.cu-cp.duCount" $) ))
+    ) | toYaml | nindent 2
+  }}
+
+env:
+  - name: __APPNAME
+    value: f1ApInterface
+  - name: __APPID
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+envFrom:
+  - configMapRef:
+      name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+{{- end -}}

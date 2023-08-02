@@ -1,0 +1,30 @@
+{{- include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.cu-cp.rr-ctrl.deployment.args" $))
+-}}
+
+{{- define "accelleran.cu-cp.rr-ctrl.deployment.args" -}}
+{{- $ := . -}}
+{{- $values := index $.Values "rr-ctrl" -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{
+    (mergeOverwrite
+      (deepCopy $values)
+      (dict "replicaCount" ($values.replicaCount | default (include "accelleran.cu-cp.cellCount" $) ))
+    ) | toYaml | nindent 2
+  }}
+
+env:
+  - name: __APPNAME
+    value: rrController
+  - name: __APPID
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+envFrom:
+  - configMapRef:
+      name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+{{- end -}}
