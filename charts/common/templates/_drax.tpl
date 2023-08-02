@@ -5,9 +5,7 @@ The Radio Access Technology provided by this component
 {{- $ := get . "top" | required "The top context needs to be provided to common drax technology" -}}
 {{- $values := get . "values" | default $.Values -}}
 
-{{- if (($values).drax).technology -}}
-{{- tpl $values.drax.technology . -}}
-{{- end -}}
+{{- ($values.drax).technology | default ($.Values.global.drax).technology -}}
 {{- end -}}
 
 
@@ -18,9 +16,7 @@ The Role this component serves in the overall application
 {{- $ := get . "top" | required "The top context needs to be provided to common drax role" -}}
 {{- $values := get . "values" | default $.Values -}}
 
-{{- if (($values).drax).role -}}
-{{- tpl $values.drax.role . -}}
-{{- end -}}
+{{- ($values.drax).role | default ($.Values.global.drax).role -}}
 {{- end -}}
 
 
