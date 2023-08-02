@@ -19,13 +19,13 @@ global:
     #
     instanceId: "cw"
 
-  redis:
-    hostname: "ric-redis-5g"
-    port: "6379"
+    redis:
+      hostname: "ric-redis-5g"
+      port: "6379"
 
-  nats:
-    hostname: "ric-nats-5g"
-    port: "4222"
+    nats:
+      hostname: "ric-nats-5g"
+      port: "4222"
 
   # dRAX Specific Node Selector
   #   Description: This is a special nodeSelector field implemented for the
