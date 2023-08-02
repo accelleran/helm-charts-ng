@@ -3,6 +3,7 @@ name: cell-wrapper
 description: Accelleran's cell-wrapper helm chart
 type: application
 version: 2.2.1
+# renovate: image=accelleran/cw-netconf
 appVersion: "CW2.2.1"
 dependencies:
   - name: common
