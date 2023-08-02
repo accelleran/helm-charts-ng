@@ -27,6 +27,10 @@ global:
       hostname: "ric-nats-5g"
       port: "4222"
 
+  drax:
+    technology: "5g"
+    role: "5g"
+
   # dRAX Specific Node Selector
   #   Description: This is a special nodeSelector field implemented for the
   #                Accelleran 5G Helm charts. You need to first label your
