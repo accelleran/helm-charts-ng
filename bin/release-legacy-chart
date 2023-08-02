@@ -11,6 +11,8 @@ function usage() {
     echo "    -i <index.yaml>   The legacy index file (only valid i.c.w. -f)."
     echo "    -d <dir>          Release all .tgz files within the provided directory."
     echo "                      The index file defaults to <dir>/index.yaml."
+    echo "    -r                Skip creation of a GitHub release."
+    echo "    -u                Skip upload of GitHub release asset."
     echo ""
     echo "All provided files need to follow the format:"
     echo "  <chart-name>-<semantic-version>.tgz"
@@ -49,32 +51,40 @@ function create_release() {
 
     mkdir -p "/tmp/github/${tag}"
 
-    command="curl -s -o \"/tmp/github/${tag}/release.json\" -w '%{http_code}' \
-        --request POST \
-        --header 'authorization: Bearer ${GITHUB_TOKEN}' \
-        --header 'content-type: application/json' \
-        --data '{\"tag_name\": \"${tag}\", \"name\": \"${tag}\", \"body\": \"Legacy chart release\"}' \
-        https://api.github.com/repos/accelleran/helm-charts-ng/releases"
-    http_code=$(eval "${command}")
-    if [ "${http_code}" != "201" ]; then
-        error "Release ${tag} failed with code '${http_code}'"
+    if [ "${release}" != true ] ; then
+        echo "Skipping creation of release ${tag}"
+    else
+        command="curl -s -o \"/tmp/github/${tag}/release.json\" -w '%{http_code}' \
+            --request POST \
+            --header 'authorization: Bearer ${GITHUB_TOKEN}' \
+            --header 'content-type: application/json' \
+            --data '{\"tag_name\": \"${tag}\", \"name\": \"${tag}\", \"body\": \"Legacy chart release\"}' \
+            https://api.github.com/repos/accelleran/helm-charts-ng/releases"
+        http_code=$(eval "${command}")
+        if [ "${http_code}" != "201" ]; then
+            error "Release ${tag} failed with code '${http_code}'"
+        fi
+
+        echo "Created release ${tag}"
     fi
 
-    echo "Created release ${tag}"
+    if [ "${upload}" != true ] ; then
+        echo "Skipping upload of asset ${file_name}"
+    else
+        url=$(jq -r .upload_url "/tmp/github/${tag}/release.json" | cut -d '{' -f '1')
+        command="curl -s -o \"/tmp/github/${tag}/upload.json\" -w '%{http_code}' \
+            --request POST \
+            --header 'authorization: Bearer ${GITHUB_TOKEN}' \
+            --header 'Content-Type: application/octet-stream' \
+            --data-binary @\"${file}\" \
+            ${url}?name=${file_name}"
+        http_code=$(eval "${command}")
+        if [ "${http_code}" != "201" ]; then
+            error "Upload ${file_name} failed with code '${http_code}'"
+        fi
 
-    url=$(jq -r .upload_url "/tmp/github/${tag}/release.json" | cut -d '{' -f '1')
-    command="curl -s -o \"/tmp/github/${tag}/upload.json\" -w '%{http_code}' \
-        --request POST \
-        --header 'authorization: Bearer ${GITHUB_TOKEN}' \
-        --header 'Content-Type: application/octet-stream' \
-        --data-binary @\"${file}\" \
-        ${url}?name=${file_name}"
-    http_code=$(eval "${command}")
-    if [ "${http_code}" != "201" ]; then
-        error "Upload ${file_name} failed with code '${http_code}'"
+        echo "Asset ${file_name} uploaded"
     fi
-
-    echo "Asset ${file_name} uploaded"
 
     yq ".entries.${chart}[] | select(.version == \"${version}\")" "${index}" > "/tmp/github/${tag}/index.yaml"
     yq -i ".urls[0] = \"https://github.com/accelleran/helm-charts-ng/releases/download/${tag}/${file_name}\"" "/tmp/github/${tag}/index.yaml"
@@ -102,7 +112,10 @@ file=""
 directory=""
 index=""
 
-while getopts ":hf:d:i:" opt; do
+release=true
+upload=true
+
+while getopts ":hf:d:i:ru" opt; do
     case ${opt} in
         h )
             usage
@@ -118,6 +131,12 @@ while getopts ":hf:d:i:" opt; do
             if [[ "${index}" == "" ]]; then
                 index="${directory}/index.yaml"
             fi
+        ;;
+        r )
+            release=false
+        ;;
+        u )
+            upload=false
         ;;
         \? )
             error "Invalid Option: -${OPTARG}"
