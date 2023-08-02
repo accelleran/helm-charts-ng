@@ -5,7 +5,13 @@
 {{- $restartPolicy := get . "restartPolicy" -}}
 {{- $volumes := get . "volumes" | default list -}}
 {{- $initContainers := get . "initContainers" | default list -}}
-{{- $containers := get . "containers" | default (list (fromYaml (include "accelleran.common.container" .))) -}}
+{{- $containers := get . "containers" -}}
+{{- if not $containers -}}
+{{/*
+Cannot use default as then the template is always evaluated
+*/}}
+{{-  $containers = list (fromYaml (include "accelleran.common.container" .)) -}}
+{{- end -}}
 
 metadata:
   labels:
