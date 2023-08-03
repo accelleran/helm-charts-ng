@@ -8,7 +8,13 @@ app.kubernetes.io/instance: {{ include "accelleran.common.instance" . }}
 
 {{- define "accelleran.common.labels" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common labels" -}}
+{{- $values := get . "values" | default $.Values -}}
 
+{{- $labels := get . "labels" -}}
+
+{{- if $labels -}}
+{{- $labels | toYaml }}
+{{- else -}}
 helm.sh/chart: {{ include "accelleran.common.chart" . }}
 {{ include "accelleran.common.selectorLabels" . }}
 app.kubernetes.io/version: {{ include "accelleran.common.appVersion" . | quote }}
@@ -23,4 +29,8 @@ drax/technology: {{ . | quote }}
 {{- with (include "accelleran.common.bootstrap.instanceId" .) }}
 drax/instanceId: {{ . | quote }}
 {{- end }}
+{{- with $values.extraLabels }}
+{{ toYaml . }}
+{{- end }}
+{{- end -}}
 {{- end -}}

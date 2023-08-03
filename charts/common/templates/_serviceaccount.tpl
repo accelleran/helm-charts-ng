@@ -3,16 +3,19 @@
 {{- $values := get . "values" | default $.Values -}}
 
 {{- if ($values.serviceAccount).create -}}
+
+{{- $name := include "accelleran.common.serviceAccount.name" . -}}
+{{- $annotations := include "accelleran.common.serviceAccount.annotations" . | fromYaml -}}
+
 apiVersion: v1
 kind: ServiceAccount
-metadata:
-  name: {{ include "accelleran.common.serviceAccount.name" . | quote }}
-  labels:
-    {{- include "accelleran.common.labels" . | nindent 4 }}
-  {{- with $values.serviceAccount.annotations }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+{{ include
+      "accelleran.common.metadata"
+      (mergeOverwrite
+        (deepCopy .)
+        (dict "name" $name "annotations" $annotations)
+      )
+}}
 {{- end -}}
 {{- end -}}
 
@@ -26,4 +29,14 @@ metadata:
 {{- else }}
   {{- ($values.serviceAccount).name | default "default" }}
 {{- end }}
+{{- end -}}
+
+
+{{- define "accelleran.common.serviceAccount.annotations" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common service account annotations" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- with (get $values.serviceAccount "annotations") -}}
+{{- . | toYaml -}}
+{{- end -}}
 {{- end -}}

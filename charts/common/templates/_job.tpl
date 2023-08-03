@@ -2,19 +2,9 @@
 apiVersion: batch/v1
 kind: Job
 {{ toYaml (merge
-    (fromYaml (include "accelleran.common.job.name" .))
+    (fromYaml (include "accelleran.common.metadata" .))
     (fromYaml (include "accelleran.common.job.tpl" .))
 ) }}
-{{- end -}}
-
-
-{{- define "accelleran.common.job.name" -}}
-{{- $ := get . "top" | required "The top context needs to be provided to common job name" -}}
-
-{{- $name := get . "name" | default (include "accelleran.common.fullname" .) -}}
-
-metadata:
-  name: {{ $name | quote }}
 {{- end -}}
 
 

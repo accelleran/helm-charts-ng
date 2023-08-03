@@ -2,16 +2,15 @@
 {{- $ := get . "top" | required "The top context needs to be provided to common service" -}}
 {{- $values := get . "values" | default $.Values -}}
 
-{{- $name := get $values.service "name" | default (include "accelleran.common.fullname" .) -}}
+{{- if $values.service.enabled -}}
+
+{{- $name := include "accelleran.common.service.name" . -}}
+{{- $annotations := include "accelleran.common.service.annotations" . | fromYaml -}}
 {{- $type := $values.service.type | default "ClusterIP" -}}
 
-{{- if $values.service.enabled -}}
 apiVersion: v1
 kind: Service
-metadata:
-  name: {{ $name | quote }}
-  labels:
-    {{- include "accelleran.common.labels" . | nindent 4 }}
+{{ include "accelleran.common.metadata" (mergeOverwrite (deepCopy .) (dict "name" $name "annotations" $annotations)) }}
 spec:
   selector:
     {{- include "accelleran.common.selectorLabels" . | nindent 4 }}
@@ -42,4 +41,22 @@ spec:
   {{- end -}}
 {{- end -}}
 
+{{- end -}}
+
+
+{{- define "accelleran.common.service.name" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common service name" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- get . "name" | default (get $values.service "name") | default (include "accelleran.common.fullname" .) -}}
+{{- end -}}
+
+
+{{- define "accelleran.common.service.annotations" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common service annotations" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- with (get $values.service "annotations") -}}
+{{- . | toYaml -}}
+{{- end -}}
 {{- end -}}
