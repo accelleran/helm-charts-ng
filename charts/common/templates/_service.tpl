@@ -16,6 +16,9 @@ spec:
   selector:
     {{- include "accelleran.common.selectorLabels" . | nindent 4 }}
   type: {{ $type }}
+  {{- with $values.service.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ . }}
+  {{- end }}
   ports:
     - {{- with $values.service.portName }}
       name: {{ . }}
@@ -32,6 +35,11 @@ spec:
       nodePort: {{ . }}
       {{- end }}
       {{- end -}}
+  {{- if eq $type "LoadBalancer" -}}
+  {{- with $values.service.loadBalancerIP }}
+  loadBalancerIP: {{ . }}
+  {{- end }}
+  {{- end -}}
 {{- end -}}
 
 {{- end -}}
