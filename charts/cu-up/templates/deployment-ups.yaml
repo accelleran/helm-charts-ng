@@ -1,0 +1,41 @@
+{{ range until (atoi (include "accelleran.cu-up.upsCount" $)) }}
+---
+{{ include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.cu-up.ups.deployment.args" (list $ .)))
+}}
+{{ end }}
+
+
+{{- define "accelleran.cu-up.ups.deployment.args" -}}
+{{- $ := first . -}}
+{{- $values := index $.Values "ups" -}}
+
+{{- $ordinal := index . 1 -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+name: {{ printf "%s-%d" (include "accelleran.common.fullname" (dict "top" $ "values" $values)) $ordinal }}
+
+env:
+  - name: __APPNAME
+    value: ups
+  - name: __APPID
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+  - name: DOWNLINK
+    value: {{ include "accelleran.cu-up.gtp-u.service.name" $ | quote }}
+  - name: UPLINK
+    value: {{ include "accelleran.cu-up.gtp-u.service.name" $ | quote }}
+  - name: BIND
+    valueFrom:
+      fiedlRef:
+        fieldPath: status.podIP
+envFrom:
+  - configMapRef:
+      name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+{{- end -}}

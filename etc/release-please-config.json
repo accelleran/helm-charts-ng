@@ -29,6 +29,10 @@
     "charts/cu-cp": {
       "component": "cu-cp",
       "package-name": "cu-cp"
+    },
+    "charts/cu-up": {
+      "component": "cu-up",
+      "package-name": "cu-up"
     }
   }
 }

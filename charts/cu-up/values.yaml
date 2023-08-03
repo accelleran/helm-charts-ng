@@ -1,0 +1,304 @@
+global:
+
+  # Number of components
+  #   Description:  You have to specify the amount of different components that should be supported.
+  #                 Therefore, you have to specify:
+  #                 - the number of UP stacks that will be used, explicitly split between regular and xdp UP stacks
+  #                   (xdp up stacks need a list with details to determine the number of components)
+  numberOfUpStacks: 2
+  xdpUpsInterfaces: []
+  # - name: "eth0"
+  #   address: "127.0.0.1"
+  #   mtu: 1460 # optional, default 1460
+
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+  bootstrap:
+    create: true
+    configMapName: ""
+
+    # CU-UP Instance ID
+    #   Description:  The Instance ID of the CU-UP component that
+    #                 will be used in the bootstrap file.
+    #                 The Instance ID must consist of lower case alphanumeric characters
+    #                 or '-', start with an alphabetic character, and end with an alphanumeric
+    #                 character (e.g. 'my-name',  or 'abc-123', regex used for validation is
+    #                 '^[a-z0-9-]+$'). The Instance ID also cannot be longer than 19 characters!
+    #
+    #   Example:
+    # instanceId: "cuup-1"
+    #
+    instanceId: "cuup-1"
+
+    redis:
+      hostname: "ric-redis-5g"
+      port: "6379"
+
+    nats:
+      hostname: "ric-nats-5g"
+      port: "4222"
+
+  drax:
+    technology: "5g"
+    role: "5g"
+
+  # dRAX Specific Node Selector
+  #   Description: This is a special nodeSelector field implemented for the
+  #                Accelleran 5G Helm charts. You need to first label your
+  #                node in Kubernetes with a label "draxName" and give it a
+  #                <value>. For example for node <node_name>, you can use the
+  #                following command to label it:
+  #                kubectl label node <node_name> draxName=<value>.
+  #                Then in "draxName" set the value of the label you chose for
+  #                the node. This will in effect install all the 5G Application
+  #                on that node, without the need to edit all individual helm
+  #                charts. In case you want to add other nodeSelector options,
+  #                you have to add them to the helm chart specific values files.
+  #   Value type: bool
+  #   Example:
+  #
+  draxNodeSelectorEnabled: false
+  draxNodeSelector:
+    draxName: "main"
+
+
+cu-up:
+  enabled: true
+  
+  nameOverride: "cu-up"
+  fullnameOverride: ""
+
+  initImage:
+    repository: accelleran/acc-generic-img
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
+  imagePullSecrets:
+    - name: accelleran-secret
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  draxNodeSelectorEnabled: false
+  draxNodeSelector:
+    draxName: "{{ $.Values.global.draxNodeSelector.draxName }}"
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+
+netconf:
+  enabled: true
+
+  nameOverride: "netconf"
+  fullnameOverride: ""
+
+  containerName: "netconf"
+
+  image:
+    repository: accelleran/cuup-netconf
+    tag: ""
+    pullPolicy: IfNotPresent
+
+  readinessProbe:
+    exec:
+      command:
+        - "test"
+        - "-f"
+        - "/ready"
+    initialDelaySeconds: 15
+    periodSeconds: 30
+
+  service:
+    enabled: true
+    name: ""
+    type: "NodePort"
+    portName: "netconf"
+    protocol: "TCP"
+    port: 8300
+    targetPort: null
+    nodePort: null
+
+
+controller-up:
+  enabled: true
+
+  nameOverride: "controller-up"
+  fullnameOverride: ""
+
+  containerName: "controller-up"
+
+  image:
+    repository: accelleran/controllerupappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+
+pm-controller-up:
+  enabled: true
+
+  nameOverride: "pm-controller-up"
+  fullnameOverride: ""
+
+  containerName: "pm-controller-up"
+
+  image:
+    repository: accelleran/pmcontrollerupappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+
+res-mgr-up:
+  enabled: true
+
+  nameOverride: "res-mgr-up"
+  fullnameOverride: ""
+
+  containerName: "res-mgr-up"
+
+  image:
+    repository: accelleran/resmgrupappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+
+e1-sctp-up:
+  enabled: true
+
+  nameOverride: "e1-sctp-up"
+  fullnameOverride: ""
+
+  containerName: "e1-sctp-up"
+
+  image:
+    repository: accelleran/e1sctpupappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+
+ups:
+  enabled: true
+
+  nameOverride: "ups"
+  fullnameOverride: ""
+
+  containerName: "ups"
+
+  image:
+    repository: accelleran/upsappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+  args:
+    - "--downlink"
+    - "${DOWNLINK}"
+    - "--uplink"
+    - "${UPLINK}"
+    - "--bind"
+    - "${BIND}"
+
+  service:
+    enabled: true
+    name: ""
+    type: "LoadBalancer"
+    portName: "gtp-u"
+    protocol: "UDP"
+    port: 2152
+    targetPort: 0
+    nodePort: 0
+    loadBalancerIP: ""
+    externalTrafficPolicy: "Local"
+
+  imagePullSecrets:
+    - name: accelleran-secret
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  draxNodeSelectorEnabled: false
+  draxNodeSelector:
+    draxName: "{{ $.Values.global.draxNodeSelector.draxName }}"
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+
+xdp-ups:
+  enabled: true
+
+  nameOverride: "xdp-ups"
+  fullnameOverride: ""
+
+  containerName: "xdp-ups"
+
+  image:
+    repository: accelleran/xdpupsappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+  args:
+    - "--downlink"
+    - "${DOWNLINK}"
+    - "--uplink"
+    - "${UPLINK}"
+    - "--bind"
+    - "${BIND}"
+
+  imagePullSecrets:
+    - name: accelleran-secret
+
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext:
+    # XDP UPS needs to run as root
+    runAsUser: 0
+    runAsGroup: 0
+    privileged: true
+
+  draxNodeSelectorEnabled: false
+  draxNodeSelector:
+    draxName: "{{ $.Values.global.draxNodeSelector.draxName }}"
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}

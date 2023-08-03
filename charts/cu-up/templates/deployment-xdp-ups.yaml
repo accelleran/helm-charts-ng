@@ -1,0 +1,47 @@
+{{- range $ordinal, $xdpUpsInterface := $.Values.global.xdpUpsInterfaces }}
+---
+{{ include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.cu-up.xdp-ups.deployment.args" (list $ $ordinal $xdpUpsInterface)))
+}}
+{{ end }}
+
+
+{{- define "accelleran.cu-up.xdp-ups.deployment.args" -}}
+{{- $ := first . -}}
+{{- $values := index $.Values "xdp-ups" -}}
+
+{{- $ordinal := index . 1 -}}
+{{- $xdpUpsInterface := index . 2 -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+name: {{ printf "%s-%d" (include "accelleran.common.fullname" (dict "top" $ "values" $values)) $ordinal }}
+
+env:
+  - name: __APPNAME
+    value: xdpUps
+  - name: __APPID
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+  - name: HOSTMODE
+    value: "true"
+  - name: IFNAME
+    value: {{ $xdpUpsInterface.name | quote }}
+  - name: DOWNLINK
+    value: {{ $xdpUpsInterface.address | quote }}
+  - name: UPLINK
+    value: {{ $xdpUpsInterface.address | quote }}
+  - name: BIND
+    value: {{ $xdpUpsInterface.address | quote }}
+  - name: MTU_SIZE
+    value: {{ $xdpUpsInterface.mtu | default "1460" | quote }}
+
+envFrom:
+  - configMapRef:
+      name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+{{- end -}}

@@ -1,0 +1,10 @@
+apiVersion: v2
+name: cu-up
+description: Accelleran 5G CU-UP Components
+type: application
+version: 6.0.0
+appVersion: "R4.2.0_karmeliet"
+dependencies:
+  - name: common
+    version: 0.2.0
+    repository: https://accelleran.github.io/helm-charts-ng/
