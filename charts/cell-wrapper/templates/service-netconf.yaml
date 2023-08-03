@@ -5,7 +5,7 @@
         "values" (mergeOverwrite
           (deepCopy (index $.Values "cw-ctrl"))
           (dict "service" $.Values.netconf.service)
-          (dict "service" (dict "name" (include "accelleran.cell-wrapper.netconf.service.name" .)))
         )
+        "name" (include "accelleran.cell-wrapper.netconf.service.name" .)
       )
 -}}

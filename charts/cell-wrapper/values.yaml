@@ -228,13 +228,12 @@ cw-ctrl:
 
   extraEnvs: []
 
+  extraLabels: {}
+  annotations: {}
+
   serviceAccount:
-    # Specifies whether a service account should be created
     create: true
-    # Annotations to add to the service account
     annotations: {}
-    # The name of the service account to use.
-    # If not set and create is true, a name is generated using the fullname template
     name: ""
 
   podSecurityContext: {}
@@ -306,6 +305,9 @@ cw-inst:
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
 
+  extraLabels: {}
+  annotations: {}
+
   imagePullSecrets:
     - name: accelleran-secret
 
@@ -365,6 +367,9 @@ instance-scaler:
     pullPolicy: IfNotPresent
     tag: "v0.1.0"
 
+  extraLabels: {}
+  annotations: {}
+
   securityContext: {}
     # capabilities:
     #   drop:
@@ -415,9 +420,13 @@ netconf:
     initialDelaySeconds: 15
     periodSeconds: 30
 
+  extraLabels: {}
+  annotations: {}
+
   service:
     enabled: true
     name: ""
+    annotations: {}
     type: "NodePort"
     portName: "netconf"
     protocol: "TCP"
