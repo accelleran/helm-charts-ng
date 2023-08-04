@@ -24,9 +24,6 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- include "accelleran.common.pod.imagePullSecrets" . | nindent 2 -}}
-  {{- include "accelleran.common.pod.serviceAccountName" . | nindent 2 -}}
-
   {{- with $restartPolicy }}
   restartPolicy: {{ . }}
   {{- end }}
@@ -57,14 +54,26 @@ spec:
 {{- end -}}
 
 
+{{- define "accelleran.common.pod.config" -}}
+{{ include "accelleran.common.pod.imagePullSecrets" . }}
+{{ include "accelleran.common.pod.serviceAccountName" . }}
+{{ include "accelleran.common.pod.hostNetwork" . }}
+{{ include "accelleran.common.pod.dnsPolicy" . }}
+{{ include "accelleran.common.pod.securityContext" . }}
+{{ include "accelleran.common.pod.nodeSelector" . }}
+{{ include "accelleran.common.pod.affinity" . }}
+{{ include "accelleran.common.pod.tolerations" . }}
+{{- end -}}
+
+
 {{- define "accelleran.common.pod.imagePullSecrets" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common pod image pull secret" -}}
 {{- $values := get . "values" | default $.Values -}}
 
-{{- with $values.imagePullSecrets -}}
+{{- with $values.imagePullSecrets }}
 imagePullSecrets:
   {{- toYaml . | nindent 2 }}
-{{- end -}}
+{{- end }}
 {{- end -}}
 
 
@@ -73,17 +82,29 @@ imagePullSecrets:
 {{- $values := get . "values" | default $.Values -}}
 
 {{- $serviceAccountName := include "accelleran.common.serviceAccount.name" . -}}
-{{- with $serviceAccountName -}}
+{{- with $serviceAccountName }}
 serviceAccountName: {{ . | quote }}
-{{- end -}}
+{{- end }}
 {{- end -}}
 
 
-{{- define "accelleran.common.pod.config" -}}
-{{- include "accelleran.common.pod.securityContext" . -}}
-{{- include "accelleran.common.pod.nodeSelector" . -}}
-{{- include "accelleran.common.pod.affinity" . -}}
-{{- include "accelleran.common.pod.tolerations" . -}}
+{{- define "accelleran.common.pod.hostNetwork" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common pod host network" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- with $values.hostNetwork }}
+hostNetwork: {{ . }}
+{{- end }}
+{{- end -}}
+
+
+{{- define "accelleran.common.pod.dnsPolicy" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common pod DNS policy" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- with $values.dnsPolicy }}
+dnsPolicy: {{ . | quote }}
+{{- end }}
 {{- end -}}
 
 
