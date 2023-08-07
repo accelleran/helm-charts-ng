@@ -10,6 +10,9 @@
 
 
 {{- define "accelleran.cu-up.gtp-u.service.name" -}}
-{{- $ := . -}}
-{{ index $.Values "ups" "service" "name" | default (include "accelleran.common.fullname" (dict "top" $ "values" (index $.Values "ups"))) }}
+{{- $ := first . -}}
+{{- $ordinal := index . 1 -}}
+
+{{ $name := index $.Values "ups" "service" "name" | default (include "accelleran.common.fullname" (dict "top" $ "values" (index $.Values "ups"))) }}
+{{- printf "%s-%d" $name $ordinal -}}
 {{- end -}}

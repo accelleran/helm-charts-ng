@@ -197,18 +197,15 @@ ups:
 
   containerName: "ups"
 
+  initImage:
+    repository: accelleran/acc-generic-img
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
   image:
     repository: accelleran/upsappl
     tag: ""
     pullPolicy: IfNotPresent
-
-  args:
-    - "--downlink"
-    - "${DOWNLINK}"
-    - "--uplink"
-    - "${UPLINK}"
-    - "--bind"
-    - "${BIND}"
 
   service:
     enabled: true

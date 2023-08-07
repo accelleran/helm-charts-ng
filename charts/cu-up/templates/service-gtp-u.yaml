@@ -1,3 +1,5 @@
+{{ range until (atoi (include "accelleran.cu-up.upsCount" $)) }}
+---
 {{- include
       "accelleran.common.service"
       (dict
@@ -6,6 +8,8 @@
           (deepCopy (index $.Values "cu-up"))
           (dict "service" (index $.Values "ups" "service"))
         )
-        "name" (include "accelleran.cu-up.gtp-u.service.name" .)
+        "name" (include "accelleran.cu-up.gtp-u.service.name" (list $ .))
       )
 -}}
+
+{{ end }}

@@ -20,6 +20,13 @@ values:
 
 name: {{ printf "%s-%d" (include "accelleran.common.fullname" (dict "top" $ "values" $values)) $ordinal }}
 
+volumes:
+- name: config
+  emptyDir: {}
+
+initContainers:
+- {{ fromYaml (include "accelleran.cu-up.ups.init.gtp-u-lb-ip" (list $ $ordinal)) | toYaml | nindent 2 }}
+
 env:
   - name: __APPNAME
     value: ups
@@ -27,10 +34,6 @@ env:
     valueFrom:
       fieldRef:
         fieldPath: metadata.name
-  - name: DOWNLINK
-    value: {{ include "accelleran.cu-up.gtp-u.service.name" $ | quote }}
-  - name: UPLINK
-    value: {{ include "accelleran.cu-up.gtp-u.service.name" $ | quote }}
   - name: BIND
     valueFrom:
       fiedlRef:
@@ -38,4 +41,49 @@ env:
 envFrom:
   - configMapRef:
       name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+
+volumeMounts:
+  - name: config
+    mountPath: /config
+{{- end -}}
+
+
+{{- define "accelleran.cu-up.ups.init.gtp-u-lb-ip" -}}
+{{- $ := first . -}}
+{{- $ordinal := index . 1 -}}
+
+{{- include
+      "accelleran.common.init.container"
+      (include "accelleran.cu-up.ups.init.gtp-u-lb-ip.args" (list $ $ordinal) | fromYaml)
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.cu-up.ups.init.gtp-u-lb-ip.args" -}}
+{{- $ := first . -}}
+{{- $values := index $.Values "ups" -}}
+
+{{- $ordinal := index . 1 -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+name: "gtp-u-lb-ip"
+command:
+- "/bin/sh"
+- "-c"
+- |
+  /bin/sh <<'EOF'
+  #!/bin/sh
+
+  gtp_ip=$(kubectl get service {{ include "accelleran.cu-up.gtp-u.service.name" (list $ $ordinal) | quote }} -n {{ $.Release.Namespace }} -o jsonpath="{.status.loadBalancer.ingress[0].ip}")
+  echo "DOWNLINK=$gtp_ip" >> /config/env
+  echo "UPLINK=$gtp_ip" >> /config/env
+  EOF
+
+volumeMounts:
+- name: config
+  mountPath: /config
 {{- end -}}
