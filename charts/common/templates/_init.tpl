@@ -1,15 +1,67 @@
+{{- define "accelleran.common.init.container" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common init container" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- $name := get . "name"  | required "Name needs to be provided to common init container" -}}
+{{- $command := get . "command"  | required "Command needs to be provided to common init container" -}}
+
+{{ include "accelleran.common.container"
+    (mergeOverwrite
+      (deepCopy .)
+      (dict
+        "values" (mergeOverwrite
+          (deepCopy $values)
+          (include "accelleran.common.init.container.args" . | fromYaml)
+        )
+      )
+    )
+}}
+{{- end -}}
+
+
+{{- define "accelleran.common.init.container.args" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common init container" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- $name := get . "name" | required "Name needs to be provided to common init container args" -}}
+{{- $initImage := $values.initImage | required "Init image needs to be provided as part of the values to common init container args" -}}
+{{- $command := get . "command" -}}
+
+containerName: {{ $name | quote }}
+image:
+  {{- $initImage | toYaml | nindent 2 }}
+
+{{- with $command }}
+command:
+  {{- $command | toYaml | nindent 2 }}
+{{- end }}
+{{- end -}}
+
+
 {{/*
 Init container check waiting until redis is available
 */}}
 {{- define "accelleran.common.init.redis" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common init redis" -}}
+
+{{ include "accelleran.common.init.container"
+    (include "accelleran.common.init.redis.args" . | fromYaml)
+}}
+{{- end -}}
+
+
+{{- define "accelleran.common.init.redis.args" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common init redis args" -}}
 {{- $values := get . "values" | default $.Values -}}
 
 {{- $bootstrapConfigMapName :=  get . "bootstrapConfigMapName" | default (include "accelleran.common.bootstrap.configMapName" .) -}}
 
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
 name: check-redis
-image: "{{ $values.initImage.repository }}:{{ tpl $values.initImage.tag $ }}"
-imagePullPolicy: "{{ $values.initImage.pullPolicy }}"
 command:
 - "/bin/bash"
 - "-c"
@@ -38,13 +90,24 @@ Init container check waiting until NATS is available
 */}}
 {{- define "accelleran.common.init.nats" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common init nats" -}}
+
+{{ include "accelleran.common.init.container"
+    (include "accelleran.common.init.nats.args" . | fromYaml)
+}}
+{{- end -}}
+
+{{- define "accelleran.common.init.nats.args" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common init nats args" -}}
 {{- $values := get . "values" | default $.Values -}}
 
 {{- $bootstrapConfigMapName := get . "bootstrapConfigMapName" | default (include "accelleran.common.bootstrap.configMapName" .)  -}}
 
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
 name: check-nats
-image: "{{ $values.initImage.repository }}:{{ $values.initImage.tag }}"
-imagePullPolicy: "{{ $values.initImage.pullPolicy }}"
 command:
   - "/bin/bash"
   - "-c"
