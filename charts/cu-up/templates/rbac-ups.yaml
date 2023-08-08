@@ -1,0 +1,15 @@
+{{ include
+      "accelleran.common.serviceAccount"
+      (dict
+        "top" $
+        "values" $.Values.ups
+      )
+}}
+---
+{{ include
+      "accelleran.common.rbac"
+      (dict
+        "top" $
+        "values" $.Values.ups
+      )
+}}
