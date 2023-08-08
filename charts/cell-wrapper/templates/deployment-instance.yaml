@@ -21,7 +21,7 @@ volumes:
   - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-ssh-key
     secret:
       secretName: {{ tpl $values.secrets.sshKey $ }}
-      defaultMode: 256
+      defaultMode: 288
   {{- range $vendor, $v := $values.baseConfig.vendors }}
   - name: "{{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-{{ $vendor }}"
     configMap:
