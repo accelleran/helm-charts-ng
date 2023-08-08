@@ -380,7 +380,7 @@ f1-ap:
   replicaCount: null
 
   image:
-    repository: accelleran/f1apappl
+    repository: accelleran/f1apintfappl
     tag: ""
     pullPolicy: IfNotPresent
 
