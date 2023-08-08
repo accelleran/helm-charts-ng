@@ -278,7 +278,7 @@ cw-inst:
     sshKey: "cw-ssh-key"
 
   baseConfig:
-    configDir: "/home/accelleran/5G/config"
+    configDir: "/workdir/config"
     vendors: null
       # effnet:
       # - file: "default.du.json"
