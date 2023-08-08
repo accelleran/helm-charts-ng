@@ -1,3 +1,10 @@
+{{- define "accelleran.common.drax.name" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common drax name" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- ($values.drax).name | default ($.Values.global.drax).name -}}
+{{- end -}}
+
 {{/*
 The Radio Access Technology provided by this component
 */}}
