@@ -461,6 +461,11 @@ ds-ctrl:
 
   replicaCount: null
 
+  initImage:
+    repository: accelleran/acc-generic-img
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
   image:
     repository: accelleran/dsctrlappl
     tag: ""
@@ -480,6 +485,10 @@ ds-ctrl:
 
   podSecurityContext: {}
     # fsGroup: 2000
+
+  autoscaling:
+    enabled: false
+    factorReplicas: 8
 
   draxNodeSelectorEnabled: false
   draxNodeSelector:

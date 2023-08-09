@@ -13,18 +13,123 @@ values:
   {{
     (mergeOverwrite
       (deepCopy $values)
-      (dict "replicaCount" ($values.replicaCount | default (include "accelleran.cu-cp.ueCount" $) ))
+      (dict "replicaCount" (include "accelleran.cu-cp.ds-ctrl.replicaCount" $))
+    ) | toYaml | nindent 2
+  }}
+
+volumes:
+{{- range $index, $ordinal := until ($values.autoscaling.factorReplicas | int) }}
+  - name: {{ printf "config-%d" $ordinal | quote }}
+    emptyDir: {}
+{{- end }}
+
+initContainers:
+{{- range $index, $ordinal := until ($values.autoscaling.factorReplicas | int) }}
+  - {{ include "accelleran.cu-cp.ds-ctrl.init.container" (list $ $ordinal) | nindent 4 }}
+{{- end }}
+
+containers:
+{{- range $index, $ordinal := until ($values.autoscaling.factorReplicas | int) }}
+  - {{ fromYaml (include "accelleran.cu-cp.ds-ctrl.container" (list $ $ordinal)) | toYaml | nindent 4 }}
+{{- end }}
+{{- end -}}
+
+
+{{- define "accelleran.cu-cp.ds-ctrl.replicaCount" -}}
+{{- $values := index $.Values "ds-ctrl" -}}
+
+{{- $replicaCount := $values.replicaCount -}}
+
+{{- if not $replicaCount -}}
+{{- $ueCount := include "accelleran.cu-cp.ueCount" $ | int -}}
+{{- $factorReplicas := $values.autoscaling.factorReplicas | int -}}
+
+{{- if lt $ueCount 1 -}}
+{{- required (printf "The number of UEs must be at least 1 (got: %d)" $ueCount) nil -}}
+{{- end -}}
+{{- if lt $factorReplicas 1 -}}
+{{- required (printf "The replica factor must be at least 1 (got: %d)" $factorReplicas) nil -}}
+{{- end -}}
+
+{{- $replicaCount = divf $ueCount $factorReplicas | ceil -}}
+{{- end -}}
+
+{{- $replicaCount -}}
+{{- end -}}
+
+
+{{- define "accelleran.cu-cp.ds-ctrl.init.container" -}}
+{{- include
+      "accelleran.common.init.container"
+      (fromYaml (include "accelleran.cu-cp.ds-ctrl.init.container.args" .))
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.cu-cp.ds-ctrl.init.container.args" -}}
+{{- $ := first . -}}
+{{- $values := index $.Values "ds-ctrl" -}}
+{{- $ordinal := index . 1 -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+name: {{ printf "%s-%d-app-id" $values.containerName $ordinal | quote }}
+command:
+- "/bin/sh"
+- "-c"
+- |
+  /bin/sh <<'EOF'
+  #!/bin/sh
+
+  app_id=${POD_NAME}-{{ $ordinal }}
+  echo "__APPID=${app_id}" >> /config/env
+  EOF
+
+env:
+  - name: POD_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+volumeMounts:
+- name: {{ printf "config-%d" $ordinal | quote }}
+  mountPath: /config
+{{- end -}}
+
+
+{{- define "accelleran.cu-cp.ds-ctrl.container" -}}
+{{- include
+      "accelleran.common.container"
+      (fromYaml (include "accelleran.cu-cp.ds-ctrl.container.args" .))
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.cu-cp.ds-ctrl.container.args" -}}
+{{- $ := first . -}}
+{{- $values := index $.Values "ds-ctrl" -}}
+{{- $ordinal := index . 1 -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{
+    (mergeOverwrite
+      (deepCopy $values)
+      (dict "containerName" (printf "%s-%d" $values.containerName $ordinal))
     ) | toYaml | nindent 2
   }}
 
 env:
   - name: __APPNAME
     value: dsController
-  - name: __APPID
-    valueFrom:
-      fieldRef:
-        fieldPath: metadata.name
 envFrom:
   - configMapRef:
       name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+
+volumeMounts:
+- name: {{ printf "config-%d" $ordinal | quote }}
+  mountPath: /config
 {{- end -}}
