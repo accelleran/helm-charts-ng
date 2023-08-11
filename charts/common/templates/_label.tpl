@@ -18,6 +18,9 @@ app.kubernetes.io/instance: {{ include "accelleran.common.instance" . }}
 helm.sh/chart: {{ include "accelleran.common.chart" . }}
 {{ include "accelleran.common.selectorLabels" . }}
 app.kubernetes.io/version: {{ include "accelleran.common.appVersion" . | quote }}
+{{- with (include "accelleran.common.partOf" .) }}
+app.kubernetes.io/part-of: {{ . | quote }}
+{{- end }}
 app.kubernetes.io/managed-by: {{ $.Release.Service }}
 drax/helm-version: {{ include "accelleran.common.helmVersion" . | quote }}
 {{- with (include "accelleran.common.drax.name" .) }}

@@ -63,3 +63,10 @@ resulting in a failure when no (de)serializations took place.
 {{- end -}}
 {{- $instance -}}
 {{- end -}}
+
+
+{{- define "accelleran.common.partOf" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common part of" -}}
+
+{{- $.Values.global.partOf -}}
+{{- end -}}
