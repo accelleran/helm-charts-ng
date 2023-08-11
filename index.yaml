@@ -7951,8 +7951,6 @@ entries:
       urls:
         - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-up-5.1.0/acc-5g-cu-up-5.1.0.tgz
       version: 5.1.0
-    - urls:
-        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-up-5.2.0-dev.0/acc-5g-cu-up-5.2.0-dev.0.tgz
     - apiVersion: v2
       appVersion: R3.4.2_ichtegem
       created: "2023-06-05T17:42:45.647762561+02:00"
