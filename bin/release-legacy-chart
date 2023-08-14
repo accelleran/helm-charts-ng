@@ -22,9 +22,13 @@ function usage() {
     exit 0
 }
 
+function fatal() {
+    error "${@}"
+    exit 1
+}
+
 function error() {
     echo "${1}" 1>&2
-    exit 1
 }
 
 function create_release() {
@@ -33,16 +37,16 @@ function create_release() {
     index="${2}"
 
     if [[ ! -f ${file} ]]; then
-        error "${file} is not a file"
+        fatal "${file} is not a file"
     fi
 
     if [[ ! -f ${index} ]]; then
-        error "${index} is not a file"
+        fatal "${index} is not a file"
     fi
 
     file_name=$(basename "${file}")
     if [[ ! "${file_name}" =~ ^([[:alpha:][:digit:]\.\_\-]+)-([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+(-[[:alpha:][:digit:]\.\-]+)?)\.tgz$ ]]; then
-        error "${file_name} is not valid: use format <chart-name>-<semantic-version>.tgz"
+        fatal "${file_name} is not valid: use format <chart-name>-<semantic-version>.tgz"
     fi
 
     tag="${file_name%.*}"
@@ -62,7 +66,7 @@ function create_release() {
             https://api.github.com/repos/accelleran/helm-charts-ng/releases"
         http_code=$(eval "${command}")
         if [ "${http_code}" != "201" ]; then
-            error "Release ${tag} failed with code '${http_code}'"
+            fatal "Release ${tag} failed with code '${http_code}'"
         fi
 
         echo "Created release ${tag}"
@@ -80,7 +84,7 @@ function create_release() {
             ${url}?name=${file_name}"
         http_code=$(eval "${command}")
         if [ "${http_code}" != "201" ]; then
-            error "Upload ${file_name} failed with code '${http_code}'"
+            fatal "Upload ${file_name} failed with code '${http_code}'"
         fi
 
         echo "Asset ${file_name} uploaded"
@@ -139,21 +143,21 @@ while getopts ":hf:d:i:ru" opt; do
             upload=false
         ;;
         \? )
-            error "Invalid Option: -${OPTARG}"
+            fatal "Invalid Option: -${OPTARG}"
         ;;
         : )
-            error "Invalid option: ${OPTARG} requires an argument"
+            fatal "Invalid option: ${OPTARG} requires an argument"
         ;;
     esac
 done
 shift $((OPTIND -1))
 
 if [[ ! "$(yq --version)" =~ .*mikefarah/yq.* ]]; then
-    error "Make sure to install mikefarah/yq"
+    fatal "Make sure to install mikefarah/yq"
 fi
 
 if [[ "${index}" == "" ]]; then
-    error "No legacy index file is provided"
+    fatal "No legacy index file is provided"
 fi
 
 git checkout gh-pages > /dev/null
