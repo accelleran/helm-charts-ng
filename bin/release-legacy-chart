@@ -55,6 +55,16 @@ function create_release() {
 
     mkdir -p "/tmp/github/${tag}"
 
+    yq ".entries.${chart}[] | select(.version == \"${version}\")" "${index}" > "/tmp/github/${tag}/index.yaml"
+    if [ ! -s "/tmp/github/${tag}/index.yaml" ]; then
+        fatal "${tag} is not present in the provided legacy index file"
+    fi
+
+    yq -i ".urls[0] = \"https://github.com/accelleran/helm-charts-ng/releases/download/${tag}/${file_name}\"" "/tmp/github/${tag}/index.yaml"
+    yq -i ".entries.${chart} += [load(\"/tmp/github/${tag}/index.yaml\")]" "${GIT_ROOT}/index.yaml"
+
+    echo "Index file updated"
+
     if [ "${release}" != true ] ; then
         echo "Skipping creation of release ${tag}"
     else
@@ -89,12 +99,6 @@ function create_release() {
 
         echo "Asset ${file_name} uploaded"
     fi
-
-    yq ".entries.${chart}[] | select(.version == \"${version}\")" "${index}" > "/tmp/github/${tag}/index.yaml"
-    yq -i ".urls[0] = \"https://github.com/accelleran/helm-charts-ng/releases/download/${tag}/${file_name}\"" "/tmp/github/${tag}/index.yaml"
-    yq -i ".entries.${chart} += [load(\"/tmp/github/${tag}/index.yaml\")]" "${GIT_ROOT}/index.yaml"
-
-    echo "Index file updated"
 }
 
 function handle_file() {
