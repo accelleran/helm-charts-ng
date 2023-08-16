@@ -253,6 +253,7 @@ sctp-e1:
     name: ""
     type: "LoadBalancer"
     portName: "e1ap"
+    appProtocol: "e1-interface"
     protocol: "SCTP"
     port: 38462
     targetPort: 0
@@ -279,6 +280,7 @@ sctp-f1:
     name: ""
     type: "LoadBalancer"
     portName: "f1ap"
+    appProtocol: "f1-control"
     protocol: "SCTP"
     port: 38472
     targetPort: 0
