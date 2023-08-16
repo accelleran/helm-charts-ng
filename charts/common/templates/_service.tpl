@@ -22,6 +22,9 @@ spec:
     - {{- with $values.service.portName }}
       name: {{ . }}
       {{- end }}
+      {{- with $values.service.appProtocol }}
+      appProtocol: {{ . }}
+      {{- end }}
       {{- with $values.service.protocol }}
       protocol: {{ . }}
       {{- end }}
