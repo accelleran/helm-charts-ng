@@ -212,6 +212,7 @@ ups:
     name: ""
     type: "LoadBalancer"
     portName: "gtp-u"
+    appProtocol: "gtp-user"
     protocol: "UDP"
     port: 2152
     targetPort: 0
