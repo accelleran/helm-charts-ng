@@ -180,7 +180,7 @@ jobs:
         run: ./bin/add-repos
 
       - name: Run chart releaser
-        uses: helm/chart-releaser-action@v1.5.0
+        uses: helm/chart-releaser-action@v1.6.0
         with:
           config: etc/cr.yaml
         env:
