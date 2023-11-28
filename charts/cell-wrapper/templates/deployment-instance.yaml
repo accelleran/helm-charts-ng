@@ -29,7 +29,12 @@ volumes:
   {{- end }}
 volumeMounts:
   - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-ssh-key
-    mountPath: "/home/accelleran/5G/ssh/"
+    mountPath: "/config/ssh/public"
+    subPath: "public"
+    readOnly: true
+  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-ssh-key
+    mountPath: "/config/ssh/private"
+    subPath: "private"
     readOnly: true
   {{- range $vendor, $v := $values.baseConfig.vendors }}
   {{- range $v }}
@@ -47,6 +52,10 @@ env:
     valueFrom:
       fieldRef:
         fieldPath: metadata.name
+  - name: SSH_KEY_PUBLIC
+    value: "/config/ssh/public"
+  - name: SSH_KEY_PRIVATE
+    value: "/config/ssh/private"
 envFrom:
   - configMapRef:
       name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
