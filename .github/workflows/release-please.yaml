@@ -16,6 +16,6 @@ jobs:
         uses: google-github-actions/release-please-action@v3
         with:
           command: manifest-pr
-          default-branch: ${{ github.ref_name }}
+          target-branch: ${{ github.ref_name }}
           config-file: "etc/release-please-config.json"
           manifest-file: "etc/.release-please-manifest.json"
