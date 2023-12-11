@@ -8,8 +8,8 @@ apiVersion: apps/v1
 kind: Deployment
 {{ include "accelleran.common.metadata" . }}
 spec:
-  {{- if not $autoscaling.enabled }}
-  replicas: {{ $values.replicaCount | default 1 }}
+  {{- if ne $values.replicaCount nil }}
+  replicas: {{ $values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
