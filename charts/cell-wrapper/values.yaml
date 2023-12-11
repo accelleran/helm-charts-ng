@@ -85,8 +85,10 @@ cw-ctrl:
     annotations: {}
     name: ""
 
-  podSecurityContext: {}
-    # fsGroup: 2000
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    fsGroup: 1000
 
   securityContext: {}
     # capabilities:
