@@ -6166,6 +6166,474 @@ entries:
       urls:
         - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-cp-5.3.0/acc-5g-cu-cp-5.3.0.tgz
       version: 5.3.0
+    - apiVersion: v2
+      appVersion: R4.2.0_karmeliet
+      created: "2023-10-10T11:49:43.88906565+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: amf-controller.enabled
+          name: amf-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.8.1
+        - condition: cu-up-controller.enabled
+          name: cu-up-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ds-ctrl.enabled
+          name: ds-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.2.2
+        - condition: du-controller.enabled
+          name: du-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: e1-cp.enabled
+          name: e1-cp
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: f1-ap.enabled
+          name: f1-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: gnb-controller.enabled
+          name: gnb-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ng-ap.enabled
+          name: ng-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: pm-controller.enabled
+          name: pm-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr.enabled
+          name: res-mgr
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: rr-ctrl.enabled
+          name: rr-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-e1.enabled
+          name: sctp-e1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-f1.enabled
+          name: sctp-f1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-ng.enabled
+          name: sctp-ng
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: ho-tester.enabled
+          name: ho-tester
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.3.1
+      description: Accelleran 5G CU CP Components
+      digest: 8cb1f4b30bf396d523dd1dfee292b898a08bfac83ac1d42df72374143a66db64
+      name: acc-5g-cu-cp
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-cp-5.4.0-rc.0/acc-5g-cu-cp-5.4.0-rc.0.tgz
+      version: 5.4.0-rc.0
+    - apiVersion: v2
+      appVersion: R4.2.0_karmeliet
+      created: "2023-10-10T11:49:43.899514726+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: amf-controller.enabled
+          name: amf-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.8.1
+        - condition: cu-up-controller.enabled
+          name: cu-up-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ds-ctrl.enabled
+          name: ds-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.2.2
+        - condition: du-controller.enabled
+          name: du-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: e1-cp.enabled
+          name: e1-cp
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: f1-ap.enabled
+          name: f1-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: gnb-controller.enabled
+          name: gnb-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ng-ap.enabled
+          name: ng-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: pm-controller.enabled
+          name: pm-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr.enabled
+          name: res-mgr
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: rr-ctrl.enabled
+          name: rr-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-e1.enabled
+          name: sctp-e1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-f1.enabled
+          name: sctp-f1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-ng.enabled
+          name: sctp-ng
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: ho-tester.enabled
+          name: ho-tester
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.3.1
+      description: Accelleran 5G CU CP Components
+      digest: a2a2d8597d8ecb9814182140e5c982abe30832176e699d537de31a87464977a8
+      name: acc-5g-cu-cp
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-cp-6.0.0-rc.0/acc-5g-cu-cp-6.0.0-rc.0.tgz
+      version: 6.0.0-rc.0
+    - apiVersion: v2
+      appVersion: R4.2.2_karmeliet
+      created: "2023-10-10T11:49:43.912671851+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: amf-controller.enabled
+          name: amf-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.8.1
+        - condition: cu-up-controller.enabled
+          name: cu-up-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ds-ctrl.enabled
+          name: ds-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.2.2
+        - condition: du-controller.enabled
+          name: du-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: e1-cp.enabled
+          name: e1-cp
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: f1-ap.enabled
+          name: f1-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: gnb-controller.enabled
+          name: gnb-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ng-ap.enabled
+          name: ng-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: pm-controller.enabled
+          name: pm-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr.enabled
+          name: res-mgr
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: rr-ctrl.enabled
+          name: rr-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-e1.enabled
+          name: sctp-e1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-f1.enabled
+          name: sctp-f1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-ng.enabled
+          name: sctp-ng
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: ho-tester.enabled
+          name: ho-tester
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.3.1
+      description: Accelleran 5G CU CP Components
+      digest: dfdebc47b30afcb6bed196729fbf4b8e5e38a972727610950407915ab042d1a0
+      name: acc-5g-cu-cp
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-cp-6.0.0-rc.1/acc-5g-cu-cp-6.0.0-rc.1.tgz
+      version: 6.0.0-rc.1
+    - apiVersion: v2
+      appVersion: R4.2.3_karmeliet
+      created: "2023-10-10T11:49:43.926863191+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: amf-controller.enabled
+          name: amf-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.8.1
+        - condition: cu-up-controller.enabled
+          name: cu-up-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ds-ctrl.enabled
+          name: ds-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.2.2
+        - condition: du-controller.enabled
+          name: du-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: e1-cp.enabled
+          name: e1-cp
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: f1-ap.enabled
+          name: f1-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: gnb-controller.enabled
+          name: gnb-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ng-ap.enabled
+          name: ng-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: pm-controller.enabled
+          name: pm-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr.enabled
+          name: res-mgr
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: rr-ctrl.enabled
+          name: rr-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-e1.enabled
+          name: sctp-e1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-f1.enabled
+          name: sctp-f1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-ng.enabled
+          name: sctp-ng
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: ho-tester.enabled
+          name: ho-tester
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.3.1
+      description: Accelleran 5G CU CP Components
+      digest: 9fc286a91019b41a6d04f68a5dc5537588eef971f09842b2ae38ead83c3da4ea
+      name: acc-5g-cu-cp
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-cp-6.0.0-rc.2/acc-5g-cu-cp-6.0.0-rc.2.tgz
+      version: 6.0.0-rc.2
+    - apiVersion: v2
+      appVersion: R4.2.3_karmeliet
+      created: "2023-10-10T11:49:43.939609764+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: amf-controller.enabled
+          name: amf-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.8.1
+        - condition: cu-up-controller.enabled
+          name: cu-up-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ds-ctrl.enabled
+          name: ds-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.2.2
+        - condition: du-controller.enabled
+          name: du-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: e1-cp.enabled
+          name: e1-cp
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: f1-ap.enabled
+          name: f1-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: gnb-controller.enabled
+          name: gnb-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ng-ap.enabled
+          name: ng-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: pm-controller.enabled
+          name: pm-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr.enabled
+          name: res-mgr
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: rr-ctrl.enabled
+          name: rr-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-e1.enabled
+          name: sctp-e1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-f1.enabled
+          name: sctp-f1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-ng.enabled
+          name: sctp-ng
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: ho-tester.enabled
+          name: ho-tester
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.3.1
+      description: Accelleran 5G CU CP Components
+      digest: 4ba110acd5bcb56747a1bc3ee0dd9950dd78ab8ec425044e96969f4433d20b2c
+      name: acc-5g-cu-cp
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-cp-6.0.0-rc.3/acc-5g-cu-cp-6.0.0-rc.3.tgz
+      version: 6.0.0-rc.3
+    - apiVersion: v2
+      appVersion: R4.2.3_karmeliet
+      created: "2023-10-10T11:49:43.951919687+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: amf-controller.enabled
+          name: amf-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.8.1
+        - condition: cu-up-controller.enabled
+          name: cu-up-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ds-ctrl.enabled
+          name: ds-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.2.2
+        - condition: du-controller.enabled
+          name: du-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: e1-cp.enabled
+          name: e1-cp
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: f1-ap.enabled
+          name: f1-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: gnb-controller.enabled
+          name: gnb-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: ng-ap.enabled
+          name: ng-ap
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: pm-controller.enabled
+          name: pm-controller
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr.enabled
+          name: res-mgr
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: rr-ctrl.enabled
+          name: rr-ctrl
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-e1.enabled
+          name: sctp-e1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-f1.enabled
+          name: sctp-f1
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: sctp-ng.enabled
+          name: sctp-ng
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 1.1.1
+        - condition: ho-tester.enabled
+          name: ho-tester
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.3.1
+      description: Accelleran 5G CU CP Components
+      digest: 507b79a0477cd402a0046a595a8828e41cc0e41c3cd6ac67efa52114675d21dc
+      name: acc-5g-cu-cp
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-cp-6.0.0/acc-5g-cu-cp-6.0.0.tgz
+      version: 6.0.0
   acc-5g-cu-up:
     - apiVersion: v2
       appVersion: master-4211d1c
@@ -8179,4 +8647,232 @@ entries:
       urls:
         - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-up-5.3.0/acc-5g-cu-up-5.3.0.tgz
       version: 5.3.0
+    - apiVersion: v2
+      appVersion: R4.2.0_karmeliet
+      created: "2023-10-10T11:49:44.252968506+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: ups.enabled
+          name: ups
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.1.1
+        - condition: e1-sctp-up.enabled
+          name: e1-sctp-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr-up.enabled
+          name: res-mgr-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: pm-controller-up.enabled
+          name: pm-controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.4.1
+        - condition: controller-up.enabled
+          name: controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.2.1
+      description: Accelleran 5G CU UP Components
+      digest: b356f145133047e05aaa90191e2795c0e4b17e827be33c4aaa46b5c7ce84a04d
+      name: acc-5g-cu-up
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-up-5.4.0-rc.0/acc-5g-cu-up-5.4.0-rc.0.tgz
+      version: 5.4.0-rc.0
+    - apiVersion: v2
+      appVersion: R4.2.0_karmeliet
+      created: "2023-10-10T11:49:44.256332896+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: ups.enabled
+          name: ups
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.1.1
+        - condition: e1-sctp-up.enabled
+          name: e1-sctp-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr-up.enabled
+          name: res-mgr-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: pm-controller-up.enabled
+          name: pm-controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.4.1
+        - condition: controller-up.enabled
+          name: controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.2.1
+      description: Accelleran 5G CU UP Components
+      digest: 07dc953b841b4cd746cb42f8da290d1e0e01a8bd1a9d3c9d56c8cbbc3974e967
+      name: acc-5g-cu-up
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-up-6.0.0-rc.0/acc-5g-cu-up-6.0.0-rc.0.tgz
+      version: 6.0.0-rc.0
+    - apiVersion: v2
+      appVersion: R4.2.2_karmeliet
+      created: "2023-10-10T11:49:44.260814352+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: ups.enabled
+          name: ups
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.2.0
+        - condition: e1-sctp-up.enabled
+          name: e1-sctp-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr-up.enabled
+          name: res-mgr-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: pm-controller-up.enabled
+          name: pm-controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.4.1
+        - condition: controller-up.enabled
+          name: controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.2.1
+      description: Accelleran 5G CU UP Components
+      digest: 2260a88edaeb734a9365b1dee8281892da0ca3690263dcce0626d3a48566ef10
+      name: acc-5g-cu-up
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-up-6.0.0-rc.1/acc-5g-cu-up-6.0.0-rc.1.tgz
+      version: 6.0.0-rc.1
+    - apiVersion: v2
+      appVersion: R4.2.3_karmeliet
+      created: "2023-10-10T11:49:44.264577506+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: ups.enabled
+          name: ups
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.2.0
+        - condition: e1-sctp-up.enabled
+          name: e1-sctp-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr-up.enabled
+          name: res-mgr-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: pm-controller-up.enabled
+          name: pm-controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.4.1
+        - condition: controller-up.enabled
+          name: controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.2.1
+      description: Accelleran 5G CU UP Components
+      digest: 5f992ca6866ba7592de67b683c4bb7c9c5dc0e0e0991fa48508636796271c65a
+      name: acc-5g-cu-up
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-up-6.0.0-rc.2/acc-5g-cu-up-6.0.0-rc.2.tgz
+      version: 6.0.0-rc.2
+    - apiVersion: v2
+      appVersion: R4.2.3_karmeliet
+      created: "2023-10-10T11:49:44.267933492+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: ups.enabled
+          name: ups
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.2.1
+        - condition: e1-sctp-up.enabled
+          name: e1-sctp-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr-up.enabled
+          name: res-mgr-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: pm-controller-up.enabled
+          name: pm-controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.4.1
+        - condition: controller-up.enabled
+          name: controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.2.1
+      description: Accelleran 5G CU UP Components
+      digest: f9a3d9f7fd6d1d48785e34463800f542987c8080cd690385d089d0e461c805c8
+      name: acc-5g-cu-up
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-up-6.0.0-rc.3/acc-5g-cu-up-6.0.0-rc.3.tgz
+      version: 6.0.0-rc.3
+    - apiVersion: v2
+      appVersion: R4.2.3_karmeliet
+      created: "2023-10-10T11:49:44.272671581+02:00"
+      dependencies:
+        - name: acc-common
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: netconf.enabled
+          name: netconf
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.4.0
+        - condition: ups.enabled
+          name: ups
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 2.2.1
+        - condition: e1-sctp-up.enabled
+          name: e1-sctp-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: res-mgr-up.enabled
+          name: res-mgr-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.6.1
+        - condition: pm-controller-up.enabled
+          name: pm-controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.4.1
+        - condition: controller-up.enabled
+          name: controller-up
+          repository: https://accelleran.github.io/5g-helm-charts/
+          version: 0.2.1
+      description: Accelleran 5G CU UP Components
+      digest: 09dca1efb9d38a9893e15d594382664ebc34ea3f814f89594f8aef8b91716cfc
+      name: acc-5g-cu-up
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-up-6.0.0/acc-5g-cu-up-6.0.0.tgz
+      version: 6.0.0
 generated: "2023-06-30T06:33:54.730759056Z"
