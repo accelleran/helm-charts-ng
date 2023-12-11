@@ -261,7 +261,7 @@ netconf:
       command:
         - "test"
         - "-f"
-        - "/ready"
+        - "ready"
     initialDelaySeconds: 15
     periodSeconds: 30
 
