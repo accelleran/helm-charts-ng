@@ -13,7 +13,7 @@ values:
   {{
     (mergeOverwrite
       (deepCopy $values)
-      (dict "replicaCount" ($values.replicaCount | default (add (include "accelleran.cell-wrapper.duCount" $) $values.spareInstanceCount)))
+      (dict "replicaCount" ($values.replicaCount))
     ) | toYaml | nindent 2
   }}
 

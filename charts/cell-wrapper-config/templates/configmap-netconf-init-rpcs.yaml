@@ -1,5 +1,5 @@
 {{- $values := index $.Values "netconf" -}}
-{{- if and (eq (tpl ($values.initEditConfig).enabled $) "true") (($values.initEditConfig).config) -}}
+{{- if ($values.initEditConfig).config -}}
 {{- include
       "accelleran.common.configMap"
       (fromYaml (include "accelleran.cell-wrapper.netconf.init.configMap.args" .))
@@ -19,7 +19,10 @@ values:
 name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-init-rpcs
 data:
   {{- range $index, $configRpc := $values.initEditConfig.config }}
+  {{- $configRpc = tpl $configRpc $ -}}
+  {{- if $configRpc }}
   init-edit-config-{{- $index -}}.xml: |
-    {{- tpl $configRpc $ | nindent 4 }}
+    {{- $configRpc | nindent 4 }}
+  {{- end }}
   {{- end }}
 {{- end -}}

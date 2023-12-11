@@ -50,157 +50,6 @@ global:
   draxNodeSelector:
     draxName: "main"
 
-  # Cell Wrapper config
-  # Documentation: https://accelleran.atlassian.net/wiki/spaces/GS/pages/2298183683/Configuration
-  config:
-
-    # Enables/disables cell wrapper config
-    #   Description:  Sets whether the configuration of the cell wrapper is
-    #                 done by the helm charts.
-    #                 If enabled, all old configuration underneath the configured instanceId
-    #                 will be deleted.
-    #   Value type:   boolean
-    #   Example:
-    # enabled: true
-    enabled: false
-
-    # (Un)lock cell wrapper's admin state
-    #   Description:  Locks or unlocks the admin state of the cell wrapper.
-    #   Value type:   boolean
-    #   Example:
-    # unlockAdminState: false
-    unlockAdminState: true
-
-    # Global cell wrapper config
-    global:
-
-      # Global "install" cell wrapper config
-      #   Description:  Sets the global "install" configuration of the cell wrapper.
-      #                 This should be xml that would be contained within the root
-      #                 "cw-install" container.
-      #   Value type:   string
-      #   Example:
-      # install: |-
-      #   <!-- Global CW install config -->
-      install: null
-      
-      # Global "internal" cell wrapper config
-      #   Description:  Sets the global "internal" configuration of the cell wrapper.
-      #                 This should be xml that would be contained within the root
-      #                 "cw-internal" container.
-      #   Value type:   string
-      #   Example:
-      # internal: |-
-      #   <!-- Global CW internal config -->
-      internal: null
-
-      # Global "RAN" cell wrapper config
-      #   Description:  Sets the global "RAN" configuration of the cell wrapper.
-      #                 This should be xml that would be contained within the root
-      #                 "cw-ran" container.
-      #   Value type:   string
-      #   Example:
-      # install: |-
-      #   <!-- Global CW RAN config -->
-      ran: null
-
-    # DU configurations
-    #   Description:  Sets the DUs the cell wrapper should control.
-    dus: []
-
-    # # DU name (mandatory)
-    # #   Description:  Sets the DU's name which is used as a key internally.
-    # #                 Only use alpha-numeric characters and a dash.
-    # #                 Maximum supported length is 150 characters.
-    # #   Value type:   string
-    # #   Example:
-    # # name: "du-1"
-    # - name: "du-1"
-
-    #   # DU "install" config
-    #   #   Description:  Sets the DU's "install" configuration.
-    #   #                 This should be xml that would be contained within the
-    #   #                 "du" container.
-    #   #   Value type:   string
-    #   #   Example:
-    #   # install: |-
-    #   #   <type>effnet</type>
-    #   #   <ssh-connection-details xc:operation="create">
-    #   #     <host>127.0.0.1</host>
-    #   #     <port>22</port>
-    #   #     <username>root</username>
-    #   #   </ssh-connection-details>
-    #   install: null
-
-    #   # DU "internal" config
-    #   #   Description:  Sets the DU's "internal" configuration.
-    #   #                 This should be xml that would be contained within the
-    #   #                 "du" container.
-    #   #   Value type:   string
-    #   #   Example:
-    #   # internal: |-
-    #   #   <auto-repair xc:operation="create">
-    #   #     <enable>true</enable>
-    #   #   </auto-repair>
-    #   internal: null
-
-    #   # DU "RAN" config
-    #   #   Description:  Sets the DU's "RAN" configuration.
-    #   #                 This should be xml that would be contained within the
-    #   #                 "du" container.
-    #   #   Value type:   string
-    #   #   Example:
-    #   # ran: |-
-    #   #   <gnb-id>1</gnb-id>
-    #   #   <gnb-id-length>22</gnb-id-length>
-    #   #   <gnb-du-id>1</gnb-du-id> 
-    #   #   <cu>127.0.0.1</cu>
-    #   #   <admin-state>unlocked</admin-state>
-    #   ran: null
-
-    #   # RU configurations
-    #   #   Description:  Sets the RUs the cell wrapper should control and
-    #   #                 link to the current DU.
-    #   rus:
-      
-    #     # RU name (mandatory)
-    #     #   Description:  Sets the RU's name which is used as a key internally.
-    #     #                 Only use alpha-numeric characters and a dash.
-    #     #                 Maximum supported length is 150 characters.
-    #     #   Value type:   string
-    #     #   Example:
-    #     # name: "ru-1"
-    #   - name: "ru-1"
-
-    #     # RU "install" config
-    #     #   Description:  Sets the RU's "install" configuration.
-    #     #                 This should be xml that would be contained within the
-    #     #                 "ru" container.
-    #     #   Value type:   string
-    #     #   Example:
-    #     # install: |-
-    #     #   <type>benetel650</type>
-    #     #   <ssh-connection-details xc:operation="create">
-    #     #     <host>127.0.0.1</host>
-    #     #     <port>22</port>
-    #     #     <username>root</username>
-    #     #   </ssh-connection-details>
-    #     install: null
-
-    #     # RU "internal" config
-    #     #   Description:  Sets the RU's "internal" configuration.
-    #     #                 This should be xml that would be contained within the
-    #     #                 "ru" container.
-    #     #   Value type:   string
-    #     #   Example:
-    #     # internal: |-
-    #     #   <health-check xc:operation="create">
-    #     #     <host-reachability xc:operation="create">
-    #     #         <timeout>5</timeout>
-    #     #     </host-reachability>
-    #     #   </health-check>
-    #     internal: null
-
 nameOverride: ""
 fullnameOverride: ""
 
@@ -296,8 +145,7 @@ cw-inst:
       #   data: |
       #     <data>
 
-  replicaCount: null
-  spareInstanceCount: 0
+  replicaCount: 0
 
   image:
     repository: "accelleran/cw-inst"
@@ -325,10 +173,6 @@ cw-inst:
     # readOnlyRootFilesystem: true
 
   resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     # limits:
     #   cpu: 100m
     #   memory: 128Mi
@@ -409,6 +253,7 @@ netconf:
   image:
     repository: accelleran/cw-netconf
     pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
     tag: ""
 
   readinessProbe:
@@ -433,93 +278,3 @@ netconf:
     port: 8300
     targetPort: null
     nodePort: null
-
-  initNetconfDefaultPath:
-    componentType: cw
-
-  initEditConfig:
-    enabled: "{{ .Values.global.config.enabled }}"
-    config:
-      - |-
-        <cw-install xmlns="http://accelleran.com/ns/yang/accelleran-cw-install" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
-      - |-
-        <cw-internal xmlns="http://accelleran.com/ns/yang/accelleran-cw-internal" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
-      - |-
-        <cw-ran xmlns="http://accelleran.com/ns/yang/accelleran-cw-ran" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
-      - |-
-        <cw-install xmlns="http://accelleran.com/ns/yang/accelleran-cw-install" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
-          {{- range $index, $du := .Values.global.config.dus }}
-          <du xc:operation="create">
-            <name>{{ $du.name }}</name>
-            {{- with $du.install }}
-            {{- . | nindent 4 }}
-            {{- end }}
-          </du>
-          {{ range $index, $ru := $du.rus }}
-          <ru xc:operation="create">
-            <name>{{ $ru.name }}</name>
-            {{- with $ru.install }}
-            {{- . | nindent 4 }}
-            {{- end }}
-            <du>{{ $du.name }}</du>
-          </ru>
-          {{- end }}
-          {{- end }}
-          {{- with .Values.global.config.global.install }}
-          {{ . | nindent 2 }}
-          {{- end }}
-        </cw-install>
-      - |-
-        <cw-internal xmlns="http://accelleran.com/ns/yang/accelleran-cw-internal" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
-          {{- range $index, $du := .Values.global.config.dus }}
-          <du xc:operation="create">
-            <name>{{ $du.name }}</name>
-            {{- with $du.internal }}
-            {{- . | nindent 4 }}
-            {{- end }}
-          </du>
-          {{ range $index, $ru := $du.rus }}
-          <ru xc:operation="create">
-            <name>{{ $ru.name }}</name>
-            {{- with $ru.internal }}
-            {{- . | nindent 4 }}
-            {{- end }}
-          </ru>
-          {{- end }}
-          {{- end }}
-          {{- with .Values.global.config.global.internal }}
-          {{ . | nindent 2}}
-          {{- end }}
-        </cw-internal>
-      - |-
-        <cw-ran xmlns="http://accelleran.com/ns/yang/accelleran-cw-ran" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
-          {{- range $index, $du := .Values.global.config.dus }}
-          <du xc:operation="create">
-            <name>{{ $du.name }}</name>
-            {{- with $du.ran }}
-            {{- . | nindent 4 }}
-            {{- end }}
-          </du>
-          {{- end }}
-          {{- with .Values.global.config.global.ran }}
-          {{ . | nindent 2 }}
-          {{- end }}
-        </cw-ran>
-      - |-
-        <cw-internal xmlns="http://accelleran.com/ns/yang/accelleran-cw-internal" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
-          <admin-state>
-          {{- if .Values.global.config.unlockAdminState -}}
-          unlocked
-          {{- else -}}
-          locked
-          {{- end -}}
-          </admin-state>
-        </cw-internal>
-
-jobs: []
-  # - name: "<job_name>"
-  #   schedule: "<cron_schedule>"
-  #   netconfHost: "<netconf_host>" # optional
-  #   netconfPort: "<netconf_port>" # optional
-  #   rpc: |-
-  #     <!-- full edit-config rpc -->

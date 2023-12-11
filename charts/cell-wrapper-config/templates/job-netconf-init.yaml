@@ -1,5 +1,5 @@
 {{- $values := index $.Values "netconf" -}}
-{{- if and (eq (tpl ($values.initEditConfig).enabled $) "true") (($values.initEditConfig).config) -}}
+{{- if ($values.initEditConfig).config -}}
 {{- include
       "accelleran.common.job"
       (fromYaml (include "accelleran.cell-wrapper.netconf.init.job.args" .))
@@ -67,7 +67,10 @@ args:
   - "--port"
   - "{{ $values.service.port }}"
   {{- range $index, $configRpc := $values.initEditConfig.config }}
+  {{- $configRpc = tpl $configRpc $ -}}
+  {{- if $configRpc }}
   - "--edit"
   - "/rpcs/init-edit-config-{{- $index -}}.xml"
+  {{- end }}
   {{- end }}
 {{- end -}}

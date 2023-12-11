@@ -1,0 +1,14 @@
+################################################################################
+
+Accelleran Cell Wrapper Config {{ $.Chart.Version }}
+
+Deployed Accelleran Cell Wrapper Config components [{{ $.Release.Name }}]
+with the following details:
+
+  Tag: {{ include "accelleran.common.appVersion" (dict "top" $) }}
+
+  Number of components:
+  DUs: {{ include "accelleran.cell-wrapper.duCount" . }}
+  RUs: {{ include "accelleran.cell-wrapper.ruCount" . }}
+
+################################################################################
