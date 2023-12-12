@@ -10,12 +10,7 @@
 top:
   {{ $ | toYaml | nindent 2 }}
 values:
-  {{
-    (mergeOverwrite
-      (deepCopy $values)
-      (dict "replicaCount" ($values.replicaCount))
-    ) | toYaml | nindent 2
-  }}
+  {{ $values | toYaml | nindent 2 }}
 
 volumes:
   - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-ssh-key
