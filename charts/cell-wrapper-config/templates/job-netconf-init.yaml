@@ -14,7 +14,15 @@
 top:
   {{ $ | toYaml | nindent 2 }}
 values:
-  {{ $values | toYaml | nindent 2 }}
+  {{
+    (mergeOverwrite
+      (deepCopy $values)
+      (dict "annotations" (dict
+        "helm.sh/hook" "post-install,post-upgrade,post-rollback"
+        "helm.sh/hook-delete-policy" "before-hook-creation,hook-succeeded"
+      ))
+    ) | toYaml | nindent 2
+  }}
 
 name: "{{ .Release.Name }}-netconf-init-config"
 backoffLimit: 2

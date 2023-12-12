@@ -1,0 +1,28 @@
+{{- $values := index $.Values "netconf" -}}
+{{- if ($values.exitEditConfig).config -}}
+{{- include
+      "accelleran.common.configMap"
+      (fromYaml (include "accelleran.cell-wrapper.netconf.exit.configMap.args" .))
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.netconf.exit.configMap.args" -}}
+{{- $ := . -}}
+{{- $values := index $.Values "netconf" -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-exit-rpcs
+data:
+  {{- range $index, $configRpc := $values.exitEditConfig.config }}
+  {{- $configRpc = tpl $configRpc $ -}}
+  {{- if $configRpc }}
+  exit-edit-config-{{- $index -}}.xml: |
+    {{- $configRpc | nindent 4 }}
+  {{- end }}
+  {{- end }}
+{{- end -}}
