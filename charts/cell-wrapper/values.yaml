@@ -147,7 +147,7 @@ cw-inst:
       #   data: |
       #     <data>
 
-  replicaCount: 0
+  replicaCount: 0 # instance scaler controls replicas by default
 
   image:
     repository: "accelleran/cw-inst"
