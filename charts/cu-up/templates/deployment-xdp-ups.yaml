@@ -21,7 +21,13 @@
 top:
   {{ $ | toYaml | nindent 2 }}
 values:
-  {{ $values | toYaml | nindent 2 }}
+  {{- /* omit nodeName and nodeSelector in original values to give overridden values precedence */ -}}
+  {{
+    (mergeOverwrite
+      (omit (deepCopy $values) "nodeName" "nodeSelector")
+      (include "accelleran.cu-up.xdp-ups.deployment.args.values" . | fromYaml)
+    ) | toYaml | nindent 2
+  }}
 
 name: {{ printf "%s-%d" (include "accelleran.common.fullname" (dict "top" $ "values" $values)) $ordinal }}
 
@@ -48,4 +54,34 @@ env:
 envFrom:
   - configMapRef:
       name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+{{- end -}}
+
+
+{{- define "accelleran.cu-up.xdp-ups.deployment.args.values" -}}
+{{- $ := first . -}}
+{{- $values := index $.Values "xdp-ups" -}}
+
+{{- $ordinal := index . 1 -}}
+{{- $xdpUpsInterface := index . 2 -}}
+
+{{- with $xdpUpsInterface.nodeName }}
+nodeName: {{ . }}
+{{ end -}}
+
+{{- if $xdpUpsInterface.nodeSelectorOverride -}}
+nodeSelector:
+  {{ $xdpUpsInterface.nodeSelectorOverride | toYaml | nindent 4 }}
+{{- else if or $xdpUpsInterface.nodeSelector (or ($values.nodeSelector) ($.Values.global).nodeSelector)  }}
+nodeSelector:
+{{- if $values.nodeSelector }}
+  {{ $values.nodeSelector | toYaml | nindent 2 }}
+{{- else if ($.Values.global).nodeSelector }}
+  {{ $.Values.global.nodeSelector | toYaml | nindent 2 }}
+{{- end -}}
+
+{{- with $xdpUpsInterface.nodeSelector }}
+  {{ . | toYaml | nindent 2 }}
+{{- end -}}
+{{- end -}}
+
 {{- end -}}
