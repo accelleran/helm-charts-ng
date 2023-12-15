@@ -6,6 +6,7 @@
 {{- define "accelleran.cell-wrapper.instance.deployment.args" -}}
 {{- $ := . -}}
 {{- $values := index $.Values "cw-inst" -}}
+{{- $fullname := include "accelleran.common.fullname" (dict "top" $ "values" $values) -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}
@@ -13,27 +14,27 @@ values:
   {{ $values | toYaml | nindent 2 }}
 
 volumes:
-  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-ssh-key
+  - name: {{ $fullname }}-ssh-key
     secret:
       secretName: {{ tpl $values.secrets.sshKey $ }}
       defaultMode: 288
   {{- range $vendor, $v := $values.baseConfig.vendors }}
-  - name: "{{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-{{ $vendor }}"
+  - name: "{{ $fullname }}-{{ $vendor }}"
     configMap:
-      name: "{{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-{{ $vendor }}"
+      name: "{{ $fullname }}-{{ $vendor }}"
   {{- end }}
 volumeMounts:
-  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-ssh-key
+  - name: {{ $fullname }}-ssh-key
     mountPath: "/config/ssh/public"
     subPath: "public"
     readOnly: true
-  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-ssh-key
+  - name: {{ $fullname }}-ssh-key
     mountPath: "/config/ssh/private"
     subPath: "private"
     readOnly: true
   {{- range $vendor, $v := $values.baseConfig.vendors }}
   {{- range $v }}
-  - name: "{{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-{{ $vendor }}"
+  - name: "{{ $fullname }}-{{ $vendor }}"
     mountPath: "{{ $values.baseConfig.configDir }}/{{ $vendor }}/{{ .file }}"
     subPath: "{{ .file }}"
     readOnly: true
