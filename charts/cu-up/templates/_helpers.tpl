@@ -1,5 +1,10 @@
 {{- define "accelleran.cu-up.upsCount" -}}
-{{- add .Values.global.numberOfUpStacks (len .Values.global.xdpUpsInterfaces) -}}
+{{- add $.Values.global.numberOfUpStacks -}}
+{{- end -}}
+
+
+{{- define "accelleran.cu-up.xdpUpsCount" -}}
+{{- add (len $.Values.global.xdpUpsInterfaces) -}}
 {{- end -}}
 
 

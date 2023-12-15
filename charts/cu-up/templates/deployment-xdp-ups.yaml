@@ -1,3 +1,7 @@
+{{- if and (gt (atoi (include "accelleran.cu-up.upsCount" $)) 0) (gt (atoi (include "accelleran.cu-up.xdpUpsCount" $)) 0) -}}
+{{- fail "UPS XDP Interfaces can only be specified if numberOfUpStacks is set to 0" -}}
+{{- end -}}
+
 {{- range $ordinal, $xdpUpsInterface := $.Values.global.xdpUpsInterfaces }}
 ---
 {{ include

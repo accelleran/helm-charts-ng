@@ -8,7 +8,12 @@ with the following details:
   Tag: {{ include "accelleran.common.appVersion" (dict "top" $) }}
 
   Number of components:
-  UPSs: {{ include "accelleran.cu-up.upsCount" . }}
+  {{ with (include "accelleran.cu-up.upsCount" . | int) -}}
+  UPSs: {{ . }}
+  {{- end -}}
+  {{- with (include "accelleran.cu-up.xdpUpsCount" . | int) -}}
+  UPSs: {{ . }} (XDP)
+  {{- end }}
 
   Instance ID: {{ include "accelleran.common.bootstrap.instanceId" (dict "top" $) }}
   Redis Configuration: {{ include "accelleran.common.bootstrap.redis.hostname" (dict "top" $) }}:{{ include "accelleran.common.bootstrap.redis.port" (dict "top" $) }}
