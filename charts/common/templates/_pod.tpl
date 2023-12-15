@@ -123,12 +123,13 @@ securityContext:
 {{- $ := get . "top" | required "The top context needs to be provided to common pod node selector" -}}
 {{- $values := get . "values" | default $.Values -}}
 
-{{- if or $values.nodeSelector (eq (include "accelleran.common.drax.nodeSelector.enabled" .) "true") -}}
+{{- if or $values.nodeSelector ($.Values.global).nodeSelector -}}
 nodeSelector:
-  {{- with $values.nodeSelector -}}
-  {{- toYaml . | nindent 2 }}
+  {{- if $values.nodeSelector -}}
+  {{- toYaml $values.nodeSelector | nindent 2 }}
+  {{- else if ($.Values.global).nodeSelector -}}
+  {{- toYaml $.Values.global.nodeSelector | nindent 2 }}
   {{- end -}}
-  {{- include "accelleran.common.drax.nodeSelector" . | nindent 2 }}
 {{- end -}}
 {{- end -}}
 
