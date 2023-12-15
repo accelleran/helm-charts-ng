@@ -48,23 +48,23 @@ data:
 
 {{- define "accelleran.common.bootstrap.redis.hostname" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap redis hostname" -}}
-{{- ((($.Values.global).bootstrap).redis).hostname | default (($.Values.global).redis).hostname -}}
+{{- ((($.Values.global).bootstrap).redis).hostname | default (($.Values.global).redis).hostname | default (printf "%s-redis-master" $.Release.Name) -}}
 {{- end -}}
 
 
 {{- define "accelleran.common.bootstrap.redis.port" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap redis port" -}}
-{{- ((($.Values.global).bootstrap).redis).port | default (($.Values.global).redis).port -}}
+{{- ((($.Values.global).bootstrap).redis).port | default (($.Values.global).redis).port | default 6379 -}}
 {{- end -}}
 
 
 {{- define "accelleran.common.bootstrap.nats.hostname" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap nats hostname" -}}
-{{- ((($.Values.global).bootstrap).nats).hostname | default (($.Values.global).nats).hostname -}}
+{{- ((($.Values.global).bootstrap).nats).hostname | default (($.Values.global).nats).hostname | default (printf "%s-nats" $.Release.Name) -}}
 {{- end -}}
 
 
 {{- define "accelleran.common.bootstrap.nats.port" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap nats port" -}}
-{{- ((($.Values.global).bootstrap).nats).port | default (($.Values.global).nats).port -}}
+{{- ((($.Values.global).bootstrap).nats).port | default (($.Values.global).nats).port | default 4222 -}}
 {{- end -}}
