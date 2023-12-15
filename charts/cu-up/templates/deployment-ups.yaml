@@ -63,12 +63,19 @@ volumeMounts:
 {{- $ := first . -}}
 {{- $values := index $.Values "ups" -}}
 
+{{- $image := ($values.initImage).loadBalancerIP -}}
+
 {{- $ordinal := index . 1 -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}
 values:
-  {{ $values | toYaml | nindent 2 }}
+  {{
+    (mergeOverwrite
+      (deepCopy $values)
+      (dict "image" $image)
+    ) | toYaml | nindent 2
+  }}
 
 name: "gtp-u-lb-ip"
 command:

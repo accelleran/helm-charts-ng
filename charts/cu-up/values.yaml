@@ -182,9 +182,10 @@ ups:
   containerName: "ups"
 
   initImage:
-    repository: accelleran/acc-generic-img
-    tag: "latest"
-    pullPolicy: IfNotPresent
+    loadBalancerIP:
+      repository: accelleran/acc-generic-img
+      tag: "latest"
+      pullPolicy: IfNotPresent
 
   image:
     repository: accelleran/upsappl
