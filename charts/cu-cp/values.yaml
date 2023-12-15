@@ -47,24 +47,7 @@ global:
     technology: "5g"
     role: "5g"
 
-  # dRAX Specific Node Selector
-  #   Description: This is a special nodeSelector field implemented for the
-  #                Accelleran 5G Helm charts. You need to first label your
-  #                node in Kubernetes with a label "draxName" and give it a
-  #                <value>. For example for node <node_name>, you can use the
-  #                following command to label it:
-  #                kubectl label node <node_name> draxName=<value>.
-  #                Then in "draxName" set the value of the label you chose for
-  #                the node. This will in effect install all the 5G Application
-  #                on that node, without the need to edit all individual helm
-  #                charts. In case you want to add other nodeSelector options,
-  #                you have to add them to the helm chart specific values files.
-  #   Value type: bool
-  #   Example:
-  #
-  draxNodeSelectorEnabled: false
-  draxNodeSelector:
-    draxName: "main"
+  nodeSelector: {}
 
 
 cu-cp:
@@ -92,10 +75,6 @@ cu-cp:
 
   podSecurityContext: {}
     # fsGroup: 2000
-
-  draxNodeSelectorEnabled: false
-  draxNodeSelector:
-    draxName: "{{ $.Values.global.draxNodeSelector.draxName }}"
 
   nodeSelector: {}
 
@@ -319,10 +298,6 @@ ng-ap:
   podSecurityContext: {}
     # fsGroup: 2000
 
-  draxNodeSelectorEnabled: false
-  draxNodeSelector:
-    draxName: "{{ $.Values.global.draxNodeSelector.draxName }}"
-
   nodeSelector: {}
 
   tolerations: []
@@ -359,10 +334,6 @@ e1-cp:
 
   podSecurityContext: {}
     # fsGroup: 2000
-
-  draxNodeSelectorEnabled: false
-  draxNodeSelector:
-    draxName: "{{ $.Values.global.draxNodeSelector.draxName }}"
 
   nodeSelector: {}
 
@@ -401,10 +372,6 @@ f1-ap:
   podSecurityContext: {}
     # fsGroup: 2000
 
-  draxNodeSelectorEnabled: false
-  draxNodeSelector:
-    draxName: "{{ $.Values.global.draxNodeSelector.draxName }}"
-
   nodeSelector: {}
 
   tolerations: []
@@ -441,10 +408,6 @@ rr-ctrl:
 
   podSecurityContext: {}
     # fsGroup: 2000
-
-  draxNodeSelectorEnabled: false
-  draxNodeSelector:
-    draxName: "{{ $.Values.global.draxNodeSelector.draxName }}"
 
   nodeSelector: {}
 
@@ -491,10 +454,6 @@ ds-ctrl:
   autoscaling:
     enabled: false
     factorReplicas: 8
-
-  draxNodeSelectorEnabled: false
-  draxNodeSelector:
-    draxName: "{{ $.Values.global.draxNodeSelector.draxName }}"
 
   nodeSelector: {}
 
