@@ -20,12 +20,12 @@ global:
     instanceId: "cw"
 
     redis:
-      hostname: "ric-redis-5g"
-      port: "6379"
+      hostname: ""
+      port: 0
 
     nats:
-      hostname: "ric-nats-5g"
-      port: "4222"
+      hostname: ""
+      port: 0
 
   drax:
     technology: "5g"
