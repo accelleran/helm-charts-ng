@@ -60,6 +60,7 @@ spec:
 {{ include "accelleran.common.pod.hostNetwork" . }}
 {{ include "accelleran.common.pod.dnsPolicy" . }}
 {{ include "accelleran.common.pod.securityContext" . }}
+{{ include "accelleran.common.pod.nodeName" . }}
 {{ include "accelleran.common.pod.nodeSelector" . }}
 {{ include "accelleran.common.pod.affinity" . }}
 {{ include "accelleran.common.pod.tolerations" . }}
@@ -114,6 +115,17 @@ dnsPolicy: {{ . | quote }}
 
 {{- with $values.podSecurityContext -}}
 securityContext:
+  {{- toYaml . | nindent 2 }}
+{{- end -}}
+{{- end -}}
+
+
+{{- define "accelleran.common.pod.nodeName" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common pod node name" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- with $values.nodeName -}}
+nodeName:
   {{- toYaml . | nindent 2 }}
 {{- end -}}
 {{- end -}}
