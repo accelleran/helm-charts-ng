@@ -53,9 +53,14 @@ cu-up:
   fullnameOverride: ""
 
   initImage:
-    repository: accelleran/acc-generic-img
-    tag: "latest"
-    pullPolicy: IfNotPresent
+    redis:
+      repository: accelleran/acc-generic-img
+      tag: "latest"
+      pullPolicy: IfNotPresent
+    nats:
+      repository: accelleran/acc-generic-img
+      tag: "latest"
+      pullPolicy: IfNotPresent
 
   imagePullSecrets:
     - name: accelleran-secret
