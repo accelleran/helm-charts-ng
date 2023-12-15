@@ -24,12 +24,9 @@
 {{- $values := get . "values" | default $.Values -}}
 
 {{- $name := get . "name" | required "Name needs to be provided to common init container args" -}}
-{{- $initImage := $values.initImage | required "Init image needs to be provided as part of the values to common init container args" -}}
 {{- $command := get . "command" -}}
 
 containerName: {{ $name | quote }}
-image:
-  {{- $initImage | toYaml | nindent 2 }}
 
 {{- with $command }}
 command:
@@ -55,11 +52,17 @@ Init container check waiting until redis is available
 {{- $values := get . "values" | default $.Values -}}
 
 {{- $bootstrapConfigMapName :=  get . "bootstrapConfigMapName" | default (include "accelleran.common.bootstrap.configMapName" .) -}}
+{{- $image := ($values.initImage).redis | required "The redis init image needs to be provided to common init redis args" -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}
 values:
-  {{ $values | toYaml | nindent 2 }}
+  {{
+    (mergeOverwrite
+      (deepCopy $values)
+      (dict "image" $image)
+    ) | toYaml | nindent 2
+  }}
 
 name: check-redis
 command:
@@ -101,11 +104,18 @@ Init container check waiting until NATS is available
 {{- $values := get . "values" | default $.Values -}}
 
 {{- $bootstrapConfigMapName := get . "bootstrapConfigMapName" | default (include "accelleran.common.bootstrap.configMapName" .)  -}}
+{{- $image := ($values.initImage).nats | required "The nats init image needs to be provided to common init nats args" -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}
 values:
-  {{ $values | toYaml | nindent 2 }}
+  {{
+    (mergeOverwrite
+      (deepCopy $values)
+      (dict "image" $image)
+    ) | toYaml | nindent 2
+  }}
+
 
 name: check-nats
 command:
