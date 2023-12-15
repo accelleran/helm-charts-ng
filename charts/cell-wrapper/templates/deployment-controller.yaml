@@ -19,13 +19,13 @@ volumes:
       name: {{ include "accelleran.common.fullname" (dict "top" $  "values" (index $.Values "instance-scaler")) }}
 
 initContainers:
-- {{ fromYaml (include "accelleran.common.init.redis" (fromYaml (include "accelleran.cell-wrapper.controller.init.args" .))) | toYaml | nindent 4 }}
-- {{ fromYaml (include "accelleran.common.init.nats" (fromYaml (include "accelleran.cell-wrapper.controller.init.args" .))) | toYaml | nindent 4 }}
+- {{ fromYaml (include "accelleran.common.init.redis" (fromYaml (include "accelleran.cell-wrapper.controller.init.args" .))) | toYaml | nindent 2 }}
+- {{ fromYaml (include "accelleran.common.init.nats" (fromYaml (include "accelleran.cell-wrapper.controller.init.args" .))) | toYaml | nindent 2 }}
 
 containers:
-- {{ fromYaml (include "accelleran.cell-wrapper.controller.container" $) | toYaml | nindent 4 }}
-- {{ fromYaml (include "accelleran.cell-wrapper.instance-scaler.container" $) | toYaml | nindent 4 }}
-- {{ fromYaml (include "accelleran.cell-wrapper.netconf.container" $) | toYaml | nindent 4 }}
+- {{ fromYaml (include "accelleran.cell-wrapper.controller.container" $) | toYaml | nindent 2 }}
+- {{ fromYaml (include "accelleran.cell-wrapper.instance-scaler.container" $) | toYaml | nindent 2 }}
+- {{ fromYaml (include "accelleran.cell-wrapper.netconf.container" $) | toYaml | nindent 2 }}
 {{- end -}}
 
 
