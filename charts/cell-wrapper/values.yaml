@@ -254,7 +254,7 @@ netconf:
     enabled: true
     name: ""
     annotations: {}
-    type: "NodePort"
+    type: "ClusterIP"
     portName: "netconf"
     protocol: "TCP"
     port: 8300
