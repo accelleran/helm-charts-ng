@@ -45,9 +45,14 @@ cw-ctrl:
   containerName: "cw-ctrl"
 
   initImage:
-    repository: accelleran/acc-generic-img
-    pullPolicy: IfNotPresent
-    tag: "latest"
+    redis:
+      repository: accelleran/acc-generic-img
+      pullPolicy: IfNotPresent
+      tag: "latest"
+    nats:
+      repository: accelleran/acc-generic-img
+      pullPolicy: IfNotPresent
+      tag: "latest"
 
   image:
     repository: accelleran/cw-ctrl
