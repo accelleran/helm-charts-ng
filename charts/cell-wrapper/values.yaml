@@ -260,3 +260,9 @@ netconf:
     port: 8300
     targetPort: null
     nodePort: null
+
+nats:
+  enabled: true
+
+  natsBox:
+    enabled: false
