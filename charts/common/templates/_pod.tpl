@@ -71,10 +71,14 @@ spec:
 {{- $ := get . "top" | required "The top context needs to be provided to common pod image pull secret" -}}
 {{- $values := get . "values" | default $.Values -}}
 
-{{- with $values.imagePullSecrets }}
+{{- if or $values.imagePullSecrets ($.Values.global).imagePullSecrets -}}
 imagePullSecrets:
-  {{- toYaml . | nindent 2 }}
-{{- end }}
+  {{- if $values.imagePullSecrets -}}
+  {{- toYaml $values.imagePullSecrets | nindent 2 }}
+  {{- else if ($.Values.global).imagePullSecrets -}}
+  {{- toYaml $.Values.global.imagePullSecrets | nindent 2 }}
+  {{- end -}}
+{{- end -}}
 {{- end -}}
 
 
