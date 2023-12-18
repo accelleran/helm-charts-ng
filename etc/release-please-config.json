@@ -33,6 +33,10 @@
     "charts/cu-up": {
       "component": "cu-up",
       "package-name": "cu-up"
+    },
+    "charts/drax": {
+      "component": "drax",
+      "package-name": "drax"
     }
   }
 }
