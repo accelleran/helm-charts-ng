@@ -36,12 +36,12 @@ global:
     instanceId: "cucp-1"
 
     redis:
-      hostname: "ric-redis-5g"
-      port: "6379"
+      hostname: ""
+      port: 0
 
     nats:
-      hostname: "ric-nats-5g"
-      port: "4222"
+      hostname: ""
+      port: 0
 
   drax:
     technology: "5g"
@@ -465,3 +465,16 @@ ds-ctrl:
   tolerations: []
 
   affinity: {}
+
+nats:
+  enabled: true
+
+  natsBox:
+    enabled: false
+
+redis:
+  enabled: true
+
+  architecture: standalone
+  auth:
+    enabled: false
