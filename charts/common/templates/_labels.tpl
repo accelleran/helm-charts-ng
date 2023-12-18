@@ -23,9 +23,6 @@ app.kubernetes.io/part-of: {{ . | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ $.Release.Service }}
 drax/helm-version: {{ include "accelleran.common.helmVersion" . | quote }}
-{{- with (include "accelleran.common.drax.name" .) }}
-drax/name: {{ . | quote }} # Deprecated
-{{- end -}}
 {{- with (include "accelleran.common.drax.role" .) }}
 drax/role: {{ . | quote }}
 {{- end }}
@@ -35,8 +32,6 @@ drax/technology: {{ . | quote }}
 {{- with (include "accelleran.common.bootstrap.instanceId" .) }}
 drax/instanceId: {{ . | quote }}
 {{- end }}
-drax/component-name: {{ include "accelleran.common.name" . | quote }} # Deprecated - use app.kubernetes.io/name instead
-drax/component-version: {{ include "accelleran.common.helmVersion" . | quote }} # Deprecated - use drax/helm-version instead
 {{- with $values.extraLabels }}
 {{ toYaml . }}
 {{- end }}
