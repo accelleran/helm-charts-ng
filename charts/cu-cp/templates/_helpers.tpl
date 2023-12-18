@@ -1,25 +1,25 @@
 {{- define "accelleran.cu-cp.amfCount" -}}
-{{- .Values.global.numOfAmfs -}}
+{{- .Values.numOfAmfs -}}
 {{- end -}}
 
 
 {{- define "accelleran.cu-cp.cuUpCount" -}}
-{{- .Values.global.numOfCuUps -}}
+{{- .Values.numOfCuUps -}}
 {{- end -}}
 
 
 {{- define "accelleran.cu-cp.duCount" -}}
-{{- .Values.global.numOfDus -}}
+{{- .Values.numOfDus -}}
 {{- end -}}
 
 
 {{- define "accelleran.cu-cp.cellCount" -}}
-{{- .Values.global.numOfCells -}}
+{{- .Values.numOfCells -}}
 {{- end -}}
 
 
 {{- define "accelleran.cu-cp.ueCount" -}}
-{{- .Values.global.numOfUes -}}
+{{- .Values.numOfUes -}}
 {{- end -}}
 
 
