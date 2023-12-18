@@ -119,7 +119,7 @@ netconf:
   service:
     enabled: true
     name: ""
-    type: "NodePort"
+    type: "ClusterIP"
     portName: "netconf"
     protocol: "TCP"
     port: 8300
