@@ -2,7 +2,7 @@
 {{- fail "UPS XDP Interfaces can only be specified if numberOfUpStacks is set to 0" -}}
 {{- end -}}
 
-{{- range $ordinal, $xdpUpsInterface := $.Values.global.xdpUpsInterfaces }}
+{{- range $ordinal, $xdpUpsInterface := $.Values.xdpUpsInterfaces }}
 ---
 {{ include
       "accelleran.common.deployment"
