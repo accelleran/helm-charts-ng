@@ -9057,4 +9057,2901 @@ entries:
       urls:
         - https://github.com/accelleran/helm-charts-ng/releases/download/acc-5g-cu-up-6.0.0/acc-5g-cu-up-6.0.0.tgz
       version: 6.0.0
+  drax:
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2023-12-08T11:41:19.574411471+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.2
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+      description: All in one Accelleran dRAX
+      digest: 7a5eaeff3f07975da36d39937d8408e66a7b6ba2066ebade95e795f8f03efea4
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.1.0/drax-0.1.0.tgz
+      version: 0.1.0
+    - apiVersion: v2
+      appVersion: 0.2.0
+      created: "2023-12-08T11:41:19.576877326+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.2
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+      description: All in one Accelleran dRAX
+      digest: 7cf9bd95ffda967f5522f0e338e4654bdbcf30f2b3870bd2c206621faf725b1e
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.2.0/drax-0.2.0.tgz
+      version: 0.2.0
+    - apiVersion: v2
+      appVersion: 0.2.1
+      created: "2023-12-08T11:41:19.57931605+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.2
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+      description: All in one Accelleran dRAX
+      digest: 5eae38df0233118fa9fab6d552c324f780a6e62e141187040cebe68eff643787
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.2.1/drax-0.2.1.tgz
+      version: 0.2.1
+    - apiVersion: v2
+      appVersion: 0.3.0
+      created: "2023-12-08T11:41:19.582903319+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.2
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: All in one Accelleran dRAX
+      digest: c386c49cd53ae4cfda00ba14429b15005eed1a5706f7fed7df93be773ddbe36d
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.3.0/drax-0.3.0.tgz
+      version: 0.3.0
+    - apiVersion: v2
+      appVersion: 0.4.0
+      created: "2023-12-08T11:41:19.586161149+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.0
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.2
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: All in one Accelleran dRAX
+      digest: cb64f9aa9ed0531eb3674d728d804ee0debf08d5cd9f211430c6004ab8790e82
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.4.0/drax-0.4.0.tgz
+      version: 0.4.0
+    - apiVersion: v2
+      appVersion: 0.4.1
+      created: "2023-12-08T11:41:19.590380905+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.1
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.2
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: All in one Accelleran dRAX
+      digest: 29c77c3863eb52fd0a3def092b2851204a6310212d4aabb70b8ffbee50299cf0
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.4.1/drax-0.4.1.tgz
+      version: 0.4.1
+    - apiVersion: v2
+      appVersion: 0.5.0
+      created: "2023-12-08T11:41:19.595899126+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.1
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.2
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: All in one Accelleran dRAX
+      digest: 29af1ad26689231662d32081913395380d41a0c4069f213087b31d0d088667d3
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.5.0/drax-0.5.0.tgz
+      version: 0.5.0
+    - apiVersion: v2
+      appVersion: 0.6.0
+      created: "2023-12-08T11:41:19.599973993+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.1
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.2
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: All in one Accelleran dRAX
+      digest: 72425fccbfb3d321ceec6f2bc8e3db223be1b4ec1043318f0f0bbcc255083baa
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.6.0/drax-0.6.0.tgz
+      version: 0.6.0
+    - apiVersion: v2
+      appVersion: 0.6.1
+      created: "2023-12-08T11:41:19.603681602+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.2
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.3
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: All in one Accelleran dRAX
+      digest: 29626d140bc3306eaa625544184422fe655360c8e29293785ed982281e1ac5b5
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.6.1/drax-0.6.1.tgz
+      version: 0.6.1
+    - apiVersion: v2
+      appVersion: 0.6.2
+      created: "2023-12-08T11:41:19.60770542+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.2
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.3
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+      description: All in one Accelleran dRAX
+      digest: 8e588c97ae4e0cceacf27be3167c847cf35d9f02b504999e4f7873e5990c56c8
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.6.2/drax-0.6.2.tgz
+      version: 0.6.2
+    - apiVersion: v2
+      appVersion: 0.7.2
+      created: "2023-12-08T11:41:19.615301098+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.2
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.3
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: oran-clustercontrol.enabled
+          name: oran-clustercontrol
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: All in one Accelleran dRAX
+      digest: b7059968c2baffcd3cace499c15e80abf1d8b7206cc1a7ae2974207f05728b4a
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.7.2/drax-0.7.2.tgz
+      version: 0.7.2
+    - apiVersion: v2
+      appVersion: 0.8.0
+      created: "2023-12-08T11:41:19.621444675+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.2
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.3
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: oran-clustercontrol.enabled
+          name: oran-clustercontrol
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: All in one Accelleran dRAX
+      digest: 3c9f41ca93c4651f9a0161a889f630bf1ad7ef51d467b2fd544ace2dd00ddabb
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.8.0/drax-0.8.0.tgz
+      version: 0.8.0
+    - apiVersion: v2
+      appVersion: 0.9.0
+      created: "2023-12-08T11:41:19.629118344+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.2
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.3
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: oran-clustercontrol.enabled
+          name: oran-clustercontrol
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+      description: All in one Accelleran dRAX
+      digest: 8a951e3bb9d73991325b5bbde59c14ce21d5c1e0a3ad05df493b5042de1bd532
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.9.0/drax-0.9.0.tgz
+      version: 0.9.0
+    - apiVersion: v2
+      appVersion: 0.9.1
+      created: "2023-12-08T11:41:19.634265188+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.0
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.3
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.0
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: oran-clustercontrol.enabled
+          name: oran-clustercontrol
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+      description: All in one Accelleran dRAX
+      digest: 815d70475025a1bb4cd64ec97e8de63c0fc772cb9968f877792b759b8c7caf9c
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-0.9.1/drax-0.9.1.tgz
+      version: 0.9.1
+    - apiVersion: v2
+      appVersion: 1.1.5
+      created: "2023-12-08T11:41:19.639396362+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.1
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.1
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.4
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.1
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.1
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.2
+        - condition: 4g-radio-controller.enabled
+          name: 4g-radio-controller
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.5
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.5
+      description: All in one Accelleran dRAX
+      digest: 22e76d5eb74897a6904dc3470c00d915313a898dfd22526b8aab466150227e45
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-1.1.5/drax-1.1.5.tgz
+      version: 1.1.5
+    - apiVersion: v2
+      appVersion: 1.1.6
+      created: "2023-12-08T11:41:19.64715526+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.1
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.4
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.1
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.1
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.2
+        - condition: 4g-radio-controller.enabled
+          name: 4g-radio-controller
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.5
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.5
+      description: All in one Accelleran dRAX
+      digest: 18f4c1e2f676f3692e30b2943eeaf93ec13babf77d221e8e8be09ad77fab2453
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-1.1.6/drax-1.1.6.tgz
+      version: 1.1.6
+    - apiVersion: v2
+      appVersion: 1.1.7
+      created: "2023-12-08T11:41:19.653861018+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.1
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.4
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.1
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.1
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.2
+        - condition: 4g-radio-controller.enabled
+          name: 4g-radio-controller
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.6
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.6
+      description: All in one Accelleran dRAX
+      digest: 10353740e452ce44459a4440dba5163c666651e8ff66017b51f36c6734529de5
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-1.1.7/drax-1.1.7.tgz
+      version: 1.1.7
+    - apiVersion: v2
+      appVersion: 1.1.8
+      created: "2023-12-08T11:41:19.660429233+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.1
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.4
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.1
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.1
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.2
+        - condition: 4g-radio-controller.enabled
+          name: 4g-radio-controller
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.6
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.6
+      description: All in one Accelleran dRAX
+      digest: b303a7e473345bc42d2fe0a87c43a0567b16610eb4d051eb63956936c0b7946e
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-1.1.8/drax-1.1.8.tgz
+      version: 1.1.8
+    - apiVersion: v2
+      appVersion: 2.0.0
+      created: "2023-12-08T11:41:19.667893283+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.4
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.3
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.11.1
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: 4g-radio-controller.enabled
+          name: 4g-radio-controller
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.2
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.2
+      description: All in one Accelleran dRAX
+      digest: c4551b903f65cc81039ec4433cc5206ec66c05e9d2afe262ba09a0ea945170e1
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-2.0.0/drax-2.0.0.tgz
+      version: 2.0.0
+    - apiVersion: v2
+      appVersion: 2.1.0
+      created: "2023-12-08T11:41:19.672808226+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.4
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.3
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.11.1
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: 4g-radio-controller.enabled
+          name: 4g-radio-controller
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.2
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.2
+      description: All in one Accelleran dRAX
+      digest: d0daed0cf831f2d825ce02a01db658ed07f1f967e2c28383dd8a6c115fb88a5a
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-2.1.0/drax-2.1.0.tgz
+      version: 2.1.0
+    - apiVersion: v2
+      appVersion: 3.0.0
+      created: "2023-12-08T11:41:19.722928933+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.4
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.11.2
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: 4g-radio-controller.enabled
+          name: 4g-radio-controller
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.0.3
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.0.0
+      description: All in one Accelleran dRAX
+      digest: be72ad13ef8a1b4fa7ec44e8cc297374a46947b46413ee0d5ff046909b0f1197
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-3.0.0/drax-3.0.0.tgz
+      version: 3.0.0
+    - apiVersion: v2
+      appVersion: 3.0.1
+      created: "2023-12-08T11:41:19.757054916+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.4
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.11.2
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: 4g-radio-controller.enabled
+          name: 4g-radio-controller
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.0.4
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.0.1
+      description: All in one Accelleran dRAX
+      digest: c90938df3dece5f46296e47cd077152fb8c436bd0ac1f864185d1a876241d895
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-3.0.1/drax-3.0.1.tgz
+      version: 3.0.1
+    - apiVersion: v2
+      appVersion: 4.0.0
+      created: "2023-12-08T11:41:19.780652674+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.4
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.11.2
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: 4g-radio-controller.enabled
+          name: 4g-radio-controller
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.0.4
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.0.1
+      description: All in one Accelleran dRAX
+      digest: d3f8b424440e4091803c890b7ab75c758c3fcbbcc439d7c6eee7757c1da89f18
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-4.0.0/drax-4.0.0.tgz
+      version: 4.0.0
+    - apiVersion: v2
+      appVersion: 4.1.0
+      created: "2023-12-08T11:41:19.802075486+01:00"
+      dependencies:
+        - condition: nats.enabled
+          name: nats
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.8.4
+        - condition: redis.enabled
+          name: redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: provisioner-dhcp.enabled
+          name: provisioner-dhcp
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: provisioner.enabled
+          name: provisioner
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.11.2
+        - condition: ntp-server.enabled
+          name: ntp-server
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: configurator.enabled
+          name: configurator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: 4g-radio-controller.enabled
+          name: 4g-radio-controller
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.0.4
+        - condition: acc-l2-update.enabled
+          name: acc-l2-update
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.0.4
+      description: All in one Accelleran dRAX
+      digest: dcefb08a48dfa4dcc28e58a413d7bbb3ce7b830748fdf978e5d4588d195086ec
+      name: drax
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/drax-4.1.0/drax-4.1.0.tgz
+      version: 4.1.0
+  nmock:
+    - apiVersion: v2
+      appVersion: 0.3.0
+      created: "2023-12-08T11:41:20.036456073+01:00"
+      description: A Helm chart for Kubernetes
+      digest: 702f64c6525b1b40b7a05a12bab9c752e9e706fa85e0abf3372d10f145486060
+      name: nmock
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/nmock-0.3.0/nmock-0.3.0.tgz
+      version: 0.3.0
+    - apiVersion: v2
+      appVersion: 0.4.0
+      created: "2023-12-08T11:41:20.037342385+01:00"
+      description: A Helm chart for Kubernetes
+      digest: 1798c22b82a5474dd123c7263f50c772669023a84787b5473a2465c8a1141bc5
+      name: nmock
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/nmock-1.0.0/nmock-1.0.0.tgz
+      version: 1.0.0
+    - apiVersion: v2
+      appVersion: 0.4.0
+      created: "2023-12-08T11:41:20.038274183+01:00"
+      description: A Helm chart for Kubernetes
+      digest: 12ea02ce6f5bf26cd3e94f8a8631a90f10d64d9f41c492e4cee37a4ad61e09c9
+      name: nmock
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/nmock-1.0.1/nmock-1.0.1.tgz
+      version: 1.0.1
+    - apiVersion: v2
+      appVersion: 0.5.1
+      created: "2023-12-08T11:41:20.039330764+01:00"
+      description: A Helm chart for Kubernetes
+      digest: 30d8a37b4b31eb2e9d3e718af3ebb22a485a38990cc3bd55a8921165872306ad
+      name: nmock
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/nmock-1.1.0/nmock-1.1.0.tgz
+      version: 1.1.0
+  ric:
+    - apiVersion: v2
+      appVersion: 1.0.0
+      created: "2023-12-08T11:41:20.132535967+01:00"
+      dependencies:
+        - name: druid
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.2
+        - name: kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.20.9
+        - name: nkafka-helm
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.6.2
+        - name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.15.1
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.36.2
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.0
+      description: A Helm chart for Kubernetes
+      digest: fe51d29aa173c3f1801f2a01f2497fec5eda53b649c6616033934a5d3136d4ad
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-1.0.0/ric-1.0.0.tgz
+      version: 1.0.0
+    - apiVersion: v2
+      appVersion: 1.1.12
+      created: "2023-12-08T11:41:20.188263893+01:00"
+      dependencies:
+        - condition: kafka.enabled
+          name: kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.20.9
+        - name: nkafka-helm
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+        - name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.2.1
+        - name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.17.0
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.36.2
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.0
+        - condition: acc-state-db.enabled
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.9.4
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.2
+      description: A Helm chart for Kubernetes
+      digest: 4aaf7e64a23ea51e8d10cfc481807c04c3b0f1cd43ea6359a2d19d4cd586c5ef
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-1.1.12/ric-1.1.12.tgz
+      version: 1.1.12
+    - apiVersion: v2
+      appVersion: 1.1.13
+      created: "2023-12-08T11:41:20.22303232+01:00"
+      dependencies:
+        - condition: kafka.enabled
+          name: kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.20.10
+        - name: nkafka-helm
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+        - name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.2.1
+        - name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.17.0
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.36.2
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.0
+        - condition: acc-state-db.enabled
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.9.5
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.2
+      description: A Helm chart for Kubernetes
+      digest: dd4c38c1414f74f42d511c6909494aba6f7bde83b7799bdaf4aae26c7d7149e3
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-1.1.13/ric-1.1.13.tgz
+      version: 1.1.13
+    - apiVersion: v2
+      appVersion: 1.1.14
+      created: "2023-12-08T11:41:20.271109097+01:00"
+      dependencies:
+        - condition: kafka.enabled
+          name: kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.20.10
+        - name: nkafka-4g
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.1.0
+        - name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.2.1
+        - name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.17.0
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.36.2
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.0
+        - condition: acc-state-db.enabled
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.9.5
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.2
+      description: A Helm chart for Kubernetes
+      digest: 871205afe2143ec4a028cf95961a79cb9cddbf106e8b192253b5f9961156a3ef
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-1.1.14/ric-1.1.14.tgz
+      version: 1.1.14
+    - apiVersion: v2
+      appVersion: 1.1.15
+      created: "2023-12-08T11:41:20.334092232+01:00"
+      dependencies:
+        - condition: kafka.enabled
+          name: kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.20.10
+        - name: nkafka-4g
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.1.0
+        - name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.2.1
+        - name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.17.0
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.36.2
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.0
+        - condition: acc-state-db.enabled
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.9.5
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.2
+      description: A Helm chart for Kubernetes
+      digest: 71c761fffc2e1556dbdf1ef23d3e109ab8bab8b9ab3d63620d72cce709711e58
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-1.1.15/ric-1.1.15.tgz
+      version: 1.1.15
+    - apiVersion: v2
+      appVersion: 1.2.0
+      created: "2023-12-08T11:41:20.384125915+01:00"
+      dependencies:
+        - condition: kafka.enabled
+          name: kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.20.9
+        - name: nkafka-helm
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+        - name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.4.0
+        - name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.18.0
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.36.2
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.0
+        - condition: acc-state-db.enabled
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.10.0
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.2
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: A Helm chart for Kubernetes
+      digest: e34e391479c4bf3030af5c9d57ba8d05e2c85f1057100223fcf284963d7148f3
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-1.2.0/ric-1.2.0.tgz
+      version: 1.2.0
+    - apiVersion: v2
+      appVersion: 1.2.1
+      created: "2023-12-08T11:41:20.44421357+01:00"
+      dependencies:
+        - condition: kafka.enabled
+          name: kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.20.9
+        - name: nkafka-helm
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+        - name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.4.0
+        - name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.18.1
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.36.2
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.0
+        - condition: acc-state-db.enabled
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.10.0
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.2
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: A Helm chart for Kubernetes
+      digest: bf5ce0981ae688d1f6579d5b3c442633a394891a563aec108dffbb7da6dde5f9
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-1.2.1/ric-1.2.1.tgz
+      version: 1.2.1
+    - apiVersion: v2
+      appVersion: 2.0.0
+      created: "2023-12-08T11:41:20.497372496+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: nkafka-4g.enabled
+          name: nkafka-4g
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.3.1
+        - name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.2.9
+        - name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.27.3
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: acc-state-db.enabled
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.1
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.0
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.1
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 0.1.0
+        - condition: global.enable5G
+          name: nkafka-5g
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 0.2.1
+      description: A Helm chart for Kubernetes
+      digest: 51675eacdc1a63cb6821d799b4613b79e6135cee8904c1cf10fd6bad04337a1f
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-2.0.0/ric-2.0.0.tgz
+      version: 2.0.0
+    - apiVersion: v2
+      appVersion: 2.0.1
+      created: "2023-12-08T11:41:20.565204015+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: nkafka-4g.enabled
+          name: nkafka-4g
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.3.1
+        - name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.2.9
+        - name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.27.3
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: acc-state-db.enabled
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.2
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.0
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.1
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 0.1.0
+        - condition: global.enable5G
+          name: nkafka-5g
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 0.2.1
+      description: A Helm chart for Kubernetes
+      digest: b5e5236203c7617ae778fbeed048448352965093cc873b64f3caaacbfd8191b9
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-2.0.1/ric-2.0.1.tgz
+      version: 2.0.1
+    - apiVersion: v2
+      appVersion: 2.1.0
+      created: "2023-12-08T11:41:20.613347571+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: nkafka-4g.enabled
+          name: nkafka-4g
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.3.1
+        - name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.2.9
+        - name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.1
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.1
+        - condition: acc-state-db.enabled
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.2
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.0
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.1
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 0.1.0
+        - condition: global.enable5G
+          name: nkafka-5g
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 0.2.1
+      description: A Helm chart for Kubernetes
+      digest: 43120e148ec1abc3ae671eaf826d99b697c79bb27645f08032a10f4744d7e86b
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-2.1.0/ric-2.1.0.tgz
+      version: 2.1.0
+    - apiVersion: v2
+      appVersion: 3.0.0
+      created: "2023-12-08T11:41:21.025649623+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: nkafka-4g.enabled
+          name: nkafka-4g
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.7.1
+        - name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.2
+        - name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.0.3
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.3
+        - condition: acc-state-db.enabled
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.1
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 2.0.0
+        - condition: global.enable5G
+          name: nkafka-5g
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 0.5.0
+      description: A Helm chart for Kubernetes
+      digest: de21bcea479b67b4a31a3c30d1c112b4c47c45e53032a9d8915be012dbf15d8b
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-3.0.0/ric-3.0.0.tgz
+      version: 3.0.0
+    - apiVersion: v2
+      appVersion: 3.0.1
+      created: "2023-12-08T11:41:21.272440429+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: global.enable4G
+          name: nkafka-4g
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.7.1
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.2
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.0.4
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.3
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.1
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 2.0.1
+        - condition: global.enable5G
+          name: nkafka-5g
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 2.0.1
+      description: A Helm chart for Kubernetes
+      digest: 252f537371014441db82bc47a8328b801c72bc955d840fcf7be624108c90b52c
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-3.0.1/ric-3.0.1.tgz
+      version: 3.0.1
+    - apiVersion: v2
+      appVersion: 4.0.0
+      created: "2023-12-08T11:41:21.834512938+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: global.enable4G
+          name: nkafka-4g
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.7.1
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.2
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.0.4
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.2.0
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.1
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - condition: global.enable5G
+          name: nkafka-5g
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+      description: A Helm chart for Kubernetes
+      digest: 0c76ad6c3e1ef6b69ab9f55ea5ce698c676da23c1922a58470ddcbe310a9dcb2
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-4.0.0/ric-4.0.0.tgz
+      version: 4.0.0
+    - apiVersion: v2
+      appVersion: 4.1.0
+      created: "2023-12-08T11:41:22.113528658+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: global.enable4G
+          name: nkafka-4g
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.7.1
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.2
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.0.4
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.1.0
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.2
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.4.1
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - condition: global.enable5G
+          name: nkafka-5g
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+      description: A Helm chart for Kubernetes
+      digest: c40fca6c40822f61fdd3492268555b94d8993befe5a0e05466ccf0e171c4f0f5
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-4.1.0/ric-4.1.0.tgz
+      version: 4.1.0
+    - apiVersion: v2
+      appVersion: 5.0.0
+      created: "2023-12-08T11:41:23.492452445+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: global.enable4G
+          name: nkafka-4g
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.8.0
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.8
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.0.0
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.1.1
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.0
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - condition: global.enable5G
+          name: nkafka-5g
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 4.0.0
+        - condition: global.enable4G
+          name: acc-4g-infrastructure
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.0
+      description: A Helm chart for Kubernetes
+      digest: 419c4bb5ee1c3356dc68250ffdfdabcbeb9dd63684bfe7d081d69d6ed9bbe90c
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-5.0.0/ric-5.0.0.tgz
+      version: 5.0.0
+    - apiVersion: v2
+      appVersion: 5.1.0
+      created: "2023-12-08T11:41:23.777380241+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: global.enable4G
+          name: nkafka-4g
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.8.0
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.10
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.1.0
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.2.0
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.0
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - condition: global.enable5G
+          name: nkafka-5g
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 4.0.1
+        - condition: global.enable4G
+          name: acc-4g-infrastructure
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.0
+        - condition: ingress.enabled
+          name: keycloak-ingress
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: A Helm chart for Kubernetes
+      digest: 07f6de914c4afcdbbdab1cf647675c85e2991e117964ff795f4f5b026a24b31d
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-5.1.0/ric-5.1.0.tgz
+      version: 5.1.0
+    - apiVersion: v2
+      appVersion: 6.0.0
+      created: "2023-12-08T11:41:24.080240302+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.11
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.2.0
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.3.0-rc.0
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.1
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.5.0
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - alias: golang-nkafka-4g
+          condition: global.enable4G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+        - alias: golang-nkafka-5g
+          condition: global.enable5G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts
+          version: 1.0.0
+        - condition: global.enable4G
+          name: acc-4g-infrastructure
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.1.0
+        - condition: ingress.enabled
+          name: keycloak-ingress
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: A Helm chart for Kubernetes
+      digest: 8f2798e04855482becedcaeba9a5b49e228e908afd1bcbe7d02593d7dba7e4fa
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-6.0.0/ric-6.0.0.tgz
+      version: 6.0.0
+    - apiVersion: v2
+      appVersion: 6.1.0
+      created: "2023-12-08T11:41:24.298558544+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.13
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.2.1
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.4.0
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.1
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.2
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - alias: golang-nkafka-4g
+          condition: global.enable4G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+        - alias: golang-nkafka-5g
+          condition: global.enable5G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts
+          version: 1.0.0
+        - condition: global.enable4G
+          name: acc-4g-infrastructure
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.1.0
+        - condition: ingress.enabled
+          name: keycloak-ingress
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: A Helm chart for Kubernetes
+      digest: 15943919e0e940f50dac99eb93b479c5435f013ab8082546c7c7ecaf45ad0df3
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-6.1.0/ric-6.1.0.tgz
+      version: 6.1.0
+    - apiVersion: v2
+      appVersion: 6.2.0
+      created: "2023-12-08T11:41:24.525428322+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.14
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.3.1
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.4.0
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.1
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.3
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - alias: golang-nkafka-4g
+          condition: global.enable4G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+        - alias: golang-nkafka-5g
+          condition: global.enable5G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts
+          version: 1.0.0
+        - condition: global.enable4G
+          name: acc-4g-infrastructure
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.1.0
+        - condition: ingress.enabled
+          name: keycloak-ingress
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: config-api.enabled
+          name: config-api
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.2
+        - condition: network-state-monitor.enabled
+          name: network-state-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+      description: A Helm chart for Kubernetes
+      digest: ed2ace28623620530fe509c6ff19221e821d03d98ce434e2a8f4b40d68638edd
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-6.2.0/ric-6.2.0.tgz
+      version: 6.2.0
+    - apiVersion: v2
+      appVersion: 6.3.0
+      created: "2023-12-08T11:41:24.868450004+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.16
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.4.2
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.4.1
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.1
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.3
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - alias: golang-nkafka-4g
+          condition: global.enable4G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.2.1
+        - alias: golang-nkafka-5g
+          condition: global.enable5G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts
+          version: 1.2.1
+        - condition: global.enable4G
+          name: acc-4g-infrastructure
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.1.0
+        - condition: ingress.enabled
+          name: keycloak-ingress
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: config-api.enabled
+          name: config-api
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.5
+        - condition: network-state-monitor.enabled
+          name: network-state-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: cell-wrapper.enabled
+          name: cell-wrapper
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.2.0
+      description: A Helm chart for Kubernetes
+      digest: 068e05496f549fdefe6405055dc745b986b53caebc00829c63e233bf9effb6b5
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-6.3.0/ric-6.3.0.tgz
+      version: 6.3.0
+    - apiVersion: v2
+      appVersion: 6.4.0
+      created: "2023-12-08T11:41:25.03172344+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.16
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.4.2
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.4.1
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.1
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.3
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - alias: golang-nkafka-4g
+          condition: global.enable4G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.2.1
+        - alias: golang-nkafka-5g
+          condition: global.enable5G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts
+          version: 1.2.1
+        - condition: global.enable4G
+          name: acc-4g-infrastructure
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.1.0
+        - condition: ingress.enabled
+          name: keycloak-ingress
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: config-api.enabled
+          name: config-api
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.5
+        - condition: network-state-monitor.enabled
+          name: network-state-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: cell-wrapper.enabled
+          name: cell-wrapper
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.2.1
+        - condition: e2t.enabled
+          name: e2t
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+      description: A Helm chart for Kubernetes
+      digest: 54bdbf62282f3caf30a72f469e4a1349747297a3a9d1f343a95d7d415eaec380
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-6.4.0/ric-6.4.0.tgz
+      version: 6.4.0
+    - apiVersion: v2
+      appVersion: 6.5.0
+      created: "2023-12-08T11:41:25.409294001+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.16
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.4.5
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.5.0
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.1
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.3
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - alias: golang-nkafka-4g
+          condition: global.enable4G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.2.1
+        - alias: golang-nkafka-5g
+          condition: global.enable5G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts
+          version: 1.2.1
+        - condition: global.enable4G
+          name: acc-4g-infrastructure
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.1.0
+        - condition: ingress.enabled
+          name: keycloak-ingress
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: config-api.enabled
+          name: config-api
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.9
+        - condition: network-state-monitor.enabled
+          name: network-state-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: cell-wrapper.enabled
+          name: cell-wrapper
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.3.0
+        - condition: e2t.enabled
+          name: e2t
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+      description: A Helm chart for Kubernetes
+      digest: 4a315f238848f96b52123e36a4982ac479a6e3241e6852e975d0f2f2161bdf06
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-6.5.0/ric-6.5.0.tgz
+      version: 6.5.0
+    - apiVersion: v2
+      appVersion: 6.5.1
+      created: "2023-12-08T11:41:25.507938168+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.16
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.5.0
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.5.0
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.1
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.3
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - alias: golang-nkafka-4g
+          condition: global.enable4G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.2.1
+        - alias: golang-nkafka-5g
+          condition: global.enable5G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts
+          version: 1.2.1
+        - condition: global.enable4G
+          name: acc-4g-infrastructure
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.1.0
+        - condition: ingress.enabled
+          name: keycloak-ingress
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: config-api.enabled
+          name: config-api
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.10
+        - condition: network-state-monitor.enabled
+          name: network-state-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: cell-wrapper.enabled
+          name: cell-wrapper
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.3.2
+        - condition: e2t.enabled
+          name: e2t
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+      description: A Helm chart for Kubernetes
+      digest: e11b270d0db70c6a63b4bd4bade3696e295b19c994626070f7705d2d77b25b7a
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-6.5.1/ric-6.5.1.tgz
+      version: 6.5.1
+    - apiVersion: v2
+      appVersion: 6.5.2
+      created: "2023-12-08T11:41:25.592296895+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.16
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.5.1
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.5.0
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.1
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.3
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - alias: golang-nkafka-4g
+          condition: global.enable4G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.2.1
+        - alias: golang-nkafka-5g
+          condition: global.enable5G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts
+          version: 1.2.1
+        - condition: global.enable4G
+          name: acc-4g-infrastructure
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.1.0
+        - condition: ingress.enabled
+          name: keycloak-ingress
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: config-api.enabled
+          name: config-api
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.11
+        - condition: network-state-monitor.enabled
+          name: network-state-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: cell-wrapper.enabled
+          name: cell-wrapper
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.3.2
+        - condition: e2t.enabled
+          name: e2t
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+      description: A Helm chart for Kubernetes
+      digest: 122f90974bb1eb95edc1b259a2e2d8e10bf3b325e2cffdf9784675f70b1a8d1d
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-6.5.2/ric-6.5.2.tgz
+      version: 6.5.2
+    - apiVersion: v2
+      appVersion: 6.5.3
+      created: "2023-12-08T11:41:25.664857015+01:00"
+      dependencies:
+        - condition: acc-kafka.enabled
+          name: acc-kafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.3.1
+        - condition: acc-kminion.enabled
+          name: acc-kminion
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.5.0
+        - condition: acc-sys-dashboard.enabled
+          name: acc-sys-dashboard
+          repository: https://accelleran.github.io/helm-charts/
+          version: 3.4.16
+        - condition: dash-front-back-end.enabled
+          name: dash-front-back-end
+          repository: https://accelleran.github.io/helm-charts/
+          version: 4.5.1
+        - name: loki-stack
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.43.0
+        - condition: acc-service-monitor.enabled
+          name: acc-service-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: acc-service-orchestrator.enabled
+          name: acc-service-orchestrator
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.5.0
+        - condition: global.enable4G
+          name: acc-state-db
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.14.5
+        - condition: influxdb.enabled
+          name: influxdb
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.0.2
+        - condition: vector.enabled
+          name: vector
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.7.0
+        - condition: vectorfiveg.enabled
+          name: vectorfiveg
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.6.1
+        - condition: acc-fiveg-pmcounters.enabled
+          name: acc-fiveg-pmcounters
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.3
+        - condition: global.enable5G
+          name: acc-5g-infrastructure
+          repository: https://accelleran.github.io/5g-helm-charts
+          version: 3.0.0
+        - alias: golang-nkafka-4g
+          condition: global.enable4G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.2.1
+        - alias: golang-nkafka-5g
+          condition: global.enable5G
+          name: golang-nkafka
+          repository: https://accelleran.github.io/helm-charts
+          version: 1.2.1
+        - condition: global.enable4G
+          name: acc-4g-infrastructure
+          repository: https://accelleran.github.io/helm-charts/
+          version: 5.1.0
+        - condition: ingress.enabled
+          name: keycloak-ingress
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: config-api.enabled
+          name: config-api
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.1.12
+        - condition: network-state-monitor.enabled
+          name: network-state-monitor
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.1.0
+        - condition: cell-wrapper.enabled
+          name: cell-wrapper
+          repository: https://accelleran.github.io/helm-charts/
+          version: 2.3.2
+        - condition: e2t.enabled
+          name: e2t
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+      description: A Helm chart for Kubernetes
+      digest: ab9b657ea9dfd1a9513028dc33f80ec562ac0f9789b84d5a937dd805f0e03aa3
+      name: ric
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/ric-6.5.3/ric-6.5.3.tgz
+      version: 6.5.3
+  xapp-hello-world:
+    - apiVersion: v2
+      appVersion: drax-4.0.0
+      created: "2023-12-08T11:41:25.72100405+01:00"
+      dependencies:
+        - condition: xapp-redis.enabled
+          name: xapp-redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: xapp-api.enabled
+          name: xapp-api
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+      description: A Helm chart for Accelleran dRAX xApp
+      digest: a1abc580c2761279d874faf19dc68c413863ced31233544774ebe2dc6606a14e
+      name: xapp-hello-world
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-1.0.0/xapp-hello-world-1.0.0.tgz
+      version: 1.0.0
+    - apiVersion: v2
+      appVersion: drax-4.0.1
+      created: "2023-12-08T11:41:25.723090048+01:00"
+      dependencies:
+        - condition: xapp-redis.enabled
+          name: xapp-redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: xapp-api.enabled
+          name: xapp-api
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+      description: A Helm chart for Accelleran dRAX xApp
+      digest: 52bfce334afeeef3f9f6a22cb72d62e6ef5a539a2ebb3b02b7a8ebd1db9fbdee
+      name: xapp-hello-world
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-1.0.1/xapp-hello-world-1.0.1.tgz
+      version: 1.0.1
+    - apiVersion: v2
+      appVersion: 1.0.0
+      created: "2023-12-08T11:41:25.725112414+01:00"
+      dependencies:
+        - condition: xapp-redis.enabled
+          name: xapp-redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+        - condition: xapp-api.enabled
+          name: xapp-api
+          repository: https://accelleran.github.io/helm-charts/
+          version: 1.0.0
+      description: A Helm chart for Accelleran dRAX xApp
+      digest: 8daad9129da614491c2fbc8266e75da65520724feed57a1aa75e726afde3d6c4
+      name: xapp-hello-world
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-1.0.2/xapp-hello-world-1.0.2.tgz
+      version: 1.0.2
+    - apiVersion: v2
+      appVersion: 2.0.0
+      created: "2023-12-08T11:41:25.726498053+01:00"
+      dependencies:
+        - condition: xapp-redis.enabled
+          name: xapp-redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+      description: A Helm chart for Accelleran dRAX xApp
+      digest: 74ef291f6af54ae2951b7f6029637fe84b044bd9131a9fdc2c815c433f9a777f
+      name: xapp-hello-world
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-2.0.0/xapp-hello-world-2.0.0.tgz
+      version: 2.0.0
+    - apiVersion: v2
+      appVersion: 2.0.1
+      created: "2023-12-08T11:41:25.729831034+01:00"
+      dependencies:
+        - condition: xapp-redis.enabled
+          name: xapp-redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+      description: A Helm chart for Accelleran dRAX xApp
+      digest: 20f67da8b7d3b3ca53e5cb47948f4f7dcf3fd2363d2d4b8c8021dc099a2763e0
+      name: xapp-hello-world
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-2.0.1/xapp-hello-world-2.0.1.tgz
+      version: 2.0.1
+    - apiVersion: v2
+      appVersion: 2.0.2
+      created: "2023-12-08T11:41:25.733302084+01:00"
+      dependencies:
+        - condition: xapp-redis.enabled
+          name: xapp-redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+      description: A Helm chart for Accelleran dRAX xApp
+      digest: 505f393a00a394bd41ad773a43306414e7fc85f95938358764e771a2ebf81edb
+      name: xapp-hello-world
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-2.0.2/xapp-hello-world-2.0.2.tgz
+      version: 2.0.2
+    - apiVersion: v2
+      appVersion: 2.1.1
+      created: "2023-12-08T11:41:25.74966041+01:00"
+      dependencies:
+        - condition: xapp-redis.enabled
+          name: xapp-redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+      description: A Helm chart for Accelleran dRAX xApp
+      digest: 202ec35a4ad083e0fa8d0b6d7f9129d2f550fd555ac3270a255b725a474b6785
+      name: xapp-hello-world
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-2.1.1/xapp-hello-world-2.1.1.tgz
+      version: 2.1.1
+    - apiVersion: v2
+      appVersion: 2.1.2
+      created: "2023-12-08T11:41:25.752441746+01:00"
+      dependencies:
+        - condition: xapp-redis.enabled
+          name: xapp-redis
+          repository: https://accelleran.github.io/helm-charts/
+          version: 0.2.0
+      description: A Helm chart for Accelleran dRAX xApp
+      digest: de078f36e084e6359333fb61f7834c0ab1adff02b38247e14d13581c5caa0b69
+      name: xapp-hello-world
+      type: application
+      urls:
+        - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-2.1.2/xapp-hello-world-2.1.2.tgz
+      version: 2.1.2
 generated: "2023-06-30T06:33:54.730759056Z"
