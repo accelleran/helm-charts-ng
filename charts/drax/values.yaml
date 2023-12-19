@@ -150,8 +150,6 @@ config-api:
 
 cell-wrapper:
   enabled: true
-  global:
-    tag: "nightly-2023-12-15"
 
   nats:
     enabled: false
