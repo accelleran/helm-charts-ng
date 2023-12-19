@@ -26,10 +26,12 @@ bootstrap:
   instanceId: "cw"
 
   redis:
+    enabled: true
     hostname: ""
     port: 0
 
   nats:
+    enabled: true
     hostname: ""
     port: 0
 
