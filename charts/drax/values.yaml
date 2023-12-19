@@ -379,8 +379,7 @@ prometheus:
     name: server
     persistentVolume:
       enabled: true
-      storageClassName: longhorn
-      storageClass: longhorn
+      storageClassName: ""
     statefulSet:
       enabled: true
       labels:
@@ -432,7 +431,7 @@ grafana:
   persistence:
     type: pvc
     enabled: true
-    storageClassName: longhorn
+    storageClassName: ""
 
   service:
     enabled: true
@@ -611,7 +610,7 @@ influxdb:
     drax/component-name: influxdb
   enabled: true
   persistence:
-    storageClassName: longhorn
+    storageClassName: ""
   nodeSelector: {}
   podLabels:
     drax/role: ric
