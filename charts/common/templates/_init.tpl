@@ -66,7 +66,7 @@ values:
 
 name: check-redis
 command:
-- "/bin/bash"
+- "/bin/sh"
 - "-c"
 - |
     until [ "$(redis-cli -h ${REDIS_HOSTNAME} -p ${REDIS_PORT} ping)" == "PONG" ]
@@ -119,7 +119,7 @@ values:
 
 name: check-nats
 command:
-  - "/bin/bash"
+  - "/bin/sh"
   - "-c"
   - |
     until nc -z -v -w1 ${NATS_HOSTNAME} ${NATS_PORT}
