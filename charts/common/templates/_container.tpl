@@ -50,6 +50,7 @@ volumeMounts:
   {{- tpl (toYaml .) $ | nindent 2 }}
 {{- end }}
 
+{{- include "accelleran.common.container.ports" . }}
 {{- include "accelleran.common.container.probes" . }}
 {{- include "accelleran.common.container.config" . }}
 {{- end -}}
@@ -130,5 +131,22 @@ resources:
 {{- with $values.securityContext }}
 securityContext:
   {{- toYaml . | nindent 2 }}
+{{- end }}
+{{- end -}}
+
+
+{{- define "accelleran.common.container.ports" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common container ports" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- if $values.service }}
+ports:
+  - {{ with ($values.service).portName }}
+    name: {{ . }}
+    {{- end }}
+    {{- with ($values.service).protocol }}
+    protocol: {{ . }}
+    {{- end }}
+    containerPort: {{ ($values.service).containerPort | default (int ($values.service).targetPort) | default ($values.service).port }}
 {{- end }}
 {{- end -}}

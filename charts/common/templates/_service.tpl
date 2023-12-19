@@ -18,25 +18,7 @@ spec:
   {{- with $values.service.externalTrafficPolicy }}
   externalTrafficPolicy: {{ . }}
   {{- end }}
-  ports:
-    - {{- with $values.service.portName }}
-      name: {{ . }}
-      {{- end }}
-      {{- with $values.service.appProtocol }}
-      appProtocol: {{ . }}
-      {{- end }}
-      {{- with $values.service.protocol }}
-      protocol: {{ . }}
-      {{- end }}
-      port: {{ $values.service.port }}
-      {{- with $values.service.targetPort }}
-      targetPort: {{ . }}
-      {{- end }}
-      {{- if eq $type "NodePort" -}}
-      {{- with $values.service.nodePort }}
-      nodePort: {{ . }}
-      {{- end }}
-      {{- end -}}
+  {{- include "accelleran.common.service.ports" . | nindent 2 }}
   {{- if eq $type "LoadBalancer" -}}
   {{- with $values.service.loadBalancerIP }}
   loadBalancerIP: {{ . }}
@@ -62,4 +44,31 @@ spec:
 {{- with (get $values.service "annotations") -}}
 {{- . | toYaml -}}
 {{- end -}}
+{{- end -}}
+
+
+{{- define "accelleran.common.service.ports" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common service ports" -}}
+{{- $values := get . "values" | default $.Values -}}
+{{- $type := ($values.service).type | default "ClusterIP" -}}
+
+ports:
+  - {{- with ($values.service).portName }}
+    name: {{ . }}
+    {{- end }}
+    {{- with ($values.service).appProtocol }}
+    appProtocol: {{ . }}
+    {{- end }}
+    {{- with ($values.service).protocol }}
+    protocol: {{ . }}
+    {{- end }}
+    port: {{ ($values.service).port }}
+    {{- with ($values.service).targetPort }}
+    targetPort: {{ . }}
+    {{- end }}
+    {{- if eq $type "NodePort" -}}
+    {{- with ($values.service).nodePort }}
+    nodePort: {{ . }}
+    {{- end }}
+    {{- end -}}
 {{- end -}}
