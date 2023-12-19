@@ -32,7 +32,7 @@ data:
 
     # Setup the global connection parameters to NATS
     nats: {
-      Servers: ["{{ tpl .Values.natsUrl . }}"],
+      Servers: ["{{ tpl .Values.nats.hostname . }}:{{ .Values.nats.port }}"],
       ConnectTimeout: {{ .Values.config.natsConnectionParameters.connectTimeout }},
       MaxReconnects: {{ .Values.config.natsConnectionParameters.maxReconnects }},
       ReconnectWait: {{ .Values.config.natsConnectionParameters.reconnectWait }},

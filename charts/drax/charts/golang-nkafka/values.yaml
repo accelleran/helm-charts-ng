@@ -21,7 +21,7 @@ initImage:
   repository: accelleran/acc-generic-img
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "0.8.0-dev.2"
 
 initConfig:
   natsCheckEnabled: true
@@ -77,8 +77,12 @@ tolerations: []
 
 affinity: {}
 
-natsUrl: "{{ .Release.Name }}-nats.{{ .Release.Namespace }}:4222"
-kafkaUrl: "{{ .Release.Name }}-kafka.{{ .Release.Namespace }}:9092"
+nats:
+  hostname: "{{ .Release.Name }}-nats.{{ .Release.Namespace }}"
+  port: 4222
+kafka:
+  hostname: "{{ .Release.Name }}-kafka.{{ .Release.Namespace }}"
+  port: 9092
 
 config:
   natsConnectionParameters:

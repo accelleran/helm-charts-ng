@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: acc-generic
-        image: accelleran/acc-generic-img:0.6.0
+        image: accelleran/acc-generic-img:0.8.0-dev.0
         command: ["tail", "-f", "/dev/null"]
         resources: {}

@@ -26,13 +26,30 @@ spec:
         - name: {{ .Chart.Name }}-check-nats
           image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
-          command: ['sh', '-c', 'until nc -z -v -w1 {{ tpl .Values.natsUrl . }}; do echo $(date) [CHECK-SERVICES] Waiting for NATS at {{ tpl .Values.natsUrl . }}; sleep 2; done']
+          command:
+            - "/bin/sh"
+            - "-c"
+            - |
+              until nc -z -v -w1 {{ tpl .Values.nats.hostname . }} {{ .Values.nats.port }}
+              do
+                sleep 1
+              done
+              echo "$(date) NATS ready"
         {{ end }}
         {{ if .Values.initConfig.kafkaCheckEnabled }}
         - name: {{ .Chart.Name }}-check-kafka
           image: "{{ .Values.initImage.repository }}:{{ .Values.initImage.tag }}"
           imagePullPolicy: {{ .Values.initImage.pullPolicy }}
-          command: ['sh', '-c', 'echo "KAFKA_URL=\"{{ tpl .Values.kafkaUrl . }}\"" > kafka_url.py && python3 kafka-test.py {{ tpl .Values.initConfig.kafkaTopicsCheck . }}']
+          command:
+            - "sh"
+            - "-c"
+            - >-
+              kcat
+              -b "{{ tpl .Values.kafka.hostname . }}:{{ .Values.kafka.port }}"
+              -t test-topic
+              -C
+              -o beginning
+              -e
         {{ end }}
         - name: {{ .Chart.Name }}-create-config
           {{ if eq (tpl .Values.accelleranLicense.enabled .) "true" }}
@@ -54,7 +71,7 @@ spec:
             - /home/conf/generate_nats_to_kafka_connections.py
             - /home/conf/KafkaTopics.toml
             - /home/conf/Topics.toml
-            - {{ tpl .Values.kafkaUrl . }}
+            - "{{ tpl .Values.kafka.hostname . }}:{{ .Values.kafka.port }}"
             - /config/Connections.conf
           {{ if eq (tpl .Values.mode .) "5g" }}
             - --asterisk_prefix

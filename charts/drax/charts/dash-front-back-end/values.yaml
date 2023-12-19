@@ -18,7 +18,7 @@ image:
 initImage:
   repository: accelleran/acc-generic-img
   pullPolicy: IfNotPresent
-  tag: "0.6.0"
+  tag: "0.8.0-dev.2"
 
 initConfig:
   kafkaUrl: "{{ $.Release.Name }}-kafka.{{ $.Release.Namespace }}:9092"
