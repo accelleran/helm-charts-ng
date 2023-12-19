@@ -48,10 +48,12 @@ bootstrap:
   instanceId: "cuup-1"
 
   redis:
+    enabled: true
     hostname: ""
     port: 0
 
   nats:
+    enabled: true
     hostname: ""
     port: 0
 
