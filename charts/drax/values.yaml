@@ -153,6 +153,11 @@ cell-wrapper:
   global:
     tag: "nightly-2023-12-15"
 
+  nats:
+    enabled: false
+  redis:
+    enabled: false
+
 e2t:
   enabled: false
 
