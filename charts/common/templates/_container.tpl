@@ -107,7 +107,7 @@ readinessProbe:
 {{- $ := get . "top" | required "The top context needs to be provided to common container iamge pull policy" -}}
 {{- $values := get . "values" | default $.Values -}}
 
-{{- with $values.image.pullPolicy }}
+{{- with ($values.image).pullPolicy }}
 imagePullPolicy: {{ . }}
 {{- end }}
 {{- end -}}
