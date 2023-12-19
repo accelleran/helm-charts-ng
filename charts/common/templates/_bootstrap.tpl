@@ -66,35 +66,47 @@ data:
 
 {{- define "accelleran.common.bootstrap.redis.hostname" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap redis hostname" -}}
+{{- if (($.Values.bootstrap).redis).enabled -}}
 {{- (($.Values.bootstrap).redis).hostname | default (printf "%s-redis-master" $.Release.Name) -}}
+{{- end -}}
 {{- end -}}
 
 
 {{- define "accelleran.common.bootstrap.redis.port" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap redis port" -}}
+{{- if (($.Values.bootstrap).redis).enabled -}}
 {{- (($.Values.bootstrap).redis).port | default 6379 -}}
+{{- end -}}
 {{- end -}}
 
 
 {{- define "accelleran.common.bootstrap.nats.hostname" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap nats hostname" -}}
+{{- if (($.Values.bootstrap).nats).enabled -}}
 {{- (($.Values.bootstrap).nats).hostname | default (printf "%s-nats" $.Release.Name) -}}
+{{- end -}}
 {{- end -}}
 
 
 {{- define "accelleran.common.bootstrap.nats.port" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap nats port" -}}
+{{- if (($.Values.bootstrap).nats).enabled -}}
 {{- (($.Values.bootstrap).nats).port | default 4222 -}}
+{{- end -}}
 {{- end -}}
 
 
 {{- define "accelleran.common.bootstrap.kafka.hostname" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap kafka hostname" -}}
+{{- if (($.Values.bootstrap).kafka).enabled -}}
 {{- (($.Values.bootstrap).kafka).hostname | default (printf "%s-kafka" $.Release.Name) -}}
+{{- end -}}
 {{- end -}}
 
 
 {{- define "accelleran.common.bootstrap.kafka.port" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap kafka port" -}}
+{{- if (($.Values.bootstrap).kafka).enabled -}}
 {{- (($.Values.bootstrap).kafka).port | default 9092 -}}
+{{- end -}}
 {{- end -}}
