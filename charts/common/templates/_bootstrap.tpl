@@ -20,11 +20,27 @@ values:
 name: {{ include "accelleran.common.bootstrap.configMapName" . | quote }}
 
 data:
-  REDIS_HOSTNAME: {{ include "accelleran.common.bootstrap.redis.hostname" . | quote }}
-  REDIS_PORT: {{ include "accelleran.common.bootstrap.redis.port" . | quote }}
-  INSTANCE_FILTER: {{ include "accelleran.common.bootstrap.instanceId" . | quote }}
-  NATS_HOSTNAME: {{ include "accelleran.common.bootstrap.nats.hostname" . | quote }}
-  NATS_PORT: {{ include "accelleran.common.bootstrap.nats.port" . | quote }}
+  {{- with (include "accelleran.common.bootstrap.instanceId" .) }}
+  INSTANCE_FILTER: {{ . | quote }}
+  {{- end }}
+  {{- with (include "accelleran.common.bootstrap.redis.hostname" .) }}
+  REDIS_HOSTNAME: {{ . | quote }}
+  {{- end }}
+  {{- with (include "accelleran.common.bootstrap.redis.port" .) }}
+  REDIS_PORT: {{ . | quote }}
+  {{- end }}
+  {{- with ( include "accelleran.common.bootstrap.nats.hostname" .) }}
+  NATS_HOSTNAME: {{ . | quote }}
+  {{- end }}
+  {{- with ( include "accelleran.common.bootstrap.nats.port" .) }}
+  NATS_PORT: {{ . | quote }}
+  {{- end }}
+  {{- with ( include "accelleran.common.bootstrap.kafka.hostname" .) }}
+  KAFKA_HOSTNAME: {{ . | quote }}
+  {{- end }}
+  {{- with ( include "accelleran.common.bootstrap.kafka.port" .) }}
+  KAFKA_PORT: {{ . | quote }}
+  {{- end }}
 {{- end -}}
 
 
@@ -38,7 +54,9 @@ data:
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap instance id" -}}
 {{- $values := get . "values" | default $.Values -}}
 {{- $instanceId := ($.Values.bootstrap).instanceId -}}
-{{- if not (and (regexMatch "^[a-z]([a-z0-9-]*[a-z0-9])?$" $instanceId) (le (len $instanceId) 16)) }}
+{{- if not $instanceId -}}
+{{- /* ignore instance id if not set */ -}}
+{{- else if not (and (regexMatch "^[a-z]([a-z0-9-]*[a-z0-9])?$" $instanceId) (le (len $instanceId) 16)) }}
 {{- required "The Instance ID you have chosen is invalid! The Instance ID must consist of lower case alphanumeric characters or '-', start with an alphabetic character, and end with an alphanumeric character (e.g. 'my-name',  or 'abc-123', regex used for validation is '^[a-z]([a-z0-9-]*[a-z0-9])?$'). The Instance ID also cannot be longer than 16 alphanumeric characters!" nil }}
 {{- else -}}
 {{- $instanceId -}}
@@ -67,4 +85,16 @@ data:
 {{- define "accelleran.common.bootstrap.nats.port" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap nats port" -}}
 {{- (($.Values.bootstrap).nats).port | default 4222 -}}
+{{- end -}}
+
+
+{{- define "accelleran.common.bootstrap.kafka.hostname" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common bootstrap kafka hostname" -}}
+{{- (($.Values.bootstrap).kafka).hostname | default (printf "%s-kafka" $.Release.Name) -}}
+{{- end -}}
+
+
+{{- define "accelleran.common.bootstrap.kafka.port" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common bootstrap kafka port" -}}
+{{- (($.Values.bootstrap).kafka).port | default 9092 -}}
 {{- end -}}

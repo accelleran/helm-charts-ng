@@ -139,3 +139,56 @@ env:
         name: {{ $bootstrapConfigMapName | quote }}
         key: NATS_PORT
 {{- end -}} 
+
+
+{{/*
+Init container check waiting until kafka is available
+*/}}
+{{- define "accelleran.common.init.kafka" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common init kafka" -}}
+
+{{ include "accelleran.common.init.container"
+    (include "accelleran.common.init.kafka.args" . | fromYaml)
+}}
+{{- end -}}
+
+{{- define "accelleran.common.init.kafka.args" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common init kafka args" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- $bootstrapConfigMapName := get . "bootstrapConfigMapName" | default (include "accelleran.common.bootstrap.configMapName" .)  -}}
+{{- $image := ($values.initImage).kafka | required "The kafka init image needs to be provided to common init kafka args" -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{
+    (mergeOverwrite
+      (deepCopy $values)
+      (dict "image" $image)
+    ) | toYaml | nindent 2
+  }}
+
+
+name: check-kafka
+command:
+  - "/bin/sh"
+  - "-c"
+  - |
+    until kcat -b "${KAFKA_HOSTNAME}:${KAFKA_PORT}" -t test-topic -C -o beginning -e
+    do
+      sleep 1
+    done
+    echo "$(date) Kafka ready"
+env:
+  - name: KAFKA_HOSTNAME
+    valueFrom:
+      configMapKeyRef:
+        name: {{ $bootstrapConfigMapName | quote }}
+        key: KAFKA_HOSTNAME
+  - name: KAFKA_PORT
+    valueFrom:
+      configMapKeyRef:
+        name: {{ $bootstrapConfigMapName | quote }}
+        key: KAFKA_PORT
+{{- end -}} 
