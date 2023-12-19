@@ -3,7 +3,6 @@
 {{- $values := get . "values" | default $.Values -}}
 
 {{- $restartPolicy := get . "restartPolicy" -}}
-{{- $volumes := get . "volumes" | default list -}}
 {{- $initContainers := get . "initContainers" | default list -}}
 {{- $containers := get . "containers" -}}
 {{- if not $containers -}}
@@ -11,6 +10,17 @@
 Cannot use default as then the template is always evaluated
 */}}
 {{-  $containers = list (fromYaml (include "accelleran.common.container" .)) -}}
+{{- end -}}
+
+{{- $volumes := list -}}
+{{- if eq (include "accelleran.common.drax.license.enabled" .) "true" -}}
+{{- $volumes = append $volumes (fromYaml (include "accelleran.common.drax.license.volume" .)) -}}
+{{- end -}}
+{{- with (get . "volumes") -}}
+{{- $volumes = concat $volumes . -}}
+{{- end -}}
+{{- with $values.extraVolumes -}}
+{{- $volumes = concat $volumes . -}}
 {{- end -}}
 
 metadata:
@@ -28,13 +38,10 @@ spec:
   restartPolicy: {{ . }}
   {{- end }}
 
-  {{- if or $volumes $values.extraVolumes }}
+  {{- if gt (len $volumes) 0 }}
   volumes:
-    {{- with $volumes }}
-    {{- tpl (toYaml .) $ | nindent 4 }}
-    {{- end }}
-    {{- with $values.extraVolumes }}
-    {{ tpl (toYaml .) $ | indent 4 }}
+    {{- range $volumes }}
+    - {{- tpl (toYaml .) $ | nindent 6 }}
     {{- end }}
   {{- end }}
 

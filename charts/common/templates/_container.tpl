@@ -4,9 +4,6 @@
 
 {{- $containerName := $values.containerName | default (include "accelleran.common.name" .) -}}
 
-{{- $imageRepository := $values.image.repository | required "A valid container image repository is required" -}}
-{{- $imageTag := include "accelleran.common.appVersion" . -}}
-
 {{- $command := $values.command -}}
 {{- $args := $values.args -}}
 
@@ -17,13 +14,19 @@
 
 {{- $envFrom := get . "envFrom" | default list -}}
 
-{{- $volumeMounts := get . "volumeMounts" | default list -}}
+{{- $volumeMounts := list -}}
+{{- if eq (include "accelleran.common.drax.license.enabled" .) "true" -}}
+{{- $volumeMounts = append $volumeMounts (fromYaml (include "accelleran.common.drax.license.volumeMount" .)) -}}
+{{- end -}}
+{{- with (get . "volumeMounts") -}}
+{{- $volumeMounts = concat $volumeMounts . -}}
+{{- end -}}
 {{- with $values.extraVolumeMounts -}}
-{{- $volumeMounts = append $volumeMounts . -}}
+{{- $volumeMounts = concat $volumeMounts . -}}
 {{- end -}}
 
 name: {{ $containerName | quote }}
-image: {{ printf "%s:%s" $imageRepository $imageTag | quote }}
+{{ include "accelleran.common.container.image" . }}
 
 {{- with $command }}
 command:
@@ -53,6 +56,21 @@ volumeMounts:
 {{- include "accelleran.common.container.ports" . }}
 {{- include "accelleran.common.container.probes" . }}
 {{- include "accelleran.common.container.config" . }}
+{{- end -}}
+
+
+{{- define "accelleran.common.container.image" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to common container image" -}}
+{{- $values := get . "values" | default $.Values -}}
+
+{{- $imageRepository := $values.image.repository | required "A valid container image repository is required" -}}
+{{- $imageTag := include "accelleran.common.appVersion" . -}}
+
+{{- if eq (include "accelleran.common.drax.license.enabled" .) "true" -}}
+{{- $imageRepository = (printf "%s-license" $imageRepository) -}}
+{{- end -}}
+
+image: {{ printf "%s:%s" $imageRepository $imageTag | quote }}
 {{- end -}}
 
 
