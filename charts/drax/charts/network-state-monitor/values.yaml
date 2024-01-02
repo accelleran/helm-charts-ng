@@ -1,0 +1,72 @@
+drax:
+  role: ric
+  technology: null
+
+bootstrap:
+  create: true
+  configMapName: ""
+
+  kafka:
+    enabled: true
+    hostname: ""
+    port: 0
+
+config:
+  brokers: "{{ .Release.Name }}-kafka.{{ .Release.Namespace }}:9092"
+  group_id: "network-state-monitor"
+  topics: "accelleran.drax.5g.ric.raw.messages"
+  offset: "latest"
+  kafka_client_verbose: "false"
+
+nameOverride: ""
+fullnameOverride: ""
+
+replicaCount: 1
+
+image:
+  repository: accelleran/network-state-monitor
+  pullPolicy: IfNotPresent
+  # Override the image tag, which defaults to the Chart's AppVersion
+  tag: ""
+
+imagePullSecrets:
+  - name: accelleran-secret
+
+initImage:
+  kafka:
+    repository: accelleran/acc-generic-img
+    pullPolicy: IfNotPresent
+    tag: "0.8.0-dev.2"
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+service:
+  enabled: true
+  type: ClusterIP
+  portName: http
+  port: 5000
+  targetPort: 5000
+  protocol: TCP

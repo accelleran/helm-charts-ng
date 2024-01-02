@@ -10,6 +10,10 @@ dependencies:
     condition: dash-front-back-end.enabled
     version: 4.4.4
     repository: https://accelleran.github.io/helm-charts-ng/
+  - name: network-state-monitor
+    condition: network-state-monitor.enabled
+    version: 0.1.0
+    repository: https://accelleran.github.io/helm-charts-ng/
   - name: service-monitor
     condition: service-monitor.enabled
     version: 1.0.0
