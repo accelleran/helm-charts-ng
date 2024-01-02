@@ -54,11 +54,14 @@ tolerations: []
 affinity: {}
 
 service:
-  serviceName: service-orchestrator
-  name: ser-orc
-  type: NodePort
+  enabled: true
+  name: ""
+  type: ClusterIP
+  portName: "ser-orc"
   port: 80
-  nodePort: 30502
+  targetPort: 80
+  nodePort: null
+  protocol: TCP
 
 serviceAccount:
   # Specifies whether a service account should be created

@@ -5,7 +5,7 @@ drax:
 config:
   default_service_namespace_5g: "default"
   default_oran_namespace_4g: "default"
-  service_monitor_host: "service-monitor"
+  service_monitor_host: "{{ .Release.Name }}-service-monitor"
   service_monitor_port: "80"
 
 nameOverride: ""

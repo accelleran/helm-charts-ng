@@ -52,7 +52,7 @@ affinity: {}
 
 service:
   enabled: true
-  name: service-monitor
+  name: ""
   type: ClusterIP
   portName: "ser-mon"
   port: 80
@@ -65,7 +65,7 @@ serviceAccount:
   create: true
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: service-monitor
+  name: ""
 
 rbac:
   enabled: true
