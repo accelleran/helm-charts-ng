@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 global:
-  enable4G: true
-  enable5G: false
+  enable4G: false
+  enable5G: true
 
 replicaCount: 1
 

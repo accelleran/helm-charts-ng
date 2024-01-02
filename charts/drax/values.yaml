@@ -35,8 +35,8 @@ global:
   #
   #   Value type:   bool
   #
-  enable4G: true
-  enable5G: false
+  enable4G: false
+  enable5G: true
 
   # Accelleran License
   #   Description:  In order to use the Accelleran products, you need to have a license from Accelleran.
