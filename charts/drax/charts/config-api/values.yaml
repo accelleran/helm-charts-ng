@@ -21,8 +21,7 @@ image:
 imagePullSecrets:
   - name: accelleran-secret
 
-podSecurityContext:
-  {}
+podSecurityContext: {}
   # fsGroup: 2000
 
 securityContext:
