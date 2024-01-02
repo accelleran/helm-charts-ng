@@ -1,24 +1,19 @@
 ###############################################
 
 ###############################################
-# Accelleran dRAX RIC                         #
+# Accelleran dRAX                             #
 ###############################################
 
-# Release Notes ###############################
+## Accelleran dRAX {{ $.Chart.Version }}
 
-## Accelleran RIC {{ $.Chart.Version }}
+{{ if index .Values "dash-front-back-end" "enabled" -}}
+## dRAX Dashboard
+{{ .Values.global.kubeIp }}:{{ index .Values "dash-front-back-end" "service" "nodePort" }}
+{{- end }}
 
-# Services #####################################
-{{ if index .Values "dash-front-back-end" "enabled" }}## dRAX Dashboard
-{{ .Values.global.kubeIp }}:{{ index .Values "dash-front-back-end" "service" "nodePort" }} {{ end }}
-
-{{ if index .Values "service-monitor" "enabled" }}## Service Monitor
-{{ .Values.global.kubeIp }}:{{ index .Values "service-monitor" "service" "nodePort" }} {{ end }}
-
-{{ if index .Values "grafana" "enabled" }}## Grafana
-{{ .Values.global.kubeIp }}:{{ index .Values "grafana" "service" "nodePort" }} {{ end }}
-
-{{ if index .Values "kafka" "enabled" }}## Kafka
-{{ .Values.global.kubeIp }}:{{ index .Values "kafka" "service" "nodePort" }} {{ end }}
+{{ if index .Values "grafana" "enabled" -}}
+## Grafana
+{{ .Values.global.kubeIp }}:{{ index .Values "grafana" "service" "nodePort" }}
+{{- end }}
 
 ###############################################
