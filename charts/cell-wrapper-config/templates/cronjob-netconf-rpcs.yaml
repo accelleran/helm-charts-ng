@@ -24,7 +24,7 @@ env:
 - name: NC_HOST
   value: {{ include "accelleran.cell-wrapper.netconf.service.name" $ | quote }}
 - name: NC_PORT
-  value: {{ ((($values.service).ports).netconf).port | default 8300 | quote }}
+  value: {{ (((($.Values.netconf).service).ports).netconf).port | default 8300 | quote }}
 - name: NC_RPC
   value: >-
     {{- $job.rpc | nindent 6 }}

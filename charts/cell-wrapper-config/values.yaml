@@ -265,7 +265,5 @@ netconf:
 jobs: []
   # - name: "<job_name>"
   #   schedule: "<cron_schedule>"
-  #   netconfHost: "<netconf_host>" # optional
-  #   netconfPort: "<netconf_port>" # optional
   #   rpc: |-
   #     <!-- full edit-config rpc -->
