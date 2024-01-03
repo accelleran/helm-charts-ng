@@ -1,14 +1,16 @@
 ###############################################
 
 ###############################################
-# Accelleran dRAX                             #
+#                                             #
+#               Accelleran dRAX               #
+#                                             #
 ###############################################
 
 ## Accelleran dRAX {{ $.Chart.Version }}
 
 {{ if index .Values "dash-front-back-end" "enabled" -}}
 ## dRAX Dashboard
-{{ .Values.global.kubeIp }}:{{ index .Values "dash-front-back-end" "service" "nodePort" }}
+{{ .Values.global.kubeIp }}:{{ index .Values "dash-front-back-end" "service" "ports" "http" "nodePort" }}
 {{- end }}
 
 {{ if index .Values "grafana" "enabled" -}}
