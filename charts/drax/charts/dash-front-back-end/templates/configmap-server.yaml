@@ -1,9 +1,16 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "dash-front-back-end.fullname" . }}-server-config
-  labels:
-    {{- include "dash-front-back-end.labels" . | nindent 4 }}
+{{- include
+      "accelleran.common.configMap"
+      (fromYaml (include "accelleran.dash-front-back-end.configMap.server.args" .))
+-}}
+
+{{- define "accelleran.dash-front-back-end.configMap.server.args" -}}
+{{- $ := . -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+name: {{ include "accelleran.common.fullname" (dict "top" $) }}-server
+
 data:
   config.json: |
     {
@@ -11,11 +18,11 @@ data:
         "config_id": "{{ .Values.config.config_id }}",
         "defaultServiceNamespace": "{{ tpl .Values.config.defaultServiceNamespace . }}",
         "defaultOranNamespace": "{{ tpl .Values.config.defaultOranNamespace . }}",
-        "node_port": {{ .Values.service.port }},
+        "node_port": {{ .Values.service.ports.http.port }},
         "grafanaURL": "{{ tpl .Values.config.grafanaURL . }}",
         "grafanaPort": "{{ .Values.config.grafanaPort }}",
         "nodeApiURL": "{{ tpl .Values.config.nodeApiURL . }}",
-        "nodeApiPort": "{{ .Values.service.nodePort }}",
+        "nodeApiPort": "{{ .Values.service.ports.http.port }}",
         "kafkaURL": "{{ tpl .Values.config.kafkaUrl . }}",
         "kafkaPort": "{{ tpl .Values.config.kafkaPort . }}",
         "svcOrchestratorHost": "{{ tpl .Values.config.svcOrchestratorHost . }}",
@@ -37,3 +44,4 @@ data:
         "kafkaTopics": {{ .Values.config.kafkaTopics | toJson }}
       }
     }
+{{- end -}}

@@ -1,0 +1,20 @@
+{{- include
+      "accelleran.common.configMap"
+      (fromYaml (include "accelleran.dash-front-back-end.configMap.coreUi.args" .))
+-}}
+
+{{- define "accelleran.dash-front-back-end.configMap.coreUi.args" -}}
+{{- $ := . -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+name: {{ include "accelleran.common.fullname" (dict "top" $) }}-core-ui
+
+data:
+  config.js: |-
+    window.GRAFANA_URL = "{{ tpl $.Values.config.grafanaURL $ }}";
+    window.GRAFANA_PORT = "{{ tpl $.Values.config.grafanaPort $ }}";
+    window.API_URL = "{{ tpl $.Values.config.apiUrl $ }}";
+    window.WEBSOCKET_PORT = "{{ tpl $.Values.config.websocketPort $ }}";
+{{- end -}}
