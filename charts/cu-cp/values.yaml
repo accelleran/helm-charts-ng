@@ -117,11 +117,12 @@ netconf:
     enabled: true
     name: ""
     type: "ClusterIP"
-    portName: "netconf"
-    protocol: "TCP"
-    port: 8300
-    targetPort: null
-    nodePort: null
+    ports:
+      netconf:
+        protocol: "TCP"
+        port: 8300
+        targetPort: null
+        nodePort: null
 
 
 gnb-controller:
@@ -239,12 +240,13 @@ sctp-e1:
     enabled: true
     name: ""
     type: "LoadBalancer"
-    portName: "e1ap"
-    appProtocol: "e1-interface"
-    protocol: "SCTP"
-    port: 38462
-    targetPort: 0
-    nodePort: 0
+    ports:
+      e1ap:
+        appProtocol: "e1-interface"
+        protocol: "SCTP"
+        port: 38462
+        targetPort: 0
+        nodePort: 0
     loadBalancerIP: ""
     externalTrafficPolicy: "Local"
 
@@ -266,12 +268,13 @@ sctp-f1:
     enabled: true
     name: ""
     type: "LoadBalancer"
-    portName: "f1ap"
-    appProtocol: "f1-control"
-    protocol: "SCTP"
-    port: 38472
-    targetPort: 0
-    nodePort: 0
+    ports:
+      f1ap:
+        appProtocol: "f1-control"
+        protocol: "SCTP"
+        port: 38472
+        targetPort: 0
+        nodePort: 0
     loadBalancerIP: ""
     externalTrafficPolicy: "Local"
 
