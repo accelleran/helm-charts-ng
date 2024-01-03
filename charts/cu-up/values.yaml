@@ -123,11 +123,12 @@ netconf:
     enabled: true
     name: ""
     type: "ClusterIP"
-    portName: "netconf"
-    protocol: "TCP"
-    port: 8300
-    targetPort: null
-    nodePort: null
+    ports:
+      netconf:
+        protocol: "TCP"
+        port: 8300
+        targetPort: null
+        nodePort: null
 
 
 controller-up:
@@ -209,12 +210,13 @@ ups:
     enabled: true
     name: ""
     type: "LoadBalancer"
-    portName: "gtp-u"
-    appProtocol: "gtp-user"
-    protocol: "UDP"
-    port: 2152
-    targetPort: 0
-    nodePort: 0
+    ports:
+      gtp-u:
+        appProtocol: "gtp-user"
+        protocol: "UDP"
+        port: 2152
+        targetPort: 0
+        nodePort: 0
     loadBalancerIP: ""
     externalTrafficPolicy: "Local"
 
