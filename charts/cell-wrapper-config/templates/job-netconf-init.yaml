@@ -65,7 +65,7 @@ args:
   - "--host"
   - {{ include "accelleran.cell-wrapper.netconf.service.name" $ | quote }}
   - "--port"
-  - "{{ $values.service.port }}"
+  - {{ ((($values.service).ports).netconf).port | default 8300 | quote }}
   {{- range $index, $configRpc := $values.initEditConfig.config }}
   {{- $configRpc = tpl $configRpc $ -}}
   {{- if $configRpc }}

@@ -258,7 +258,9 @@ netconf:
 
   service:
     name: ""
-    port: 8300
+    ports:
+      netconf:
+        port: 8300
 
 jobs: []
   # - name: "<job_name>"

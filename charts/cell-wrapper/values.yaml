@@ -255,11 +255,12 @@ netconf:
     name: ""
     annotations: {}
     type: "ClusterIP"
-    portName: "netconf"
-    protocol: "TCP"
-    port: 8300
-    targetPort: null
-    nodePort: null
+    ports:
+      netconf:
+        protocol: "TCP"
+        port: 8300
+        targetPort: null
+        nodePort: null
 
 nats:
   enabled: true
