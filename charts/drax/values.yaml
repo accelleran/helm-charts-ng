@@ -126,20 +126,12 @@ service-monitor:
   # Enable/disable installation of the Service Monitor
   enabled: true
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
-  draxNodeSelector:
-    draxName: "{{ .Values.global.draxName }}"
-
   monitoredNamespaces: "{{ .Release.Namespace }}"
 
 
 service-orchestrator:
   # Enable/disable installation of the Service Orchestrator
   enabled: true
-
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
-  draxNodeSelector:
-    draxName: "{{ .Values.global.draxName }}"
 
   kubeIp: "{{ .Values.global.kubeIp }}"
 
