@@ -53,22 +53,22 @@ spec:
 {{- $type := ($values.service).type | default "ClusterIP" -}}
 
 ports:
-  - {{- with ($values.service).portName }}
-    name: {{ . }}
-    {{- end }}
-    {{- with ($values.service).appProtocol }}
+{{- range $portName, $portDetails := (($values.service).ports | required "A service requires at least 1 port.") }}
+  - name: {{ $portName }}
+    {{- with $portDetails.appProtocol }}
     appProtocol: {{ . }}
     {{- end }}
-    {{- with ($values.service).protocol }}
+    {{- with $portDetails.protocol }}
     protocol: {{ . }}
     {{- end }}
-    port: {{ ($values.service).port }}
-    {{- with ($values.service).targetPort }}
+    port: {{ $portDetails.port | required (printf "A port number needs to be provided to port %v" $portName) }}
+    {{- with $portDetails.targetPort }}
     targetPort: {{ . }}
     {{- end }}
     {{- if eq $type "NodePort" -}}
-    {{- with ($values.service).nodePort }}
+    {{- with $portDetails.nodePort }}
     nodePort: {{ . }}
     {{- end }}
     {{- end -}}
+{{- end -}}
 {{- end -}}

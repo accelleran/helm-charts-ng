@@ -157,14 +157,14 @@ securityContext:
 {{- $ := get . "top" | required "The top context needs to be provided to common container ports" -}}
 {{- $values := get . "values" | default $.Values -}}
 
-{{- if $values.service }}
+{{- if (and $values.service (and $values.service.enabled (gt (len (($values.service).ports | default dict)) 0))) }}
 ports:
-  - {{ with ($values.service).portName }}
-    name: {{ . }}
-    {{- end }}
-    {{- with ($values.service).protocol }}
+{{- range $portName, $portDetails := ($values.service).ports }}
+  - name: {{ $portName }}
+    {{- with $portDetails.protocol }}
     protocol: {{ . }}
     {{- end }}
-    containerPort: {{ ($values.service).containerPort | default (int ($values.service).targetPort) | default ($values.service).port }}
-{{- end }}
+    containerPort: {{ $portDetails.containerPort | default (int $portDetails.targetPort) | default $portDetails.port }}
+{{- end -}}
+{{- end -}}
 {{- end -}}
