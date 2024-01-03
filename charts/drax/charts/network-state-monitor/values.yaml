@@ -65,8 +65,10 @@ affinity: {}
 
 service:
   enabled: true
+  name: ""
   type: ClusterIP
-  portName: http
-  port: 5000
-  targetPort: 5000
-  protocol: TCP
+  ports:
+    http:
+      port: 5000
+      targetPort: 5000
+      protocol: TCP

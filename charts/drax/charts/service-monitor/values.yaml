@@ -54,11 +54,12 @@ service:
   enabled: true
   name: ""
   type: ClusterIP
-  portName: "ser-mon"
-  port: 80
-  targetPort: 8080
-  nodePort: null
-  protocol: TCP
+  ports:
+    http:
+      port: 80
+      targetPort: 8080
+      nodePort: null
+      protocol: TCP
 
 serviceAccount:
   # Specifies whether a service account should be created

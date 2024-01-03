@@ -57,11 +57,12 @@ service:
   enabled: true
   name: ""
   type: ClusterIP
-  portName: "ser-orc"
-  port: 80
-  targetPort: 80
-  nodePort: null
-  protocol: TCP
+  ports:
+    http:
+      port: 80
+      targetPort: 80
+      nodePort: null
+      protocol: TCP
 
 serviceAccount:
   # Specifies whether a service account should be created
