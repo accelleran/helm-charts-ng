@@ -5,7 +5,7 @@
 {{- $successfulJobsHistoryLimit := get . "successfulJobsHistoryLimit" -}}
 {{- $failedJobsHistoryLimit := get . "failedJobsHistoryLimit" -}}
 
-apiVersion: batch/v1beta1 # v1 since k8s v1.21
+apiVersion: batch/v1
 kind: CronJob
 {{ include "accelleran.common.metadata" . }}
 spec:
