@@ -1,0 +1,24 @@
+{{- include
+      "accelleran.common.configMap"
+      (fromYaml (include "accelleran.golang-nkafka.configMap.kafkaTopics.args" .))
+-}}
+
+{{- define "accelleran.golang-nkafka.configMap.kafkaTopics.args" -}}
+{{- $ := . -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+name: {{ include "accelleran.common.fullname" (dict "top" $) }}-kafkatopics
+
+data:
+  KafkaTopics.toml: |-
+    [options]
+    default_kafka_topic="{{ $.Values.config.natsKafkaTopics.defaultKafkaTopic }}"
+
+    {{- range $translations := $.Values.config.natsKafkaTopics.translations }}
+    [[translate]]
+    nats_subject="{{ $translations.natsSubject }}"
+    kafka_topic="{{ $translations.kafkaTopic }}"
+    {{- end }}
+{{- end }}

@@ -1,7 +1,16 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "golang-nkafka.fullname" . }}-config
+{{- include
+      "accelleran.common.configMap"
+      (fromYaml (include "accelleran.golang-nkafka.configMap.args" .))
+-}}
+
+{{- define "accelleran.golang-nkafka.configMap.args" -}}
+{{- $ := . -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+name: {{ include "accelleran.common.fullname" (dict "top" $) }}-config
+
 data:
   nkafka.conf: |-
     # The interval to wait to reconnect
@@ -32,10 +41,10 @@ data:
 
     # Setup the global connection parameters to NATS
     nats: {
-      Servers: ["{{ tpl .Values.nats.hostname . }}:{{ .Values.nats.port }}"],
-      ConnectTimeout: {{ .Values.config.natsConnectionParameters.connectTimeout }},
-      MaxReconnects: {{ .Values.config.natsConnectionParameters.maxReconnects }},
-      ReconnectWait: {{ .Values.config.natsConnectionParameters.reconnectWait }},
+      Servers: ["{{ include "accelleran.common.bootstrap.nats.hostname" (dict "top" .) }}:{{ include "accelleran.common.bootstrap.nats.port" (dict "top" .) }}"],
+      ConnectTimeout: {{ $.Values.config.natsConnectionParameters.connectTimeout }},
+      MaxReconnects: {{ $.Values.config.natsConnectionParameters.maxReconnects }},
+      ReconnectWait: {{ $.Values.config.natsConnectionParameters.reconnectWait }},
     }
 
     # Depite the nats-kafka-bridge documentation indicating otherwise,
@@ -43,3 +52,4 @@ data:
     include conf/Protobuf.conf
 
     include ../config/Connections.conf
+{{- end -}}
