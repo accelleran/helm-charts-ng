@@ -206,6 +206,14 @@ ups:
     tag: ""
     pullPolicy: IfNotPresent
 
+  args:
+    - "--downlink"
+    - "${DOWNLINK}"
+    - "--uplink"
+    - "${UPLINK}"
+    - "--bind"
+    - "${BIND}"
+
   service:
     enabled: true
     name: ""
