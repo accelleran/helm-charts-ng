@@ -1,8 +1,13 @@
 {{- define "accelleran.common.selectorLabels" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common selector labels" -}}
 
+{{- $selectorLabels := get . "selectorLabels" -}}
+{{- if $selectorLabels -}}
+{{- $selectorLabels | toYaml -}}
+{{- else -}}
 app.kubernetes.io/name: {{ include "accelleran.common.name" . }}
 app.kubernetes.io/instance: {{ include "accelleran.common.instance" . }}
+{{- end -}}
 {{- end -}}
 
 
