@@ -2,11 +2,14 @@
 {{- fail "UPS XDP Interfaces can only be specified if numberOfUpStacks is set to 0" -}}
 {{- end -}}
 
-{{- range $ordinal, $xdpUpsInterface := $.Values.xdpUpsInterfaces }}
+{{- range $ordinal, $xdpUpStack := $.Values.xdpUpStacks }}
 ---
+{{- if ne (eq ($xdpUpStack.uplink).interface ($xdpUpStack.downlink).interface) (eq ($xdpUpStack.uplink).address ($xdpUpStack.downlink).address) }}
+{{- fail (printf "UPS XDP uplink and downlink interface and address %d need to be both the same or both different" $ordinal) -}}
+{{- end -}}
 {{ include
       "accelleran.common.deployment"
-      (fromYaml (include "accelleran.cu-up.xdp-ups.deployment.args" (list $ $ordinal $xdpUpsInterface)))
+      (fromYaml (include "accelleran.cu-up.xdp-ups.deployment.args" (list $ $ordinal $xdpUpStack)))
 }}
 {{ end }}
 
@@ -16,7 +19,7 @@
 {{- $values := index $.Values "xdp-ups" -}}
 
 {{- $ordinal := index . 1 -}}
-{{- $xdpUpsInterface := index . 2 -}}
+{{- $xdpUpStack := index . 2 -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}
@@ -37,23 +40,33 @@ initContainers:
 
 env:
   - name: __APPNAME
-    value: xdpUps
+    value: xdpUpStack
   - name: __APPID
     valueFrom:
       fieldRef:
         fieldPath: metadata.name
   - name: HOSTMODE
     value: "true"
-  - name: IFNAME
-    value: {{ $xdpUpsInterface.name | quote }}
+  - name: IFNAME_0
+    value: {{ $xdpUpStack.uplink.interface | quote }}
+  - name: IFADDR_0
+    value: {{ $xdpUpStack.uplink.address | quote }}
+  - name: MTU_SIZE_0
+    value: {{ $xdpUpStack.uplink.mtu | default "1460" | quote }}
+{{- if ne $xdpUpStack.uplink.interface $xdpUpStack.downlink.interface }}
+  - name: IFNAME_1
+    value: {{ $xdpUpStack.downlink.interface | quote }}
+  - name: IFADDR_1
+    value: {{ $xdpUpStack.downlink.address | quote }}
+  - name: MTU_SIZE_1
+    value: {{ $xdpUpStack.downlink.mtu | default "1460" | quote }}
+{{- end }}
   - name: DOWNLINK
-    value: {{ $xdpUpsInterface.address | quote }}
+    value: {{ $xdpUpStack.downlink.address | quote }}
   - name: UPLINK
-    value: {{ $xdpUpsInterface.address | quote }}
+    value: {{ $xdpUpStack.uplink.address | quote }}
   - name: BIND
-    value: {{ $xdpUpsInterface.address | quote }}
-  - name: MTU_SIZE
-    value: {{ $xdpUpsInterface.mtu | default "1460" | quote }}
+    value: {{ $xdpUpStack.bindAddress | default "0.0.0.0" | quote }}
 
 envFrom:
   - configMapRef:
@@ -66,16 +79,16 @@ envFrom:
 {{- $values := index $.Values "xdp-ups" -}}
 
 {{- $ordinal := index . 1 -}}
-{{- $xdpUpsInterface := index . 2 -}}
+{{- $xdpUpStack := index . 2 -}}
 
-{{- with $xdpUpsInterface.nodeName }}
+{{- with $xdpUpStack.nodeName }}
 nodeName: {{ . }}
 {{ end -}}
 
-{{- if $xdpUpsInterface.nodeSelectorOverride -}}
+{{- if $xdpUpStack.nodeSelectorOverride -}}
 nodeSelector:
-  {{ $xdpUpsInterface.nodeSelectorOverride | toYaml | nindent 4 }}
-{{- else if or $xdpUpsInterface.nodeSelector (or ($values.nodeSelector) ($.Values.global).nodeSelector)  }}
+  {{ $xdpUpStack.nodeSelectorOverride | toYaml | nindent 4 }}
+{{- else if or $xdpUpStack.nodeSelector (or ($values.nodeSelector) ($.Values.global).nodeSelector)  }}
 nodeSelector:
 {{- if $values.nodeSelector }}
   {{ $values.nodeSelector | toYaml | nindent 2 }}
@@ -83,7 +96,7 @@ nodeSelector:
   {{ $.Values.global.nodeSelector | toYaml | nindent 2 }}
 {{- end -}}
 
-{{- with $xdpUpsInterface.nodeSelector }}
+{{- with $xdpUpStack.nodeSelector }}
   {{ . | toYaml | nindent 2 }}
 {{- end -}}
 {{- end -}}

@@ -15,12 +15,8 @@ global:
 #                 - the number of UP stacks that will be used, explicitly split between regular and xdp UP stacks
 #                   (xdp up stacks need a list with details to determine the number of components)
 numberOfUpStacks: 2
-xdpUpsInterfaces: []
-# - name: "eth0"
-#   address: "127.0.0.1"
-#   mtu: 1460 # optional, default 1460
-
-#   # nodeSelector, nodeSelectorOverride and nodeName are optional, but at least one of them should probably be used
+xdpUpStacks: []
+# - # nodeSelector, nodeSelectorOverride and nodeName are optional, but at least one of them should probably be used
 #   # Otherwise in multi-node clusters, there's no way to know which Node the XDP Pod will be assigned to
 #   # and it's unlikely the interface/IP information is correct
 #   # nodeSelectorOverride is similar to nodeSelector but if specified only those labels will be used for this Pod
@@ -29,6 +25,19 @@ xdpUpsInterfaces: []
 #   nodeSelectorOverride:
 #     override-label: override-value
 #   nodeName: example-node-name
+
+#   uplink:
+#     interface: "eth0"
+#     address: "127.0.0.1"
+#     mtu: 1460  # optional, default 1460
+
+#   downlink:
+#     interface: "eth1"
+#     address: "127.0.0.2"
+#     mtu: 1460  # optional, default 1460
+
+#   bindAddress: "0.0.0.0" # optional, default 0.0.0.0
+
 
 bootstrap:
   create: true
