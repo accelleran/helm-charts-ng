@@ -4,7 +4,7 @@
 
 
 {{- define "accelleran.cu-up.xdpUpsCount" -}}
-{{- add (len $.Values.xdpUpsInterfaces) -}}
+{{- add (len $.Values.xdpUpStacks) -}}
 {{- end -}}
 
 
@@ -20,4 +20,17 @@
 
 {{ $name := index $.Values "ups" "service" "name" | default (include "accelleran.common.fullname" (dict "top" $ "values" (index $.Values "ups"))) }}
 {{- printf "%s-%d" $name $ordinal -}}
+{{- end -}}
+
+
+{{- define "accelleran.cu-up.init.args" -}}
+{{- $ := . -}}
+{{- $values := (index $.Values "cu-up") -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+bootstrapConfigMapName: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
 {{- end -}}
