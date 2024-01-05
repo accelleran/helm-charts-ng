@@ -2,17 +2,33 @@
 ---
 {{- include
       "accelleran.common.service"
-      (dict
-        "top" $
-        "values" (mergeOverwrite
-          (deepCopy (index $.Values "cu-up"))
-          (dict "service" (index $.Values "ups" "service"))
-          (dict "extraLabels" (dict
-            "up-stack-id" (toString .)
-          ))
-        )
-        "name" (include "accelleran.cu-up.gtp-u.service.name" (list $ .))
-      )
+      (fromYaml (include "accelleran.cu-up.upsService" (dict "top" $ "ordinal" .)))
 -}}
 
 {{ end }}
+
+
+{{- define "accelleran.cu-up.upsService" -}}
+{{- $ := get . "top" -}}
+{{- $values := index $.Values "ups" -}}
+{{- $ordinal := get . "ordinal" -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+values:
+  {{
+    (mergeOverwrite
+      (deepCopy (index $.Values "cu-up"))
+      (dict "service" (index $.Values "ups" "service"))
+    )
+    | toYaml | nindent 2
+  }}
+
+name: {{ (include "accelleran.cu-up.gtp-u.service.name" (list $ $ordinal)) | quote }}
+
+selectorLabels:
+  app.kubernetes.io/name: "ups"
+  app.kubernetes.io/instance: {{ include "accelleran.common.instance" (dict "top" $ "values" $values) | quote }}
+  up-stack-id: {{ $ordinal | quote }}
+{{- end -}}
