@@ -1,0 +1,18 @@
+{{
+  include
+    "accelleran.common.configMap"
+    (fromYaml (include "accelleran.drax.version.configMap.args" $))
+}}
+
+
+{{- define "accelleran.drax.version.configMap.args" -}}
+{{- $ := . -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+name: {{ printf "%s-version" $.Release.Name }}
+
+data:
+  draxVersion: {{ $.Chart.Version | quote }}
+{{- end -}}
