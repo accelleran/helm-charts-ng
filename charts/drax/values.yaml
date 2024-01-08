@@ -1,6 +1,3 @@
-# init kafka: kafkacat -b {{ $.Release.Name }}-kafka.{{ $.Release.Namespace }}:9092 -t test-topic -C -o beginning -e
-
-
 global:
   # Kubernetes advertise IP
   #   Description:  Supply the Kubernetes Advertise address of your Kubernetes cluster.
@@ -114,7 +111,6 @@ dash-front-back-end:
         nodePort: 31316
 
 
-
 network-state-monitor:
   # Enable/disable installation of the Network State Monitor
   enabled: true
@@ -150,6 +146,7 @@ cell-wrapper:
     enabled: false
   redis:
     enabled: false
+
 
 e2t:
   enabled: false
@@ -321,16 +318,13 @@ nats:
   natsBox:
     enabled: false
 
+
 redis:
   enabled: true
 
   architecture: standalone
   auth:
     enabled: false
-
-
-
-
 
 
 prometheus:
@@ -400,6 +394,7 @@ prometheus:
       static_configs:
         - targets:
           - "{{ .Release.Name }}-nats:7777"
+
 
 grafana:
   enabled: true
@@ -551,6 +546,7 @@ grafana:
     kafka-cluster-monitoring: grafana-kafka-cluster-monitoring
     nats-dashboard: grafana-nats-dashboard
 
+
 # coalesce.go:286: warning: cannot overwrite table with non table for loki-stack.prometheus.alertmanager.extraEnv (map[])
 loki-stack:
   enabled: true
@@ -582,6 +578,7 @@ loki-stack:
         retention_deletes_enabled: true
         # Must be a multiple of 168h
         retention_period: 672h
+
 
 influxdb:
   # Enable/disable installation of InfluxDB
