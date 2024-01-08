@@ -31,12 +31,12 @@ dependencies:
     version: 3.0.0-dev.0
     repository: https://accelleran.github.io/helm-charts-ng/
 
-  # # infrastructure ?
-  # - name: golang-nkafka
-  #   alias: golang-nkafka-5g
-  #   condition: global.enable5G
-  #   version: 1.2.1
-  #   repository: https://accelleran.github.io/helm-charts-ng/
+  # infrastructure
+  - name: golang-nkafka
+    alias: golang-nkafka-5g
+    condition: global.enable5G
+    version: 1.2.1
+    repository: https://accelleran.github.io/helm-charts-ng/
 
   # external
 
