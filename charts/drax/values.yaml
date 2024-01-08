@@ -585,20 +585,35 @@ loki-stack:
 
 influxdb:
   # Enable/disable installation of InfluxDB
-  labels:
-    drax/role: ric
-    drax/component-name: influxdb
   enabled: true
-  persistence:
-    storageClassName: ""
-  nodeSelector: {}
+
   podLabels:
     drax/role: ric
     drax/component-name: influxdb
+
+  persistence:
+    enabled: true
+    # existingClaim: ""
+    # storageClass: ""
+    accessMode: ReadWriteOnce
+    size: 8Gi
+
   service:
-    type: NodePort
+    type: ClusterIP
     nodePorts:
-      http: 30303
+      http: ""
+
+  setDefaultUser:
+    enabled: true
+    user:
+      username: "admin"
+      password: "password"
+
+      ## The user name and password are obtained from an existing secret. The expected
+      ## keys are `influxdb-user` and `influxdb-password`.
+      ## If set, the username and password values above are ignored.
+      # existingSecret: influxdb-auth
+
   initScripts:
     enabled: true
     scripts:
@@ -606,7 +621,3 @@ influxdb:
         CREATE DATABASE "db_4G" WITH DURATION 5d REPLICATION 1 NAME "rp_5d_4G"
       init_5g.iql: |+
         CREATE DATABASE "db_5G" WITH DURATION 5d REPLICATION 1 NAME "rp_5d_5G"
-  adminUser:
-    organization: "accelleran"
-    user: "admin"
-    password: "password"

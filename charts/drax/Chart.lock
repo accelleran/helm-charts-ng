@@ -8,6 +8,9 @@ dependencies:
 - name: loki-stack
   repository: https://grafana.github.io/helm-charts
   version: 2.9.10
+- name: influxdb
+  repository: https://helm.influxdata.com/
+  version: 4.12.5
 - name: kafka
   repository: https://charts.bitnami.com/bitnami/
   version: 26.5.0
@@ -17,5 +20,5 @@ dependencies:
 - name: redis
   repository: https://charts.bitnami.com/bitnami/
   version: 18.5.0
-digest: sha256:742f6004572fd313c40ec957d98979ebffe6501314b03922af8e9a5e28354da3
-generated: "2023-12-18T15:25:34.820323426+01:00"
+digest: sha256:d2c589080226efdfc60c4516e401461b2cf4d396c57cd3df9d67cf4dd41bae28
+generated: "2024-01-08T14:13:36.521553607+01:00"
