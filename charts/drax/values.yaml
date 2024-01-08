@@ -185,11 +185,11 @@ golang-nkafka-5g:
 
   bootstrap:
     kafka:
-      hostname: "{{ .Release.Name }}-kafka.{{ .Release.Namespace }}"
-      port: 9092
+      hostname: ""
+      port: 0
     nats:
-      hostname: "{{ .Release.Name }}-nats.{{ .Release.Namespace }}"
-      port: 4222
+      hostname: ""
+      port: 0
 
   config:
     natsConnectionParameters:
