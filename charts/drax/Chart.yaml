@@ -5,6 +5,10 @@ type: application
 version: 7.0.0-dev.0
 
 dependencies:
+  - name: common
+    version: 0.2.0
+    repository: https://accelleran.github.io/helm-charts-ng/
+
   # smo
   - name: dash-front-back-end
     condition: dash-front-back-end.enabled

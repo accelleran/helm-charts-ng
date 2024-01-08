@@ -536,15 +536,15 @@ grafana:
             path: /var/lib/grafana/dashboards/nats-dashboard
 
   dashboardsConfigMaps:
-    4g-monitoring-dashboard: grafana-4g-monitoring-dashboard
-    custom-dashboard: grafana-custom-dashboard
-    loki-log-dashboard: grafana-loki-log-dashboard
-    5g-health-dashboard: grafana-5g-health-dashboard
-    5g-monitoring-dashboard: grafana-5g-monitoring-dashboard
-    5g-cucp-pm-counters: grafana-5g-cucp-pm-counters
-    5g-cuup-pm-counters: grafana-5g-cuup-pm-counters
-    kafka-cluster-monitoring: grafana-kafka-cluster-monitoring
-    nats-dashboard: grafana-nats-dashboard
+    4g-monitoring-dashboard: "{{ .Release.Name }}-grafana-4g-monitoring-dashboard"
+    custom-dashboard: "{{ .Release.Name }}-grafana-custom-dashboard"
+    loki-log-dashboard: "{{ .Release.Name }}-grafana-loki-log-dashboard"
+    5g-health-dashboard: "{{ .Release.Name }}-grafana-5g-health-dashboard"
+    5g-monitoring-dashboard: "{{ .Release.Name }}-grafana-5g-monitoring-dashboard"
+    5g-cucp-pm-counters: "{{ .Release.Name }}-grafana-5g-cucp-pm-counters"
+    5g-cuup-pm-counters: "{{ .Release.Name }}-grafana-5g-cuup-pm-counters"
+    kafka-cluster-monitoring: "{{ .Release.Name }}-grafana-kafka-cluster-monitoring"
+    nats-dashboard: "{{ .Release.Name }}-grafana-nats-dashboard"
 
 
 # coalesce.go:286: warning: cannot overwrite table with non table for loki-stack.prometheus.alertmanager.extraEnv (map[])
