@@ -328,11 +328,14 @@ redis:
 
 
 prometheus:
-  enabled: false
+  enabled: true
   nodeSelector: {}
 
   alertmanager:
     enabled: false
+
+  prometheus-node-exporter:
+    enabled: true
 
   serviceAccounts:
     kubeStateMetrics:

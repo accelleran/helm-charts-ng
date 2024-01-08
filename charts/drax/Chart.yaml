@@ -47,11 +47,11 @@ dependencies:
   # monitoring
   - name: grafana
     condition: grafana.enabled
-    version: 6.56.6
+    version: 7.0.21
     repository: https://grafana.github.io/helm-charts
   - name: prometheus
     condition: prometheus.enabled
-    version: 22.6.2
+    version: 25.8.2
     repository: https://prometheus-community.github.io/helm-charts
   - name: loki-stack
     condition: loki-stack.enabled
