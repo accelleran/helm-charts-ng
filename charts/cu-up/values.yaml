@@ -27,16 +27,12 @@ xdpUpStacks: []
 #   nodeName: example-node-name
 
 #   uplink:
-#     interface: "eth0"
 #     address: "127.0.0.1"
-#     mtu: 1460  # optional, default 1460
+#     mtu: 1460  # optional, default 1460, only minimum MTU (compared with downlink) is used
 
 #   downlink:
-#     interface: "eth1"
 #     address: "127.0.0.2"
-#     mtu: 1460  # optional, default 1460
-
-#   bindAddress: "0.0.0.0" # optional, default 0.0.0.0
+#     mtu: 1460  # optional, default 1460, only minimum MTU (compared with uplink) is used
 
 
 bootstrap:
@@ -280,8 +276,6 @@ xdp-ups:
     - "${DOWNLINK}"
     - "--uplink"
     - "${UPLINK}"
-    - "--bind"
-    - "${BIND}"
 
   hostNetwork: true
   dnsPolicy: ClusterFirstWithHostNet

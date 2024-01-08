@@ -1,11 +1,11 @@
 {{- if and (gt (atoi (include "accelleran.cu-up.upsCount" $)) 0) (gt (atoi (include "accelleran.cu-up.xdpUpsCount" $)) 0) -}}
-{{- fail "UPS XDP Interfaces can only be specified if numberOfUpStacks is set to 0" -}}
+{{- fail "XDP UP Stacks can only be specified if numberOfUpStacks is set to 0" -}}
 {{- end -}}
 
 {{- range $ordinal, $xdpUpStack := $.Values.xdpUpStacks }}
 ---
-{{- if ne (eq ($xdpUpStack.uplink).interface ($xdpUpStack.downlink).interface) (eq ($xdpUpStack.uplink).address ($xdpUpStack.downlink).address) }}
-{{- fail (printf "UPS XDP uplink and downlink interface and address %d need to be both the same or both different" $ordinal) -}}
+{{- if (eq ($xdpUpStack.uplink).address ($xdpUpStack.downlink).address) }}
+{{- fail (printf "XDP UP Stack %d uplink and downlink addresses need to be different" $ordinal) -}}
 {{- end -}}
 {{ include
       "accelleran.common.deployment"
@@ -47,27 +47,12 @@ env:
         fieldPath: metadata.name
   - name: HOSTMODE
     value: "true"
-  - name: IFNAME_0
-    value: {{ $xdpUpStack.uplink.interface | quote }}
-  - name: IFADDR_0
-    value: {{ $xdpUpStack.uplink.address | quote }}
-  - name: MTU_SIZE_0
-    value: {{ $xdpUpStack.uplink.mtu | default "1460" | quote }}
-{{- if ne $xdpUpStack.uplink.interface $xdpUpStack.downlink.interface }}
-  - name: IFNAME_1
-    value: {{ $xdpUpStack.downlink.interface | quote }}
-  - name: IFADDR_1
-    value: {{ $xdpUpStack.downlink.address | quote }}
-  - name: MTU_SIZE_1
-    value: {{ $xdpUpStack.downlink.mtu | default "1460" | quote }}
-{{- end }}
-  - name: DOWNLINK
-    value: {{ $xdpUpStack.downlink.address | quote }}
   - name: UPLINK
     value: {{ $xdpUpStack.uplink.address | quote }}
-  - name: BIND
-    value: {{ $xdpUpStack.bindAddress | default "0.0.0.0" | quote }}
-
+  - name: DOWNLINK
+    value: {{ $xdpUpStack.downlink.address | quote }}
+  - name: MTU_SIZE
+    value: {{ min ($xdpUpStack.uplink.mtu | default 1460) ($xdpUpStack.downlink.mtu | default 1460) | quote }}
 envFrom:
   - configMapRef:
       name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
