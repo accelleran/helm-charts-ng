@@ -4,9 +4,6 @@
 
 {{- range $ordinal, $xdpUpStack := $.Values.xdpUpStacks }}
 ---
-{{- if (eq ($xdpUpStack.uplink).address ($xdpUpStack.downlink).address) }}
-{{- fail (printf "XDP UP Stack %d uplink and downlink addresses need to be different" $ordinal) -}}
-{{- end -}}
 {{ include
       "accelleran.common.deployment"
       (fromYaml (include "accelleran.cu-up.xdp-ups.deployment.args" (list $ $ordinal $xdpUpStack)))
