@@ -69,7 +69,7 @@ command:
 - "/bin/sh"
 - "-c"
 - |
-    until [ "$(redis-cli -h ${REDIS_HOSTNAME} -p ${REDIS_PORT} ping)" == "PONG" ]
+    until [ "$(timeout 10s redis-cli -h ${REDIS_HOSTNAME} -p ${REDIS_PORT} ping)" == "PONG" ]
     do
       sleep 1
     done
