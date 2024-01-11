@@ -628,3 +628,131 @@ influxdb:
         CREATE DATABASE "db_4G" WITH DURATION 5d REPLICATION 1 NAME "rp_5d_4G"
       init_5g.iql: |+
         CREATE DATABASE "db_5G" WITH DURATION 5d REPLICATION 1 NAME "rp_5d_5G"
+
+
+vector-5g:
+  nameOverride: ""
+  fullnameOverride: ""
+
+  role: "Stateless-Aggregator"
+
+  image:
+    repository: timberio/vector
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    tag: ""
+    sha: ""
+
+  replicas: 1
+
+  secrets:
+    generic: {}
+      # my_variable: "my-secret-value"
+      # datadog_api_key: "api-key"
+      # awsAccessKeyId: "access-key"
+      # awsSecretAccessKey: "secret-access-key"
+
+  command: []
+  args:
+    - --config-dir
+    - "/etc/vector/"
+  env: []
+  envFrom: []
+
+  logLevel: "info"
+
+  config:
+    influx:
+      database: db_5G
+      namespace: uemeasurement
+      hostname: "{{ $.Release.Name }}-influxdb"
+      port: 8086
+      username: admin
+      password: password
+      type: influxdb_logs
+    kafka:
+      hostname: "{{ $.Release.Name }}-kafka"
+      port: 9092
+      topic: accelleran.drax.5g.ric.raw.ue_measurements
+      pmCounterTopic: accelleran.drax.5g.ric.raw.pm_counters
+
+  customConfig:
+    sources:
+      inUeMeas:
+        bootstrap_servers: "{{ tpl .Values.config.kafka.hostname . }}:{{ .Values.config.kafka.port}}"
+        group_id: "VECTOR_5G_UE_MEAS"
+        topics: ["{{ tpl .Values.config.kafka.topic . }}"]
+        type: "kafka"
+
+    transforms:
+      parseJsonUeMeas:
+        type: "remap"
+        inputs: ["inUeMeas"]
+        drop_on_error: true
+        source: . |= object!(parse_json!(.message))
+    
+      filterUeMeas:
+        type: "filter"
+        inputs: ["parseJsonUeMeas"]
+        condition: "exists(.RrcMeasurementReportResultInfo)"
+    
+      parseUeMeas:
+        type: "remap"
+        inputs: ["filterUeMeas"]
+        drop_on_error: true
+        source: . |= object!(parse_json!(.RrcMeasurementReportResultInfo))
+    
+      luaUeMeas:
+        type: lua
+        inputs: ["parseUeMeas"]
+        version: '2'
+        hooks:
+          process: |-
+            function (event, emit)
+              m = {}
+              m.log = {
+                timestamp = os.date("!*t"),
+                nrCellId = "",
+                ueId = "",
+                measurement = {}
+              }
+              if event.log.RrcMeasurementReportResultInfo.CellInfo ~= nil then
+                for f, v in pairs(event.log.RrcMeasurementReportResultInfo.CellInfo) do
+                  temp = m
+                  temp.log.ueId = event.log.RrcMeasurementReportResultInfo.GnbCuCpUeId
+                  temp.log.nrCellId = v.NeighbourCellInfo.NrCgi.NrCellId
+                  temp.log.measurement.ssbRsrp = v.NeighbourCellInfo.SsbRsrpResult
+                  temp.log.measurement.ssbRsrq = v.NeighbourCellInfo.SsbRsrqResult
+                  temp.log.measurement.ssbSinr = v.NeighbourCellInfo.SsbSinrResult
+                  emit(temp)
+                end
+              end
+              temp = m
+              nrCellId = event.log.ServingCellInfo.NrCgi.NrCellId
+              temp.log.ueId = event.log.RrcMeasurementReportResultInfo.GnbCuCpUeId
+              temp.log.nrCellId = nrCellId
+              temp.log.measurement.ssbRsrp = event.log.ServingCellInfo.SsbRsrpResult
+              temp.log.measurement.ssbRsrq = event.log.ServingCellInfo.SsbRsrqResult
+              temp.log.measurement.ssbSinr = event.log.ServingCellInfo.SsbSinrResult
+              emit(temp)
+            end
+
+    sinks:
+      outUeMeas:
+        type: "{{ $.Values.config.influx.type }}"
+        inputs: ["luaUeMeas"]
+        bucket: "vector-bucket"
+        database: "{{ $.Values.config.influx.database }}"
+        endpoint:  "http://{{ tpl $.Values.config.influx.hostname $ }}:{{ $.Values.config.influx.port }}"
+        measurement: "{{ $.Values.config.influx.namespace }}.vector"
+        tags: ["nrCellId", "ueId"]
+        username: "{{ $.Values.config.influx.username }}"
+        password: "{{ $.Values.config.influx.password }}"
+
+  service:
+    enabled: false
+    type: "ClusterIP"
+    loadBalancerIP: ""
+
+  serviceHeadless:
+    enabled: false

@@ -61,6 +61,11 @@ dependencies:
     condition: influxdb.enabled
     version: 4.12.5
     repository: https://helm.influxdata.com/
+  - name: vector
+    alias: vector-5g
+    condition: global.enable5G
+    version: 0.30.0
+    repository: https://helm.vector.dev
 
   # infrastructure
   - name: kafka
