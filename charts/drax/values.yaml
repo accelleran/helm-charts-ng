@@ -250,6 +250,13 @@ kafka:
   commonAnnotations: {}
   extraDeploy: []
 
+  provisioning:
+    enabled: true
+    topics:
+      - name: kafka-cluster-init
+        partitions: 1
+        replicationFactor: 1
+
   service:
     type: ClusterIP
 
