@@ -5,7 +5,7 @@ Version of application to be deployed
 {{- $ := get . "top" | required "The top context needs to be provided to common app version" -}}
 {{- $values := get . "values" | default $.Values -}}
 
-{{- $version := ($values.image).tag | default $.Values.global.tag | default $.Chart.AppVersion -}}
+{{- $version := ($values.image).tag | default ($.Values.global).tag | default $.Chart.AppVersion -}}
 
 {{- if not $version -}}
 {{- /*
