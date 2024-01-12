@@ -623,10 +623,8 @@ vector-5g:
     - "/etc/vector/"
   env:
     - name: VECTOR_LOG
-      value: "debug"
+      value: "info"
   envFrom: []
-
-  logLevel: "info"
 
   config:
     influx:
@@ -784,13 +782,6 @@ vector-5g:
         tags: ["cuupId", "ueId"]
         username: "{{ .Values.config.influx.username }}"
         password: "{{ .Values.config.influx.password }}"
-      
-      debug:
-        type: console
-        inputs: ["inUeMeas"]
-        target: stdout
-        encoding:
-          codec: raw_message
 
   service:
     enabled: false
