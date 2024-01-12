@@ -307,7 +307,7 @@ prometheus:
     enabled: false
 
   prometheus-node-exporter:
-    enabled: true
+    enabled: false
 
   serviceAccounts:
     kubeStateMetrics:
