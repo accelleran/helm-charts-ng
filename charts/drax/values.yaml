@@ -656,7 +656,9 @@ vector-5g:
   args:
     - --config-dir
     - "/etc/vector/"
-  env: []
+  env:
+    - name: VECTOR_LOG
+      value: "debug"
   envFrom: []
 
   logLevel: "info"
@@ -679,10 +681,16 @@ vector-5g:
   customConfig:
     sources:
       inUeMeas:
-        bootstrap_servers: "{{ tpl .Values.config.kafka.hostname . }}:{{ .Values.config.kafka.port}}"
-        group_id: "VECTOR_5G_UE_MEAS"
-        topics: ["{{ tpl .Values.config.kafka.topic . }}"]
         type: "kafka"
+        bootstrap_servers: "{{ tpl $.Values.config.kafka.hostname $ }}:{{ $.Values.config.kafka.port }}"
+        group_id: "VECTOR_5G_UE_MEAS"
+        topics: ["{{ tpl $.Values.config.kafka.topic $ }}"]
+
+      inUeThroughput:
+        type: "kafka"
+        bootstrap_servers: "{{ tpl $.Values.config.kafka.hostname $ }}:{{ $.Values.config.kafka.port }}"
+        group_id: "VECTOR_5G_UE_THROUGHPUT"
+        topics: ["{{ tpl $.Values.config.kafka.pmCounterTopic $ }}"]
 
     transforms:
       parseJsonUeMeas:
@@ -690,18 +698,15 @@ vector-5g:
         inputs: ["inUeMeas"]
         drop_on_error: true
         source: . |= object!(parse_json!(.message))
-    
       filterUeMeas:
         type: "filter"
         inputs: ["parseJsonUeMeas"]
         condition: "exists(.RrcMeasurementReportResultInfo)"
-    
       parseUeMeas:
         type: "remap"
         inputs: ["filterUeMeas"]
         drop_on_error: true
         source: . |= object!(parse_json!(.RrcMeasurementReportResultInfo))
-    
       luaUeMeas:
         type: lua
         inputs: ["parseUeMeas"]
@@ -737,6 +742,59 @@ vector-5g:
               emit(temp)
             end
 
+      parseJsonUeThroughput:
+        type: "remap"
+        inputs: ["inUeThroughput"]
+        drop_on_error: true
+        source: . |= object!(parse_json!(.message))
+      filterUeThroughput:
+        type: filter
+        inputs: ["parseJsonUeThroughput"]
+        condition: exists(.PmReportingCuupCounterData)
+      parseUeThroughput:
+        inputs: ["filterUeThroughput"]
+        type: "remap"
+        drop_on_error: true
+        source: . |= object!(parse_json!(.PmReportingCuupCounterData))
+      filterNatsTopicUeThroughput:
+        type: filter
+        inputs: ["parseUeThroughput"]
+        condition: contains(to_string!(.topic), ".CUUP_COUNTERS_INFO")
+      luaParseThr:
+        type: lua
+        inputs: ["filterNatsTopicUeThroughput"]
+        version: '2'
+        hooks:
+          process: |-
+            function (event, emit)
+              m = {}
+              m.log = {
+                    timestamp = os.date("!*t"),
+                    ueId = "",
+                    measurement = {}
+                  }
+              if event.log.PmReportingCuupCounterData.CounterList ~= nil then      
+                  if event.log.PmReportingCuupCounterData.CounterList.items ~= nil then
+                    for k, v in pairs(event.log.PmReportingCuupCounterData.CounterList.items) do
+                      temp = m
+                      temp.log.ueId = event.log.PmReportingCuupCounterData.CounterList.items[k].InstanceId
+                      temp.log.cuupId = event.log.topic:match("[^.]*")
+                      if v.CounterId == "DL_GTP_THP" then
+                        temp.log.measurement.dlGtpThroughput = 0.0
+                        temp.log.measurement.dlGtpThroughput = event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._val / event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._key
+                        emit(temp)
+                      end
+                      if v.CounterId == "UL_GTP_THP" then
+                        temp.log.measurement.ulGtpThroughput = 0.0
+                        temp.log.measurement.ulGtpThroughput = event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._val / event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._key
+                        emit(temp)
+                      end
+                    end
+                  end
+              end
+            end
+
+
     sinks:
       outUeMeas:
         type: "{{ $.Values.config.influx.type }}"
@@ -748,6 +806,24 @@ vector-5g:
         tags: ["nrCellId", "ueId"]
         username: "{{ $.Values.config.influx.username }}"
         password: "{{ $.Values.config.influx.password }}"
+      
+      outUeThroughput:
+        type: "{{ .Values.config.influx.type }}"
+        inputs: ["luaParseThr"]
+        bucket: "vector-bucket"
+        database: "{{ .Values.config.influx.database }}"
+        endpoint: "http://{{ tpl .Values.config.influx.hostname . }}:{{ .Values.config.influx.port}}"
+        measurement: "{{ .Values.config.influx.namespace }}.vector"
+        tags: ["cuupId", "ueId"]
+        username: "{{ .Values.config.influx.username }}"
+        password: "{{ .Values.config.influx.password }}"
+      
+      debug:
+        type: console
+        inputs: ["inUeMeas"]
+        target: stdout
+        encoding:
+          codec: raw_message
 
   service:
     enabled: false
