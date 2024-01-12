@@ -671,9 +671,9 @@ vector-5g:
         type: "remap"
         inputs: ["filterUeMeas"]
         drop_on_error: true
-        source: . |= object!(parse_json!(.RrcMeasurementReportResultInfo))
+        source: . |= object!(.RrcMeasurementReportResultInfo)
       luaUeMeas:
-        type: lua
+        type: "lua"
         inputs: ["parseUeMeas"]
         version: '2'
         hooks:
@@ -686,6 +686,7 @@ vector-5g:
                 ueId = "",
                 measurement = {}
               }
+
               if event.log.RrcMeasurementReportResultInfo.CellInfo ~= nil then
                 for f, v in pairs(event.log.RrcMeasurementReportResultInfo.CellInfo) do
                   temp = m
@@ -697,10 +698,10 @@ vector-5g:
                   emit(temp)
                 end
               end
+
               temp = m
-              nrCellId = event.log.ServingCellInfo.NrCgi.NrCellId
               temp.log.ueId = event.log.RrcMeasurementReportResultInfo.GnbCuCpUeId
-              temp.log.nrCellId = nrCellId
+              temp.log.nrCellId = event.log.ServingCellInfo.NrCgi.NrCellId
               temp.log.measurement.ssbRsrp = event.log.ServingCellInfo.SsbRsrpResult
               temp.log.measurement.ssbRsrq = event.log.ServingCellInfo.SsbRsrqResult
               temp.log.measurement.ssbSinr = event.log.ServingCellInfo.SsbSinrResult
@@ -720,7 +721,7 @@ vector-5g:
         inputs: ["filterUeThroughput"]
         type: "remap"
         drop_on_error: true
-        source: . |= object!(parse_json!(.PmReportingCuupCounterData))
+        source: . |= object!(.PmReportingCuupCounterData)
       filterNatsTopicUeThroughput:
         type: filter
         inputs: ["parseUeThroughput"]
@@ -734,31 +735,32 @@ vector-5g:
             function (event, emit)
               m = {}
               m.log = {
-                    timestamp = os.date("!*t"),
-                    ueId = "",
-                    measurement = {}
-                  }
+                timestamp = os.date("!*t"),
+                ueId = "",
+                measurement = {}
+              }
+
               if event.log.PmReportingCuupCounterData.CounterList ~= nil then      
-                  if event.log.PmReportingCuupCounterData.CounterList.items ~= nil then
-                    for k, v in pairs(event.log.PmReportingCuupCounterData.CounterList.items) do
-                      temp = m
-                      temp.log.ueId = event.log.PmReportingCuupCounterData.CounterList.items[k].InstanceId
-                      temp.log.cuupId = event.log.topic:match("[^.]*")
-                      if v.CounterId == "DL_GTP_THP" then
-                        temp.log.measurement.dlGtpThroughput = 0.0
-                        temp.log.measurement.dlGtpThroughput = event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._val / event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._key
-                        emit(temp)
-                      end
-                      if v.CounterId == "UL_GTP_THP" then
-                        temp.log.measurement.ulGtpThroughput = 0.0
-                        temp.log.measurement.ulGtpThroughput = event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._val / event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._key
-                        emit(temp)
-                      end
+                if event.log.PmReportingCuupCounterData.CounterList.items ~= nil then
+                  for k, v in pairs(event.log.PmReportingCuupCounterData.CounterList.items) do
+                    temp = m
+                    temp.log.ueId = event.log.PmReportingCuupCounterData.CounterList.items[k].InstanceId
+                    temp.log.cuupId = event.log.topic:match("[^.]*")
+                    if v.CounterId == "DL_GTP_THP" then
+                      temp.log.measurement.dlGtpThroughput = 0.0
+                      temp.log.measurement.dlGtpThroughput = event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._val / event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._key
+                      emit(temp)
+                    end
+
+                    if v.CounterId == "UL_GTP_THP" then
+                      temp.log.measurement.ulGtpThroughput = 0.0
+                      temp.log.measurement.ulGtpThroughput = event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._val / event.log.PmReportingCuupCounterData.CounterList.items[k].ValueList.items["0"]._key
+                      emit(temp)
                     end
                   end
+                end
               end
             end
-
 
     sinks:
       outUeMeas:
