@@ -219,8 +219,6 @@ kafka:
   extraEnvVars:
     - name: "KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE"
       value: "true"
-    - name: "KAFKA_CREATE_TOPICS"
-      value: "accelleran.drax.4g.ric.raw.network_state:1:1,accelleran.drax.4g.ric.raw.service_discovery:1:1,accelleran.drax.4g.ric.raw.ue_measurements:1:1,accelleran.drax.5g.ric.raw.cu_state:1:1,accelleran.drax.5g.ric.raw.ue_measurements:1:1,accelleran.drax.5g.ric.raw.pm_counters:1:1,accelleran.drax.5g.ric.raw.messages:1:1"
 
   listeners:
     client:
@@ -244,79 +242,46 @@ kafka:
     enabled: true
 
   controller:
-    replicaCount: 1
-
-  commonLabels: {}
-  commonAnnotations: {}
-  extraDeploy: []
+    replicaCount: 3
 
   provisioning:
     enabled: true
+    replicationFactor: 1
+    numPartitions: 1
     topics:
       - name: kafka-cluster-init
         partitions: 1
         replicationFactor: 1
 
   service:
-    type: ClusterIP
+    type: NodePort
 
     ports:
       client: 9092
+      external: 9095
     nodePorts:
-      client: ""  # 31090
+      client: ""
+      external: "31090"
 
+  externalAccess:
+    enabled: true
+    autoDiscovery:
+      enabled: true
 
-  volumePermissions:
-    enabled: false
-
-  # serviceAccount:
-  #   create: true
-  #   name: ""
-  #   automountServiceAccountToken: true
-  #   annotations: {}
-  # rbac:
-  #   create: false
+  serviceAccount:
+    create: true
+    name: ""
+    automountServiceAccountToken: true
+    annotations: {}
+  rbac:
+    create: true
 
   metrics:
     kafka:
       enabled: false
 
     jmx:
-      enabled: true
-      # kafkaJmxPort: 5555
-
-      # containerPorts:
-      #   metrics: 5556
-
-      # service:
-      #   ports:
-      #     metrics: 5556
-
-      # whitelistObjectNames:
-      #   - kafka.controller:*
-      #   - kafka.server:*
-      #   - java.lang:*
-      #   - kafka.network:*
-      #   - kafka.log:*
-
-      # config: |-
-      #   jmxUrl: service:jmx:rmi:///jndi/rmi://127.0.0.1:{{ .Values.metrics.jmx.kafkaJmxPort }}/jmxrmi
-      #   lowercaseOutputName: true
-      #   lowercaseOutputLabelNames: true
-      #   ssl: false
-      #   {{- if .Values.metrics.jmx.whitelistObjectNames }}
-      #   whitelistObjectNames: ["{{ join "\",\"" .Values.metrics.jmx.whitelistObjectNames }}"]
-      #   {{- end }}
-
-      # existingConfigmap: ""
-
-      # ## extraRules: |-
-      # ##  - pattern: kafka.server<type=socket-server-metrics, listener=(.+), networkProcessor=(.+)><>(connection-count)
-      # ##    name: kafka_server_socket_server_metrics_$3
-      # ##    labels:
-      # ##      listener: $1
-      # ##
-      # extraRules: ""
+      enabled: false
 
 
 nats:
