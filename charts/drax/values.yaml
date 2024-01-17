@@ -616,7 +616,7 @@ influxdb:
         CREATE DATABASE "db_5G" WITH DURATION 5d REPLICATION 1 NAME "rp_5d_5G"
 
 
-vector-5g:
+vector:
   nameOverride: ""
   fullnameOverride: ""
 
