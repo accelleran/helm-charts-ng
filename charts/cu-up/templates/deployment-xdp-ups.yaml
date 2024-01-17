@@ -42,8 +42,6 @@ env:
     valueFrom:
       fieldRef:
         fieldPath: metadata.name
-  - name: HOSTMODE
-    value: "true"
   - name: UPLINK
     value: {{ $xdpUpStack.uplink.address | quote }}
   - name: DOWNLINK
