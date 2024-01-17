@@ -35,6 +35,12 @@ dependencies:
     version: 3.0.0-dev.0
     repository: https://accelleran.github.io/helm-charts-ng/
 
+  # ric
+  - name: e2-t
+    condition: e2-t.enabled
+    version: 1.1.0
+    repository: https://accelleran.github.io/helm-charts-ng/
+
   # infrastructure
   - name: golang-nkafka
     alias: golang-nkafka-5g

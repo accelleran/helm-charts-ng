@@ -173,33 +173,19 @@ cell-wrapper:
     enabled: false
 
 
-e2t:
-  enabled: false
+e2-t:
+  enabled: true
 
-  natsHostname: "{{ .Values.global.kubeIp }}"
-  natsPort: "31100"
+  numOfE2Nodes: 2
 
-  redisConfig:
-    hostname: "{{ .Values.global.kubeIp }}"
-    port: "32200"
+  bootstrap:
+    create: false
+    name: "{{ $.Release.Name }}-bootstrap"
 
-  draxNodeSelectorEnabled: "{{ .Values.global.draxNodeSelectorEnabled }}"
-  draxNodeSelector:
-    draxName: "{{ .Values.global.draxName }}"
-
-  e2tsctp:
-    enabled: true
-
-  e2tap:
-    enabled: true
-
-    numOfE2Nodes: "5"
-
-  e2smkpm:
-    enabled: true
-
-  e2smrc:
-    enabled: true
+  nats:
+    enabled: false
+  redis:
+    enabled: false
 
 
 golang-nkafka-5g:
