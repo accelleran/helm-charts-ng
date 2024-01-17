@@ -48,6 +48,10 @@ env:
     value: {{ $xdpUpStack.downlink.address | quote }}
   - name: MTU_SIZE
     value: {{ min ($xdpUpStack.uplink.mtu | default 1460) ($xdpUpStack.downlink.mtu | default 1460) | quote }}
+{{- with (include "accelleran.common.bootstrap.instanceId" (dict "top" $)) }}
+  - name: INSTANCE_FILTER
+    value: {{ . | quote }}
+{{- end }}
 envFrom:
   - configMapRef:
       name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
