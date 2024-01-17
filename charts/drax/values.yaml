@@ -51,6 +51,23 @@ global:
     licenseSecretName: "accelleran-license"
 
 
+bootstrap:
+  create: true
+  name: "{{ $.Release.Name }}-bootstrap"
+  redis:
+    enabled: true
+    hostname: ""
+    port: 0
+  nats:
+    enabled: true
+    hostname: ""
+    port: 0
+  kafka:
+    enabled: true
+    hostname: ""
+    port: 0
+
+
 dash-front-back-end:
   enabled: true
 
@@ -115,6 +132,10 @@ network-state-monitor:
   # Enable/disable installation of the Network State Monitor
   enabled: true
 
+  bootstrap:
+    create: false
+    name: "{{ $.Release.Name }}-bootstrap"
+
 
 service-monitor:
   # Enable/disable installation of the Service Monitor
@@ -141,6 +162,10 @@ config-api:
 
 cell-wrapper:
   enabled: true
+
+  bootstrap:
+    create: false
+    name: "{{ $.Release.Name }}-bootstrap"
 
   nats:
     enabled: false
@@ -181,12 +206,8 @@ golang-nkafka-5g:
   mode: "5g"
 
   bootstrap:
-    kafka:
-      hostname: ""
-      port: 0
-    nats:
-      hostname: ""
-      port: 0
+    create: false
+    name: "{{ $.Release.Name }}-bootstrap"
 
   config:
     natsConnectionParameters:

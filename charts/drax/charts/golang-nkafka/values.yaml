@@ -1,6 +1,8 @@
 mode: "5g"
 
 bootstrap:
+  create: true
+  name: ""
   nats:
     enabled: true
     hostname: ""
