@@ -22,9 +22,6 @@ values:
 name: {{ include "accelleran.common.bootstrap.configMapName" . | quote }}
 
 data:
-  {{- with (include "accelleran.common.bootstrap.instanceId" .) }}
-  INSTANCE_FILTER: {{ . | quote }}
-  {{- end }}
   {{- with (include "accelleran.common.bootstrap.redis.hostname" .) }}
   REDIS_HOSTNAME: {{ . | quote }}
   {{- end }}
