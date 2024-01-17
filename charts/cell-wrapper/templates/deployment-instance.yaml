@@ -52,6 +52,10 @@ env:
     value: "/config/ssh/public"
   - name: SSH_KEY_PRIVATE
     value: "/config/ssh/private"
+{{- with (include "accelleran.common.bootstrap.instanceId" (dict "top" $)) }}
+  - name: INSTANCE_FILTER
+    value: {{ . | quote }}
+{{- end }}
 envFrom:
   - configMapRef:
       name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
