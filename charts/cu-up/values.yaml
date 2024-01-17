@@ -37,7 +37,7 @@ xdpUpStacks: []
 
 bootstrap:
   create: true
-  configMapName: ""
+  name: ""
 
   # CU-UP Instance ID
   #   Description:  The Instance ID of the CU-UP component that
