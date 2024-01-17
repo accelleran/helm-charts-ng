@@ -26,7 +26,7 @@ numOfUes: 16
 
 bootstrap:
   create: true
-  configMapName: ""
+  name: ""
 
   # CU-CP Instance ID
   #   Description:  The Instance ID of the CU-CP component that
