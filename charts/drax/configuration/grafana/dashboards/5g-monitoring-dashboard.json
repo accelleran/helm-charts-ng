@@ -1024,7 +1024,7 @@
             "properties": [
               {
                 "id": "unit",
-                "value": "dbm"
+                "value": "dBm"
               },
               {
                 "id": "thresholds",
