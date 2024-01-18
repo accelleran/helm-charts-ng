@@ -371,20 +371,22 @@ prometheus:
       type: ClusterIP
       nodePort: null # 30304
 
+  # adds additional scrape configs to prometheus.yml
+  # must be a string so you have to add a | after extraScrapeConfigs:
   extraScrapeConfigs: |
     - job_name: 5gPmCountersXapp
       scrape_interval: 2s
       static_configs:
         - targets:
-          - "{{ .Values.global.kubeIp }}:30515"
+          - "{{ $.Release.Name }}-pm-counters.{{ $.Release.Namespace }}:8000"
     - job_name: kafkaMonitoringJmx
       static_configs:
         - targets:
-          - "{{ .Release.Name }}-kafka.{{ .Release.Namespace }}:5556"
+          - "{{ $.Release.Name }}-kafka-jmx-metrics.{{ $.Release.Namespace }}:5556"
     - job_name: kafkaMonitoringKminion
       static_configs:
         - targets:
-          - "{{ .Release.Name }}-acc-kminion:8080"
+          - "{{ $.Release.Name }}-kminion.{{ $.Release.Namespace }}:8080"
     - job_name: natsMonitoring
       static_configs:
         - targets:
