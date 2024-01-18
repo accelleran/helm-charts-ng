@@ -188,6 +188,10 @@ e2-t:
     enabled: false
 
 
+pm-counters:
+  enabled: true
+
+
 golang-nkafka-5g:
   mode: "5g"
 

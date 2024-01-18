@@ -1,0 +1,21 @@
+{{- include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.pm-counters.deployment.args" $))
+-}}
+
+{{- define "accelleran.pm-counters.deployment.args" -}}
+{{- $ := . -}}
+{{- $fullname := include "accelleran.common.fullname" (dict "top" $) -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+volumes:
+  - name: {{ $fullname }}-config
+    configMap:
+      name: {{ $fullname }}-config
+volumeMounts:
+  - name: {{ $fullname }}-config
+    mountPath: /src/xapp/xapp_configuration.py
+    subPath: "xapp_configuration.py"
+{{- end -}}
