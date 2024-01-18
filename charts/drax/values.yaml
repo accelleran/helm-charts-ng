@@ -300,6 +300,36 @@ nats:
 
   natsBox:
     enabled: false
+  
+  promExporter:
+    enabled: true
+    port: 7777
+
+  service:
+    enabled: true
+    name: ""
+
+    ports:
+      nats:
+        enabled: true
+      monitor:
+        enabled: true
+  
+  extraResources:
+    - apiVersion: v1
+      kind: Service
+      metadata:
+        name:
+          $tplYaml: >
+            {{ printf "%s-prom-exporter" (include "nats.fullname" $) | quote }}
+      spec:
+        selector:
+          $tplYaml: |
+            {{ include "nats.selectorLabels" $ }}
+        ports:
+          - protocol: TCP
+            port: 7777
+            targetPort: 7777
 
 
 redis:
@@ -372,14 +402,10 @@ prometheus:
       static_configs:
         - targets:
           - "{{ .Release.Name }}-acc-kminion:8080"
-    - job_name: nats4GMonitoring
+    - job_name: natsMonitoring
       static_configs:
         - targets:
-          - "nats-service:7777"
-    - job_name: nats5GMonitoring
-      static_configs:
-        - targets:
-          - "{{ .Release.Name }}-nats:7777"
+          - "{{ $.Release.Name }}-nats-prom-exporter.{{ $.Release.Namespace }}:7777"
 
 
 grafana:
