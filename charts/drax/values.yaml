@@ -272,7 +272,10 @@ kafka:
       enabled: false
 
     jmx:
-      enabled: false
+      enabled: true
+      service:
+        ports:
+          metrics: 5556
 
 
 nats:
