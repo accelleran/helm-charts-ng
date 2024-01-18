@@ -10,7 +10,7 @@
 top:
   {{ $ | toYaml | nindent 2 }}
 
-{{- with $.Values.config.draxVersionConfigmap }}
+{{- with tpl $.Values.config.draxVersionConfigmap $ }}
 env:
   - name: DRAX_VERSION
     valueFrom:
