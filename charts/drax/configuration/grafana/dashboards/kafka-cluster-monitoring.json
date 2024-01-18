@@ -73,7 +73,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "count(kafka_server_ReplicaManager_LeaderCount)",
+          "expr": "count(kafka_server_replicamanager_total_leadercount_value)",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -135,7 +135,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "count(kafka_controller_KafkaController_ActiveControllerCount)",
+          "expr": "count(kafka_controller_kafkacontroller_activecontrollercount_value)",
           "instant": false,
           "interval": "1m",
           "legendFormat": "",
@@ -813,7 +813,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "rate(kafka_server_KafkaServer_linux_disk_read_bytes{job=\"kafkaMonitoringJmx\"}[$__range])",
+          "expr": "rate(kafka_server_kafkaserver_total_linux_disk_read_bytes_value{job=\"kafkaMonitoringJmx\"}[$__range])",
           "interval": "1m",
           "legendFormat": "Disk Read",
           "range": true,
@@ -825,7 +825,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "rate(kafka_server_KafkaServer_linux_disk_write_bytes{job=\"kafkaMonitoringJmx\"}[$__range])",
+          "expr": "rate(kafka_server_kafkaserver_total_linux_disk_write_bytes_value{job=\"kafkaMonitoringJmx\"}[$__range])",
           "interval": "1m",
           "legendFormat": "Disk Write",
           "range": true,
@@ -1194,7 +1194,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": " sum(kafka_network_RequestMetrics_TotalTimeMs) by(request)",
+          "expr": " sum(kafka_network_requestmetrics_totaltimems_count) by(request)",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1285,7 +1285,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "rate(kafka_server_BrokerTopicMetrics_TotalProduceRequests_total{job=\"kafkaMonitoringJmx\",topic!=\"\"}[$__range])",
+          "expr": "rate(kafka_server_brokertopicmetrics_totalproducerequestspersec_oneminuterate{job=\"kafkaMonitoringJmx\",topic!=\"\"}[$__range])",
           "hide": false,
           "interval": "1m",
           "legendFormat": "{{ topic }}",
@@ -1376,7 +1376,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "rate(kafka_server_BrokerTopicMetrics_TotalFetchRequests_total{job=\"kafkaMonitoringJmx\",topic!=\"\"}[$__range])",
+          "expr": "rate(kafka_server_brokertopicmetrics_totalfetchrequestspersec_oneminuterate{job=\"kafkaMonitoringJmx\",topic!=\"\"}[$__range])",
           "hide": false,
           "interval": "1m",
           "legendFormat": "{{ topic }}",
