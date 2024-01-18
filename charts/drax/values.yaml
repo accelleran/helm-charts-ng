@@ -355,8 +355,8 @@ prometheus:
       labels:
         drax/component-name: prometheus-server
         drax/role: ric
-      type: NodePort
-      nodePort: 30304
+      type: ClusterIP
+      nodePort: null # 30304
 
   extraScrapeConfigs: |
     - job_name: 5gPmCountersXapp
