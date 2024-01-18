@@ -7,26 +7,6 @@ global:
   #
   kubeIp: "10.20.20.20"
 
-  # dRAX Specific Node Selector
-  #   Description:  This is a special nodeSelector field implemented for the
-  #                 Accelleran RIC Helm charts. You need to first label your
-  #                 node in Kubernetes with a label "draxName" and give it a
-  #                 <value>. For example for node <node_name>, you can use the
-  #                 following command to label it:
-  #                 kubectl label node <node_name> draxName=<value>.
-  #                 You can then enabled this feature by setting
-  #                 "draxNodeSelectorEnabled" to "true" (as a string with quotes!).
-  #                 The in "draxName" set the value of the label you chose for
-  #                 the node. This will in effect install all the RIC Application
-  #                 on that node, without the need to edit all individual helm
-  #                 charts. In case you want to add other nodeSelector options,
-  #                 you have to add them to the helm chart specific values files.
-  #
-  #   Value type:   string
-  #
-  draxNodeSelectorEnabled: "false"
-  draxName: "main"
-
   # 4G/5G Options
   #   Description:  Depending on the product bought, you may enable or disable the accompanying features.
   #
