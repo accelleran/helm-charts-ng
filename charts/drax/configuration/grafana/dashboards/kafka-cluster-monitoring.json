@@ -934,9 +934,9 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum without(instance)(increase(kafka_server_brokertopicmetrics_bytesinpersec_count{topic!=\"__consumer_offsets\"}[$__range]))",
+          "expr": "sum by (topic)(kafka_server_brokertopicmetrics_bytesinpersec_count{topic!=\"__consumer_offsets\"})",
           "interval": "1m",
-          "legendFormat": "{{topic}}",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
@@ -1034,9 +1034,9 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum without(instance)(increase(kafka_server_brokertopicmetrics_bytesoutpersec_count{topic!=\"__consumer_offsets\"}[$__range]))",
+          "expr": "sum by (topic)(kafka_server_brokertopicmetrics_bytesoutpersec_count{topic!=\"__consumer_offsets\"})",
           "interval": "1m",
-          "legendFormat": "{{topic}}",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
@@ -1526,6 +1526,6 @@
   "timezone": "",
   "title": "Kafka Cluster Monitoring",
   "uid": "JYP4MM8Mk",
-  "version": 11,
+  "version": 1,
   "weekStart": ""
 }
