@@ -495,84 +495,48 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "group"
+              "options": "group_id"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 229
+                "value": 250
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "kubernetes_pod_name"
+              "options": "topic_name"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 327
+                "value": 400
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "topic"
+              "options": "partition_id"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 426
+                "value": 75
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "partition"
+              "options": "Value"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 238
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "app_kubernetes_io_instance"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 199
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "kubernetes_namespace"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 174
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Consumer Group"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 570
+                "value": 75
               }
             ]
           }
@@ -622,49 +586,29 @@
               "Time": true,
               "Value": false,
               "__name__": true,
-              "app_kubernetes_io_component": true,
-              "app_kubernetes_io_instance": true,
-              "app_kubernetes_io_managed_by": true,
-              "app_kubernetes_io_name": true,
-              "app_kubernetes_io_part_of": true,
-              "app_kubernetes_io_version": true,
               "group": false,
               "group_base_name": true,
               "group_is_latest": true,
               "group_version": true,
               "instance": true,
-              "job": true,
-              "kubernetes_namespace": true,
-              "kubernetes_pod_name": true,
-              "pod_template_hash": true
+              "job": true
             },
             "indexByName": {
               "Time": 0,
-              "Value": 19,
               "__name__": 1,
-              "app_kubernetes_io_component": 2,
-              "app_kubernetes_io_instance": 3,
-              "app_kubernetes_io_managed_by": 4,
-              "app_kubernetes_io_name": 5,
-              "app_kubernetes_io_part_of": 6,
-              "app_kubernetes_io_version": 7,
-              "group": 8,
-              "group_base_name": 9,
-              "group_is_latest": 10,
-              "group_version": 11,
-              "instance": 12,
-              "job": 13,
-              "kubernetes_namespace": 14,
-              "kubernetes_pod_name": 15,
-              "partition": 17,
-              "pod_template_hash": 18,
-              "topic": 16
+              "group_id": 2,
+              "instance": 3,
+              "job": 4,
+              "topic_name": 5,
+              "partition_id": 6,
+              "Value": 7
             },
             "renameByName": {
               "Field": "",
-              "Value": "Lag",
-              "app_kubernetes_io_version": "",
-              "group": "Consumer Group"
+              "group_id": "Consumer Group",
+              "topic_name": "Topic",
+              "partition_id": "Partition",
+              "Value": "Lag"
             }
           }
         }
