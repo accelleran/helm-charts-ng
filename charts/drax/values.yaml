@@ -133,6 +133,7 @@ service-orchestrator:
 
 config-api:
   enabled: true
+
   config:
     default_service_namespace_5g: "default"
     default_oran_namespace_4g: "default"
@@ -368,8 +369,8 @@ prometheus:
       labels:
         drax/component-name: prometheus-server
         drax/role: ric
-      type: ClusterIP
-      nodePort: null # 30304
+      type: NodePort
+      nodePort: 30304
 
   # adds additional scrape configs to prometheus.yml
   # must be a string so you have to add a | after extraScrapeConfigs:
@@ -812,3 +813,40 @@ vector:
 
   serviceHeadless:
     enabled: false
+
+
+kminion:
+  enabled: true
+
+  kminion:
+    # See reference config: https://github.com/cloudhut/kminion/blob/master/docs/reference-config.yaml
+    config:
+      kafka:
+        brokers:
+          - "{{ $.Release.Name }}-kafka.{{ $.Release.Namespace }}:9092"
+        clientId: "kminion"
+        retryInitConnection: true
+    
+      minion:
+        consumerGroups:
+          enabled: true
+          scrapeMode: offsetsTopic
+          granularity: partition
+          allowedGroups: ["*"]
+          ignoredGroups: [ ]
+        topics:
+          granularity: partition
+          allowedTopics: [ ]
+          ignoredTopics: [ ]
+          infoMetric:
+            configKeys: ["cleanup.policy"]
+        logDirs:
+          enabled: false
+    
+      exporter:
+        namespace: "kminion"
+        host: ""
+        port: 8080
+    
+      logger:
+        level: info

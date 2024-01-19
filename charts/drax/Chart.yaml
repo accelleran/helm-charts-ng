@@ -77,6 +77,10 @@ dependencies:
     condition: global.enable5G
     version: 0.30.0
     repository: https://helm.vector.dev
+  - name: kminion
+    condition: kminion.enabled
+    version: 0.12.0
+    repository: https://raw.githubusercontent.com/redpanda-data/kminion/master/charts/archives
 
   # infrastructure
   - name: kafka

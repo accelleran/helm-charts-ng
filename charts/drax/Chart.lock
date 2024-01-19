@@ -14,6 +14,9 @@ dependencies:
 - name: vector
   repository: https://helm.vector.dev
   version: 0.30.0
+- name: kminion
+  repository: https://raw.githubusercontent.com/redpanda-data/kminion/master/charts/archives
+  version: 0.12.0
 - name: kafka
   repository: https://charts.bitnami.com/bitnami/
   version: 26.5.0
@@ -23,5 +26,5 @@ dependencies:
 - name: redis
   repository: https://charts.bitnami.com/bitnami/
   version: 18.5.0
-digest: sha256:184dd9187cdad93b18cc344fb21debb063a61a3986e7542f0319364a2152d81f
-generated: "2024-01-10T13:32:03.656108215+01:00"
+digest: sha256:1a1832009145e3e2c68b9b4553e1755aba9bf43c03d50b96fc183067eba68f0c
+generated: "2024-01-18T20:14:19.849003917+01:00"
