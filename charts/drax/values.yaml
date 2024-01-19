@@ -545,7 +545,6 @@ grafana:
     nats-dashboard: "{{ .Release.Name }}-grafana-nats-dashboard"
 
 
-# coalesce.go:286: warning: cannot overwrite table with non table for loki-stack.prometheus.alertmanager.extraEnv (map[])
 loki-stack:
   enabled: true
   promtail:
