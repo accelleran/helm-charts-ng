@@ -32,6 +32,10 @@ containerName: {{ $name | quote }}
 command:
   {{- $command | toYaml | nindent 2 }}
 {{- end }}
+
+# prevent warning of duplicate port definition
+service:
+  enabled: false
 {{- end -}}
 
 
