@@ -73,7 +73,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "count(kafka_server_replicamanager_total_leadercount_value)",
+          "expr": "count(kafka_server_replicamanager_total_leadercount_value{job=\"kubernetes-service-endpoints\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -135,7 +135,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "count(kafka_controller_kafkacontroller_activecontrollercount_value)",
+          "expr": "count(kafka_controller_kafkacontroller_activecontrollercount_value{job=\"kubernetes-service-endpoints\"})",
           "instant": false,
           "interval": "1m",
           "legendFormat": "",
@@ -198,7 +198,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kafka_minion_topic_partition_count{job=\"kubernetes-pods\",topic!=\"__consumer_offsets\"})",
+          "expr": "kafka_controller_kafkacontroller_globalpartitioncount_value{job=\"kafkaMonitoringJmx\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -261,7 +261,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "round(sum(rate(kafka_server_BrokerTopicMetrics_MessagesIn_total{job=\"kafkaMonitoringJmx\",topic!=\"\"}[$__range])))",
+          "expr": "round(sum(kafka_server_brokertopicmetrics_total_messagesinpersec_oneminuterate{job!=\"kafkaMonitoringJmx\"}))",
           "instant": false,
           "interval": "1m",
           "legendFormat": "",
@@ -324,7 +324,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "round(sum without(instance)(rate(kafka_server_BrokerTopicMetrics_MessagesIn_total{job=\"kafkaMonitoringJmx\",topic!=\"\"}[$__range])))",
+          "expr": "round(sum by(topic)(kafka_server_brokertopicmetrics_messagesinpersec_oneminuterate{topic!=\"__consumer_offsets\"}))",
           "interval": "1m",
           "legendFormat": "{{topic}}",
           "range": true,
@@ -420,7 +420,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "avg by (topic, group) (rate(kafka_minion_group_topic_partition_offset[$__range]))",
+          "expr": "avg by (topic_name, group) (rate(kminion_kafka_consumer_group_topic_offset_sum[$__range]))",
           "interval": "1m",
           "legendFormat": "",
           "range": true,
@@ -605,7 +605,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "kafka_minion_group_topic_partition_lag{job=\"kafkaMonitoringKminion\"}",
+          "expr": "kminion_kafka_consumer_group_topic_partition_lag",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -722,7 +722,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "avg by (group,topic) (kafka_minion_group_topic_lag)",
+          "expr": "avg by (group,topic_name) (kminion_kafka_consumer_group_topic_partition_lag)",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -919,7 +919,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum without(instance)(increase(kafka_server_BrokerTopicMetrics_BytesOut_total{job=\"kafkaMonitoringJmx\",topic!=\"\"}[$__range])) ",
+          "expr": "sum without(instance)(increase(kafka_server_brokertopicmetrics_bytesinpersec_count{topic!=\"__consumer_offsets\"}[$__range]))",
           "interval": "1m",
           "legendFormat": "{{topic}}",
           "range": true,
@@ -1012,7 +1012,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum without(instance)(increase(kafka_server_BrokerTopicMetrics_BytesOut_total{job=\"kafkaMonitoringJmx\",topic!=\"\"}[$__range])) ",
+          "expr": "sum without(instance)(increase(kafka_server_brokertopicmetrics_bytesoutpersec_count{topic!=\"__consumer_offsets\"}[$__range]))",
           "interval": "1m",
           "legendFormat": "{{topic}}",
           "range": true,
@@ -1104,10 +1104,80 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": " sum(kafka_server_DelayedOperationPurgatory_NumDelayedOperations) by(delayedOperation)",
+          "expr": "kafka_server_delayedoperationpurgatory_numdelayedoperations_remotefetch_value{job=\"kafkaMonitoringJmx\"}",
           "interval": "",
-          "legendFormat": "{{ delayedOperation }}",
+          "legendFormat": "RemoteFetch",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "kafka_server_delayedoperationpurgatory_numdelayedoperations_electleader_value{job=\"kafkaMonitoringJmx\"}",
+          "interval": "",
+          "legendFormat": "ElectLeader",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "kafka_server_delayedoperationpurgatory_numdelayedoperations_produce_value{job=\"kafkaMonitoringJmx\"}",
+          "interval": "",
+          "legendFormat": "Produce",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "kafka_server_delayedoperationpurgatory_numdelayedoperations_fetch_value{job=\"kafkaMonitoringJmx\"}",
+          "interval": "",
+          "legendFormat": "Fetch",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "kafka_server_delayedoperationpurgatory_numdelayedoperations_deleterecords_value{job=\"kafkaMonitoringJmx\"}",
+          "interval": "",
+          "legendFormat": "DeleteRecords",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "kafka_server_delayedoperationpurgatory_numdelayedoperations_heartbeat_value{job=\"kafkaMonitoringJmx\"}",
+          "interval": "",
+          "legendFormat": "Heartbeat",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "kafka_server_delayedoperationpurgatory_numdelayedoperations_alteracls_value{job=\"kafkaMonitoringJmx\"}",
+          "interval": "",
+          "legendFormat": "AlterAcls",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "kafka_server_delayedoperationpurgatory_numdelayedoperations_rebalance_value{job=\"kafkaMonitoringJmx\"}",
+          "interval": "",
+          "legendFormat": "Rebalance",
+          "refId": "H"
         }
       ],
       "thresholds": [],
