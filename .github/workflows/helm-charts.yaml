@@ -193,6 +193,7 @@ jobs:
     # Otherwise release please will create a new PR
     # as it doesn't yet have the release to compare changes with.
     needs:
+      - vars
       - release-charts
     permissions:
       contents: write
