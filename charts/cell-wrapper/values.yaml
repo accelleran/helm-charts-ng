@@ -191,7 +191,7 @@ instance-scaler:
   image:
     repository: accelleran/instance-scaler
     pullPolicy: IfNotPresent
-    tag: "v0.1.0"
+    tag: "v0.1.2"
 
   extraLabels: {}
   annotations: {}
