@@ -1,0 +1,5 @@
+apiVersion: v2
+name: common
+description: A common library chart that provides accelleran standardized named templates
+type: library
+version: 0.1.0
