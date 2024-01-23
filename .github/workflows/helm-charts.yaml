@@ -158,6 +158,7 @@ jobs:
         if: ${{ steps.list-changed.outputs.changed == 'true' }}
         run: >-
           kubectl create secret docker-registry
+          --namespace default
           accelleran-secret
           --docker-username=${{ secrets.DOCKER_LOGIN }}
           --docker-password=${{ secrets.DOCKER_ACCESS_TOKEN }}
@@ -167,6 +168,7 @@ jobs:
         run: >-
           ct
           install
+          --namespace default
           --config etc/ct.yaml
           ${{ needs.vars.outputs.lib_chart_names && format('--excluded-charts "{0}"', needs.vars.outputs.lib_chart_names) }}
           ${{ needs.vars.outputs.ignored_install_chart_names && format('--excluded-charts "{0}"', needs.vars.outputs.ignored_install_chart_names) }}
