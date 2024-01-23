@@ -44,7 +44,7 @@ fullnameOverride: ""
 
 cw-ctrl:
   enabled: true
-  
+
   nameOverride: "cw-ctrl"
   fullnameOverride: ""
 
@@ -134,7 +134,7 @@ cw-inst:
       #   data: |
       #     <data>
 
-  replicaCount: 0 # instance scaler controls replicas by default
+  replicaCount: 0  # instance scaler controls replicas by default
 
   image:
     repository: "accelleran/cw-inst"
