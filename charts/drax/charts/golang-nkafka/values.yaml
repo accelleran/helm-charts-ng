@@ -59,7 +59,7 @@ initImage:
 image:
   repository: accelleran/golang-nkafka-5g
   pullPolicy: IfNotPresent
-  tag: "1.3.3_R4.2.2_karmeliet_CW2.3.0-rc.0"
+  tag: "1.3.4_R4.3.4_leffe_CW3.0.0"
 
 imagePullSecrets:
   - name: accelleran-secret
