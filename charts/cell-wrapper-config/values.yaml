@@ -28,7 +28,7 @@ global:
       # install: |-
       #   <!-- Global CW install config -->
       install: null
-      
+
       # Global "internal" cell wrapper config
       #   Description:  Sets the global "internal" configuration of the cell wrapper.
       #                 This should be xml that would be contained within the root
@@ -98,7 +98,7 @@ global:
     #   # ran: |-
     #   #   <gnb-id>1</gnb-id>
     #   #   <gnb-id-length>22</gnb-id-length>
-    #   #   <gnb-du-id>1</gnb-du-id> 
+    #   #   <gnb-du-id>1</gnb-du-id>
     #   #   <cu>127.0.0.1</cu>
     #   #   <admin-state>unlocked</admin-state>
     #   ran: null
@@ -107,7 +107,7 @@ global:
     #   #   Description:  Sets the RUs the cell wrapper should control and
     #   #                 link to the current DU.
     #   rus:
-      
+
     #     # RU name (mandatory)
     #     #   Description:  Sets the RU's name which is used as a key internally.
     #     #                 Only use alpha-numeric characters and a dash.
