@@ -27,6 +27,14 @@
       "matchStrings": [
         "#\\s?renovate: image=(?<depName>.*?)\\s?appVersion:\\s?\"?(?<currentValue>[\\w+\\.\\-]*)\"?"
       ]
+    },
+    {
+      "datasourceTemplate": "github-releases",
+      "fileMatch": ["(^|/)helm-charts\\.y[a]?ml$"],
+      "matchStrings": [
+        "#\\s?renovate: github_repository=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extract_version=(?<extractVersion>.*?))?\\s?[\\w\\-]*_version:\\s?\"?(?<currentValue>[\\w+\\.\\-]*)\"?"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     }
   ]
 }

@@ -25,6 +25,8 @@ jobs:
       lib_charts: ${{ steps.list-lib-charts.outputs.charts }}
       lib_chart_names: ${{ steps.list-lib-charts.outputs.chart_names }}
       ignored_install_chart_names: ${{ steps.list-ignored-install-charts.outputs.chart_names }}
+      # renovate: github_repository=metallb/metallb versioning=semver
+      metallb_version: v0.13.12
     timeout-minutes: 1
     steps:
       - name: Expose variables
@@ -153,6 +155,44 @@ jobs:
       - name: Create kind cluster
         if: ${{ steps.list-changed.outputs.changed == 'true' }}
         uses: helm/kind-action@v1.8.0
+
+      - name: Install metallb for loadbalancer services
+        if: ${{ steps.list-changed.outputs.changed == 'true' }}
+        run: |
+          kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/${{ needs.vars.outputs.metallb_version }}/config/manifests/metallb-native.yaml
+
+          kubectl wait --namespace metallb-system \
+            --for=condition=ready pod \
+            --selector=app=metallb \
+            --timeout=90s
+
+          subnet=$(docker network inspect -f '{{range .IPAM.Config}}{{printf "%s\n" .Subnet}}{{end}}' kind | head -n 1)
+          net_ip=$(echo "$subnet" | cut -d/ -f1)
+          cidr=$(echo "$subnet" | cut -d/ -f2)
+          if [ $cidr -gt 24 ]; then
+            echo "CIDR of $subnet needs to be 24 or smaller" 1>&2
+            exit 1
+          fi
+
+          net_ip_prefix=$(echo $net_ip | cut -d. -f 1-3)
+          ip_range=$net_ip_prefix.200-$net_ip_prefix.250
+
+          cat <<EOF | kubectl apply -f -
+          apiVersion: metallb.io/v1beta1
+          kind: IPAddressPool
+          metadata:
+            name: example
+            namespace: metallb-system
+          spec:
+            addresses:
+            - $ip_range
+          ---
+          apiVersion: metallb.io/v1beta1
+          kind: L2Advertisement
+          metadata:
+            name: empty
+            namespace: metallb-system
+          EOF
 
       - name: Create accelleran pull secret
         if: ${{ steps.list-changed.outputs.changed == 'true' }}
