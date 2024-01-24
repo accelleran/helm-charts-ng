@@ -1,4 +1,34 @@
 dependencies:
+- name: common
+  repository: https://accelleran.github.io/helm-charts-ng/
+  version: 0.1.0
+- name: dash-front-back-end
+  repository: file://charts/dash-front-back-end
+  version: 4.4.4
+- name: network-state-monitor
+  repository: file://charts/network-state-monitor
+  version: 0.1.0
+- name: service-monitor
+  repository: file://charts/service-monitor
+  version: 1.0.0
+- name: service-orchestrator
+  repository: file://charts/service-orchestrator
+  version: 1.0.0
+- name: config-api
+  repository: file://charts/config-api
+  version: 1.1.9-new-svc-mon
+- name: cell-wrapper
+  repository: https://accelleran.github.io/helm-charts-ng/
+  version: 3.0.0
+- name: e2-t
+  repository: file://charts/e2-t
+  version: 1.1.0
+- name: pm-counters
+  repository: file://charts/pm-counters
+  version: 1.0.3
+- name: golang-nkafka
+  repository: file://charts/golang-nkafka
+  version: 1.2.1
 - name: grafana
   repository: https://grafana.github.io/helm-charts
   version: 7.0.21
@@ -26,5 +56,5 @@ dependencies:
 - name: redis
   repository: https://charts.bitnami.com/bitnami/
   version: 18.5.0
-digest: sha256:1a1832009145e3e2c68b9b4553e1755aba9bf43c03d50b96fc183067eba68f0c
-generated: "2024-01-18T20:14:19.849003917+01:00"
+digest: sha256:0732ed82efb0ff6dab0dbc15930a1ff0f419527e9205061377e062f5d4977437
+generated: "2024-01-24T16:19:08.458986142+01:00"

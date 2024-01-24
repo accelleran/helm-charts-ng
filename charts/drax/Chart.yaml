@@ -6,53 +6,53 @@ version: 7.0.0-dev.0
 
 dependencies:
   - name: common
-    version: 0.2.0
+    version: 0.1.0
     repository: https://accelleran.github.io/helm-charts-ng/
 
   # smo
   - name: dash-front-back-end
     condition: dash-front-back-end.enabled
     version: 4.4.4
-    repository: https://accelleran.github.io/helm-charts-ng/
+    repository: file://charts/dash-front-back-end
   - name: network-state-monitor
     condition: network-state-monitor.enabled
     version: 0.1.0
-    repository: https://accelleran.github.io/helm-charts-ng/
+    repository: file://charts/network-state-monitor
   - name: service-monitor
     condition: service-monitor.enabled
     version: 1.0.0
-    repository: https://accelleran.github.io/helm-charts-ng/
+    repository: file://charts/service-monitor
   - name: service-orchestrator
     condition: service-orchestrator.enabled
     version: 1.0.0
-    repository: https://accelleran.github.io/helm-charts-ng/
+    repository: file://charts/service-orchestrator
   - name: config-api
     condition: config-api.enabled
     version: 1.1.9-new-svc-mon
-    repository: https://accelleran.github.io/helm-charts-ng/
+    repository: file://charts/config-api
   - name: cell-wrapper
     condition: cell-wrapper.enabled
-    version: 3.0.0-dev.0
+    version: 3.0.0
     repository: https://accelleran.github.io/helm-charts-ng/
 
   # ric
   - name: e2-t
     condition: e2-t.enabled
     version: 1.1.0
-    repository: https://accelleran.github.io/helm-charts-ng/
+    repository: file://charts/e2-t
 
   # xapps
   - name: pm-counters
     condition: pm-counters.enabled
     version: 1.0.3
-    repository: https://accelleran.github.io/helm-charts-ng/
+    repository: file://charts/pm-counters
 
   # infrastructure
   - name: golang-nkafka
     alias: golang-nkafka-5g
     condition: global.enable5G
     version: 1.2.1
-    repository: https://accelleran.github.io/helm-charts-ng/
+    repository: file://charts/golang-nkafka
 
   # external
 
