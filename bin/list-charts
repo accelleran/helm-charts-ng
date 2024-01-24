@@ -8,6 +8,7 @@ function usage() {
     echo "    -h                      Display usage."
     echo "    -a                      List only application charts."
     echo "    -l                      List only library charts."
+    echo "    -i                      List ignored install charts."
     echo "    -n                      List charts by name."
     echo "    -p                      List charts by path."
     exit 0
@@ -21,9 +22,11 @@ function error() {
 list_application_charts=false
 list_library_charts=false
 
+list_ignored_install_charts=false
+
 list_chart_names=false
 
-while getopts ":halnp" opt; do
+while getopts ":halinp" opt; do
     case ${opt} in
         h )
             usage
@@ -33,6 +36,9 @@ while getopts ":halnp" opt; do
         ;;
         l )
             list_library_charts=true
+        ;;
+        i )
+            list_ignored_install_charts=true
         ;;
         n )
             list_chart_names=true
@@ -47,12 +53,14 @@ while getopts ":halnp" opt; do
 done
 shift $((OPTIND -1))
 
-if [[ "${list_application_charts}" == false && "${list_library_charts}" == false ]]; then
+if [[ "${list_application_charts}" == false && "${list_library_charts}" == false &&"${list_ignored_install_charts}" == false ]]; then
     list_application_charts=true
     list_library_charts=true
 fi
 
-if [[ "${list_application_charts}" == true && "${list_library_charts}" == true ]]; then
+if [[ "${list_ignored_install_charts}" == true ]]; then
+    chart_paths=$(find "${GIT_ROOT}"/charts/ -type d -exec test -f {}/Chart.yaml -a -f {}/.ct-install-ignore \; -print)
+elif [[ "${list_application_charts}" == true && "${list_library_charts}" == true ]]; then
     chart_paths=$(find "${GIT_ROOT}"/charts/ -type f -name 'Chart.yaml')
 elif [[ "${list_application_charts}" == true ]]; then
     chart_paths=$(find "${GIT_ROOT}"/charts/ -type f -name 'Chart.yaml' -exec sh -c 'yq -e '\''.type == "application"'\'' ${0} >/dev/null 2>&1 && echo ${0}' {} \;)
@@ -60,7 +68,7 @@ elif [[ "${list_library_charts}" == true ]]; then
     chart_paths=$(find "${GIT_ROOT}"/charts/ -type f -name 'Chart.yaml' -exec sh -c 'yq -e '\''.type == "library"'\'' ${0} >/dev/null 2>&1 && echo ${0}' {} \;)
 fi
 
-chart_paths=$(echo "${chart_paths}" | sed -r 's|/[^/]+$||' | sort -u | sed -z 's/\n/,/g;s/,$/\n/')
+chart_paths=$(echo "${chart_paths}" | sed -r 's|/(Chart\.yaml)?$||' | sort -u | sed -z 's/\n/,/g;s/,$/\n/')
 
 if [[ "${list_chart_names}" == true ]] ; then
     chart_names=""

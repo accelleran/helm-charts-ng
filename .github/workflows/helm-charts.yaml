@@ -24,6 +24,7 @@ jobs:
       app_charts: ${{ steps.list-app-charts.outputs.charts }}
       lib_charts: ${{ steps.list-lib-charts.outputs.charts }}
       lib_chart_names: ${{ steps.list-lib-charts.outputs.chart_names }}
+      ignored_install_chart_names: ${{ steps.list-ignored-install-charts.outputs.chart_names }}
     timeout-minutes: 1
     steps:
       - name: Expose variables
@@ -45,6 +46,11 @@ jobs:
         run: |
           echo "charts=$(./bin/list-charts -l -p)" >> $GITHUB_OUTPUT
           echo "chart_names=$(./bin/list-charts -l -n)" >> $GITHUB_OUTPUT
+
+      - name: List charts to exclude from install
+        id: list-ignored-install-charts
+        run: |
+          echo "chart_names=$(./bin/list-charts -i -n)" >> $GITHUB_OUTPUT
 
   lint-charts:
     name: Lint Charts
@@ -148,9 +154,25 @@ jobs:
         if: ${{ steps.list-changed.outputs.changed == 'true' }}
         uses: helm/kind-action@v1.8.0
 
+      - name: Create accelleran pull secret
+        if: ${{ steps.list-changed.outputs.changed == 'true' }}
+        run: >-
+          kubectl create secret docker-registry
+          --namespace default
+          accelleran-secret
+          --docker-username=${{ secrets.DOCKER_LOGIN }}
+          --docker-password=${{ secrets.DOCKER_ACCESS_TOKEN }}
+
       - name: Test charts
         if: ${{ steps.list-changed.outputs.changed == 'true' }}
-        run: ct install --config etc/ct.yaml ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch "{0}" --excluded-charts "{1}"', needs.vars.outputs.target_branch, needs.vars.outputs.lib_chart_names) || format('--charts "{0}"', needs.vars.outputs.app_charts) }}
+        run: >-
+          ct
+          install
+          --namespace default
+          --config etc/ct.yaml
+          ${{ needs.vars.outputs.lib_chart_names && format('--excluded-charts "{0}"', needs.vars.outputs.lib_chart_names) }}
+          ${{ needs.vars.outputs.ignored_install_chart_names && format('--excluded-charts "{0}"', needs.vars.outputs.ignored_install_chart_names) }}
+          ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch "{0}"', needs.vars.outputs.target_branch) || format('--charts "{0}"', needs.vars.outputs.app_charts) }}
 
   release-charts:
     name: Release Charts
