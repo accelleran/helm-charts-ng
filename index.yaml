@@ -6904,6 +6904,28 @@ entries:
     version: 0.1.0
   cell-wrapper:
   - apiVersion: v2
+    appVersion: CW3.0.0
+    created: "2024-01-24T15:13:57.667134308Z"
+    dependencies:
+    - name: common
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 0.1.0
+    - condition: nats.enabled
+      name: nats
+      repository: https://nats-io.github.io/k8s/helm/charts/
+      version: 1.1.6
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami/
+      version: 18.5.0
+    description: Accelleran's cell-wrapper helm chart
+    digest: 66a66c1b16a2cb6d698d0425db90f2c82d1bb9b755ebe955235a0f82227f049a
+    name: cell-wrapper
+    type: application
+    urls:
+    - https://github.com/accelleran/helm-charts-ng/releases/download/cell-wrapper-3.0.0/cell-wrapper-3.0.0.tgz
+    version: 3.0.0
+  - apiVersion: v2
     appVersion: CW2.3.2
     created: "2023-12-08T11:41:19.232323394+01:00"
     dependencies:
@@ -11980,4 +12002,4 @@ entries:
     urls:
     - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-1.0.0/xapp-hello-world-1.0.0.tgz
     version: 1.0.0
-generated: "2024-01-24T15:08:57.577574105Z"
+generated: "2024-01-24T15:13:57.667834211Z"
