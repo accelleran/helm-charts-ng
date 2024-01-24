@@ -7,7 +7,7 @@ version: 6.0.0
 appVersion: "R4.2.0_karmeliet"
 dependencies:
   - name: common
-    version: 0.2.0
+    version: 0.1.0
     repository: https://accelleran.github.io/helm-charts-ng/
   - name: nats
     condition: nats.enabled
