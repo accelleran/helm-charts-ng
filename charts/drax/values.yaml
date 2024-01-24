@@ -284,7 +284,7 @@ nats:
 
   natsBox:
     enabled: false
-  
+
   promExporter:
     enabled: true
     port: 7777
@@ -298,7 +298,7 @@ nats:
         enabled: true
       monitor:
         enabled: true
-  
+
   extraResources:
     - apiVersion: v1
       kind: Service
@@ -760,7 +760,7 @@ vector:
                 measurement = {}
               }
 
-              if event.log.PmReportingCuupCounterData.CounterList ~= nil then      
+              if event.log.PmReportingCuupCounterData.CounterList ~= nil then
                 if event.log.PmReportingCuupCounterData.CounterList.items ~= nil then
                   for k, v in pairs(event.log.PmReportingCuupCounterData.CounterList.items) do
                     temp = m
@@ -788,12 +788,12 @@ vector:
         inputs: ["luaUeMeas"]
         bucket: "vector-bucket"
         database: "{{ $.Values.config.influx.database }}"
-        endpoint:  "http://{{ tpl $.Values.config.influx.hostname $ }}:{{ $.Values.config.influx.port }}"
+        endpoint: "http://{{ tpl $.Values.config.influx.hostname $ }}:{{ $.Values.config.influx.port }}"
         measurement: "{{ $.Values.config.influx.namespace }}.vector"
         tags: ["nrCellId", "ueId"]
         username: "{{ $.Values.config.influx.username }}"
         password: "{{ $.Values.config.influx.password }}"
-      
+
       outUeThroughput:
         type: "{{ .Values.config.influx.type }}"
         inputs: ["luaParseThr"]
@@ -825,27 +825,27 @@ kminion:
           - "drax-kafka:9092"
         clientId: "kminion"
         retryInitConnection: true
-    
+
       minion:
         consumerGroups:
           enabled: true
           scrapeMode: offsetsTopic
           granularity: partition
           allowedGroups: ["*"]
-          ignoredGroups: [ ]
+          ignoredGroups: []
         topics:
           granularity: partition
-          allowedTopics: [ ]
-          ignoredTopics: [ ]
+          allowedTopics: []
+          ignoredTopics: []
           infoMetric:
             configKeys: ["cleanup.policy"]
         logDirs:
           enabled: false
-    
+
       exporter:
         namespace: "kminion"
         host: ""
         port: 8080
-    
+
       logger:
         level: info
