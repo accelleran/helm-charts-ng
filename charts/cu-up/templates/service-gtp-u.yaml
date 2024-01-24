@@ -1,10 +1,9 @@
 {{ range until (atoi (include "accelleran.cu-up.upsCount" $)) }}
 ---
-{{- include
+{{ include
       "accelleran.common.service"
       (fromYaml (include "accelleran.cu-up.upsService" (dict "top" $ "ordinal" .)))
--}}
-
+}}
 {{ end }}
 
 
