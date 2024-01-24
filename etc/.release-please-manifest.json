@@ -1,5 +1,5 @@
 {
   "charts/common": "0.1.0",
-  "charts/cell-wrapper": "2.2.0",
+  "charts/cell-wrapper": "3.0.0",
   "charts/cell-wrapper-config": "0.1.0"
 }
