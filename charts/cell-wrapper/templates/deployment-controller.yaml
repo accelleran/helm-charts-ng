@@ -1,0 +1,127 @@
+{{- include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.cell-wrapper.controller.deployment.args" .))
+-}}
+
+
+{{- define "accelleran.cell-wrapper.controller.deployment.args" -}}
+{{- $ := . -}}
+{{- $values := (index $.Values "cw-ctrl") -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+volumes:
+  - name: {{ include "accelleran.common.fullname" (dict "top" $) }}-instance-scaler
+    configMap:
+      name: {{ include "accelleran.common.fullname" (dict "top" $  "values" (index $.Values "instance-scaler")) }}
+
+initContainers:
+- {{ fromYaml (include "accelleran.common.init.redis" (fromYaml (include "accelleran.cell-wrapper.controller.init.args" .))) | toYaml | nindent 2 }}
+- {{ fromYaml (include "accelleran.common.init.nats" (fromYaml (include "accelleran.cell-wrapper.controller.init.args" .))) | toYaml | nindent 2 }}
+
+containers:
+- {{ fromYaml (include "accelleran.cell-wrapper.controller.container" $) | toYaml | nindent 2 }}
+- {{ fromYaml (include "accelleran.cell-wrapper.instance-scaler.container" $) | toYaml | nindent 2 }}
+- {{ fromYaml (include "accelleran.cell-wrapper.netconf.container" $) | toYaml | nindent 2 }}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.controller.init.args" -}}
+{{- $ := . -}}
+{{- $values := (index $.Values "cw-ctrl") -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+bootstrapConfigMapName: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.controller.container" -}}
+{{- include
+      "accelleran.common.container"
+      (fromYaml (include "accelleran.cell-wrapper.controller.container.args" .))
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.controller.container.args" -}}
+{{- $ := . -}}
+{{- $values := index $.Values "cw-ctrl" -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+env:
+  - name: __APPNAME
+    value: cellWrapperController
+{{- with (include "accelleran.common.bootstrap.instanceId" (dict "top" $)) }}
+  - name: INSTANCE_FILTER
+    value: {{ . | quote }}
+{{- end }}
+envFrom:
+  - configMapRef:
+      name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.instance-scaler.container" -}}
+{{- include
+      "accelleran.common.container"
+      (fromYaml (include "accelleran.cell-wrapper.instance-scaler.container.args" .))
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.instance-scaler.container.args" -}}
+{{- $ := . -}}
+{{- $values := index $.Values "instance-scaler" -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+volumeMounts:
+  - name: {{ include "accelleran.common.fullname" (dict "top" $) }}-instance-scaler
+    mountPath: /config.yaml
+    subPath: config.yaml
+    readOnly: true
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.netconf.container" -}}
+{{- include
+      "accelleran.common.container"
+      (fromYaml (include "accelleran.cell-wrapper.netconf.container.args" .))
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.netconf.container.args" -}}
+{{- $ := . -}}
+{{- $values := $.Values.netconf -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+env:
+  - name: __APPNAME
+    value: cellWrapperNetconf
+{{- with (include "accelleran.common.bootstrap.instanceId" (dict "top" $)) }}
+  - name: INSTANCE_FILTER
+    value: {{ . | quote }}
+{{- end }}
+envFrom:
+  - configMapRef:
+      name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+{{- end -}}

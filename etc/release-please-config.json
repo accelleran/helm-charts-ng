@@ -17,6 +17,14 @@
     "charts/common": {
       "component": "common",
       "package-name": "common"
+    },
+    "charts/cell-wrapper": {
+      "component": "cell-wrapper",
+      "package-name": "cell-wrapper"
+    },
+    "charts/cell-wrapper-config": {
+      "component": "cell-wrapper-config",
+      "package-name": "cell-wrapper-config"
     }
   }
 }

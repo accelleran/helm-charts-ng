@@ -1,0 +1,276 @@
+global:
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+  imagePullSecrets:
+    - name: accelleran-secret
+
+  nodeSelector: {}
+
+
+bootstrap:
+  create: true
+  configMapName: ""
+
+  # CW Instance ID
+  #   Description:  The Instance ID of the CW component that
+  #                 will be used in the bootstrap file.
+  #                 The Instance ID must consist of lower case alphanumeric characters
+  #                 or '-', start with an alphabetic character, and end with an alphanumeric
+  #                 character (e.g. 'my-name',  or 'abc-123', regex used for validation is
+  #                 '^[a-z0-9-]+$'). The Instance ID also cannot be longer than 19 characters!
+  #
+  #   Example:
+  # instanceId: "cw"
+  #
+  instanceId: "cw"
+
+  redis:
+    enabled: true
+    hostname: ""
+    port: 0
+
+  nats:
+    enabled: true
+    hostname: ""
+    port: 0
+
+drax:
+  technology: "5g"
+  role: "5g"
+
+nameOverride: ""
+fullnameOverride: ""
+
+cw-ctrl:
+  enabled: true
+
+  nameOverride: "cw-ctrl"
+  fullnameOverride: ""
+
+  containerName: "cw-ctrl"
+
+  initImage:
+    redis:
+      repository: accelleran/acc-generic-img
+      pullPolicy: IfNotPresent
+      tag: "0.8.0-dev.2"
+    nats:
+      repository: accelleran/acc-generic-img
+      pullPolicy: IfNotPresent
+      tag: "0.8.0-dev.2"
+
+  image:
+    repository: accelleran/cw-ctrl
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
+
+  extraEnvs: []
+
+  extraLabels: {}
+  annotations: {}
+
+  serviceAccount:
+    create: true
+    annotations: {}
+    name: ""
+
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    fsGroup: 1000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+
+cw-inst:
+  enabled: true
+
+  nameOverride: "cw-inst"
+  fullnameOverride: ""
+
+  containerName: "cw-inst"
+
+  secrets:
+    sshKey: "cw-ssh-key"
+
+  baseConfig:
+    configDir: "/workdir/config"
+    vendors: null
+      # effnet:
+      # - file: "default.du.json"
+      #   data: |
+      #     <data>
+      # - file: "default.kpi.json"
+      #   data: |
+      #     <data>
+      # phluido:
+      # - file: "default.l1.cfg"
+      #   data: |
+      #     <data>
+      # nodeh:
+      # - file: "default.json"
+      #   data: |
+      #     <data>
+
+  replicaCount: 0  # instance scaler controls replicas by default
+
+  image:
+    repository: "accelleran/cw-inst"
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
+
+  extraLabels: {}
+  annotations: {}
+
+  podAnnotations: {}
+
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    fsGroup: 1000
+
+  securityContext:
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: null
+    maxReplicas: null
+    spareReplicas: null
+    factorReplicas: null
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+
+instance-scaler:
+  enabled: true
+
+  nameOverride: "instance-scaler"
+  fullnameOverride: ""
+
+  containerName: "instance-scaler"
+
+  image:
+    repository: accelleran/instance-scaler
+    pullPolicy: IfNotPresent
+    tag: "v0.1.2"
+
+  extraLabels: {}
+  annotations: {}
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  rbac:
+    enabled: true
+    rules:
+      - apiGroups:
+        - apps
+        resources:
+        - deployments
+        verbs:
+        - "get"
+        - "update"
+
+
+netconf:
+  enabled: true
+
+  nameOverride: "netconf"
+  fullnameOverride: ""
+
+  containerName: "netconf"
+
+  image:
+    repository: accelleran/cw-netconf
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
+
+  readinessProbe:
+    exec:
+      command:
+        - "test"
+        - "-f"
+        - "ready"
+    initialDelaySeconds: 15
+    periodSeconds: 30
+
+  extraLabels: {}
+  annotations: {}
+
+  service:
+    enabled: true
+    name: ""
+    annotations: {}
+    type: "ClusterIP"
+    ports:
+      netconf:
+        protocol: "TCP"
+        port: 8300
+        targetPort: null
+        nodePort: null
+
+nats:
+  enabled: true
+
+  natsBox:
+    enabled: false
+
+redis:
+  enabled: true
+
+  architecture: standalone
+  auth:
+    enabled: false

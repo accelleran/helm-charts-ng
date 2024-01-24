@@ -1,0 +1,62 @@
+{{- include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.cell-wrapper.instance.deployment.args" $))
+-}}
+
+{{- define "accelleran.cell-wrapper.instance.deployment.args" -}}
+{{- $ := . -}}
+{{- $values := index $.Values "cw-inst" -}}
+{{- $fullname := include "accelleran.common.fullname" (dict "top" $ "values" $values) -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+volumes:
+  - name: {{ $fullname }}-ssh-key
+    secret:
+      secretName: {{ tpl $values.secrets.sshKey $ }}
+      defaultMode: 288
+  {{- range $vendor, $v := $values.baseConfig.vendors }}
+  - name: "{{ $fullname }}-{{ $vendor }}"
+    configMap:
+      name: "{{ $fullname }}-{{ $vendor }}"
+  {{- end }}
+volumeMounts:
+  - name: {{ $fullname }}-ssh-key
+    mountPath: "/config/ssh/public"
+    subPath: "public"
+    readOnly: true
+  - name: {{ $fullname }}-ssh-key
+    mountPath: "/config/ssh/private"
+    subPath: "private"
+    readOnly: true
+  {{- range $vendor, $v := $values.baseConfig.vendors }}
+  {{- range $v }}
+  - name: "{{ $fullname }}-{{ $vendor }}"
+    mountPath: "{{ $values.baseConfig.configDir }}/{{ $vendor }}/{{ .file }}"
+    subPath: "{{ .file }}"
+    readOnly: true
+  {{- end }}
+  {{- end }}
+
+env:
+  - name: __APPNAME
+    value: cellWrapperInstance
+  - name: __APPID
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+  - name: SSH_KEY_PUBLIC
+    value: "/config/ssh/public"
+  - name: SSH_KEY_PRIVATE
+    value: "/config/ssh/private"
+{{- with (include "accelleran.common.bootstrap.instanceId" (dict "top" $)) }}
+  - name: INSTANCE_FILTER
+    value: {{ . | quote }}
+{{- end }}
+envFrom:
+  - configMapRef:
+      name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+{{- end -}}

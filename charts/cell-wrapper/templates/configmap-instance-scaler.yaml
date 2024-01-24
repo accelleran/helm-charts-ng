@@ -1,0 +1,46 @@
+{{- $instanceAutoScaling := index $.Values "cw-inst" "autoscaling" -}}
+{{- if $instanceAutoScaling.enabled -}}
+{{- include
+      "accelleran.common.configMap"
+      (fromYaml (include "accelleran.cell-wrapper.instance-scaler.configMap.args" .))
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.instance-scaler.configMap.args" -}}
+{{- $ := . -}}
+
+{{- $instanceId := include "accelleran.common.bootstrap.instanceId" (dict "top" $) -}}
+{{- $instanceAutoScaling := index $.Values "cw-inst" "autoscaling" -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ (index $.Values "instance-scaler") | toYaml | nindent 2 }}
+
+data:
+  config.yaml: |
+    subscribers:
+    - kind: "nats"
+      topic: "{{ $instanceId }}.INSTANCE-SCALER"
+      host: "{{ include "accelleran.common.bootstrap.nats.hostname" (dict "top" $) }}"
+      port: {{ include "accelleran.common.bootstrap.nats.port" (dict "top" $) }}
+
+    instances:
+    - id: "{{ $instanceId }}/cw-inst"
+      kind: "deployment"
+      namespace: "{{ $.Release.Namespace }}"
+      name: "{{ include "accelleran.common.fullname" (dict "top" $ "values" (index $.Values "cw-inst")) }}"
+      {{- if ne $instanceAutoScaling.factorReplicas nil }}
+      factor: {{ $instanceAutoScaling.factorReplicas }}
+      {{- end }}
+      {{- if ne $instanceAutoScaling.spareReplicas nil }}
+      spare: {{ $instanceAutoScaling.spareReplicas }}
+      {{- end }}
+      {{- if ne $instanceAutoScaling.minReplicas nil }}
+      min: {{ $instanceAutoScaling.minReplicas }}
+      {{- end }}
+      {{- if ne $instanceAutoScaling.maxReplicas nil }}
+      max: {{ $instanceAutoScaling.maxReplicas }}
+      {{- end }}
+{{- end -}}
