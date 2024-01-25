@@ -3,7 +3,7 @@ name: config-api
 description: Backend of the Accelleran Dashboard
 type: application
 version: 1.1.9-new-svc-mon
-appVersion: 1.1.9-new-svc-mon
+appVersion: 1.1.14
 dependencies:
   - name: common
     version: 0.2.0
