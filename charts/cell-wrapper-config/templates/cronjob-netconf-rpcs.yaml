@@ -1,4 +1,4 @@
-{{- range $job := .Values.jobs }}
+{{- range $job := $.Values.jobs }}
 ---
 {{ include
       "accelleran.common.cronjob"
@@ -9,68 +9,46 @@
 
 {{- define "accelleran.cell-wrapper.netconf.cronjob.args" -}}
 {{- $ := first . -}}
+{{- $values := $.Values.netconf -}}
+
 {{- $job := index . 1 -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}
 values:
-  {{ (mergeOverwrite (deepCopy $.Values) (fromYaml (include "accelleran.cell-wrapper.netconf.cronjob.valueOverrides" (list $ $job)))) | toYaml | nindent 2 }}
+  {{ (mergeOverwrite (deepCopy $values) (fromYaml (include "accelleran.cell-wrapper.netconf.cronjob.valueOverrides" (list $ $job)))) | toYaml | nindent 2 }}
 
 name: "{{ $.Release.Name }}-{{ $job.name }}"
 successfulJobsHistoryLimit: 1
 failedJobsHistoryLimit: 0 # will be restarted anyway
 
-env:
-- name: NC_HOST
-  value: {{ include "accelleran.cell-wrapper.netconf.service.name" $ | quote }}
-- name: NC_PORT
-  value: {{ (((($.Values.netconf).service).ports).netconf).port | default 8300 | quote }}
-- name: NC_RPC
-  value: >-
-    {{- $job.rpc | nindent 6 }}
+volumes:
+  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-cron-rpcs
+    configMap:
+      name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-cron-rpcs
+      defaultMode: 0777
+
+volumeMounts:
+  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-cron-rpcs
+    mountPath: /rpcs
+    subPath: {{ $job.name }}.xml
 {{- end }}
 
 
 {{- define "accelleran.cell-wrapper.netconf.cronjob.valueOverrides" -}}
 {{- $ := first . -}}
+{{- $values := $.Values.netconf -}}
+
 {{- $job := index . 1 -}}
+
 schedule: {{ $job.schedule | quote }}
 
-image:
-  repository: "python"
-  tag: "3.9.13-alpine"
-
-containerName: {{ $job.name | quote }}
-command:
-- sh
-- "-c"
-- |
-  /bin/sh <<'EOF'
-  #!/bin/sh
-  # Install netconf python lib
-  pip3 install netconf-client==1.7.1
-  # Run edit-config rpc
-  python3 - << EOP
-  import os
-  from netconf_client.connect import connect_ssh
-  from netconf_client.ncclient import Manager
-  HOST = os.getenv('NC_HOST', "127.0.0.1")
-  PORT = int(os.getenv('NC_PORT', 830))
-  RPC = os.getenv('NC_RPC')
-  if RPC is not None:
-    session = connect_ssh(host=HOST, port=PORT, username="helm", password="helm")
-    mgr = Manager(session, timeout=120)
-    try:
-      configRpc = f"<config>{RPC}</config>"
-      print(mgr.edit_config(config=configRpc, target='running', default_operation=None))
-      print("***** Successfully edited cell-wrapper config!")
-    except Exception as e:
-      print("***** Failed to edit cell-wrapper config!")
-      print(e)
-  else:
-    print("***** No RPC provided!")
-  EOP
-
-  exit $?
-  EOF
+containerName: netconf-cron-config
+args:
+  - "--host"
+  - {{ include "accelleran.cell-wrapper.netconf.service.name" $ | quote }}
+  - "--port"
+  - {{ ((($values.service).ports).netconf).port | default 8300 | quote }}
+  - "--edit"
+  - "/rpcs/{{ $job.name }}.xml"
 {{- end -}}

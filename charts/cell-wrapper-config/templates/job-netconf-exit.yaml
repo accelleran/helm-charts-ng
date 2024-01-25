@@ -67,8 +67,6 @@ volumeMounts:
 {{- $ := . -}}
 {{- $values := $.Values.netconf -}}
 containerName: netconf-exit-config
-command:
-  - "./ncclient"
 args:
   - "--host"
   - {{ include "accelleran.cell-wrapper.netconf.service.name" $ | quote }}

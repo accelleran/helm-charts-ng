@@ -168,7 +168,7 @@ netconf:
   containerName: "netconf"
 
   image:
-    repository: accelleran/cw-netconf
+    repository: accelleran/ncclient
     pullPolicy: IfNotPresent
     tag: ""
 

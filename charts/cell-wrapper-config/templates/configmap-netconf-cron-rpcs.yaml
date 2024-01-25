@@ -1,0 +1,25 @@
+{{- if gt (len $.Values.jobs) 0 -}}
+{{- $values := $.Values.netconf -}}
+{{- include
+      "accelleran.common.configMap"
+      (fromYaml (include "accelleran.cell-wrapper.netconf.cron.configMap.args" .))
+-}}
+{{- end -}}
+
+{{- define "accelleran.cell-wrapper.netconf.cron.configMap.args" -}}
+{{- $ := . -}}
+{{- $values := $.Values.netconf -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-cron-rpcs
+data:
+  {{- range $job := $.Values.jobs }}
+  {{- $rpc := tpl $job.rpc $ }}
+  {{ $job.name }}.xml: |
+    {{- $rpc | nindent 4 }}
+  {{- end }}
+{{- end -}}
