@@ -16,7 +16,7 @@ dependencies:
   version: 1.0.0
 - name: config-api
   repository: file://charts/config-api
-  version: 1.1.9-new-svc-mon
+  version: 2.0.0
 - name: cell-wrapper
   repository: https://accelleran.github.io/helm-charts-ng/
   version: 3.0.0
@@ -56,5 +56,5 @@ dependencies:
 - name: redis
   repository: https://charts.bitnami.com/bitnami/
   version: 18.5.0
-digest: sha256:0732ed82efb0ff6dab0dbc15930a1ff0f419527e9205061377e062f5d4977437
-generated: "2024-01-24T16:19:08.458986142+01:00"
+digest: sha256:65b3cbbee830870c4e666f6ba8cb06783cdc662ac4da90eb912dcbd1c89ca4db
+generated: "2024-01-25T15:17:19.724969259+01:00"

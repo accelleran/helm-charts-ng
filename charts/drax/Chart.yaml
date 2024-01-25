@@ -28,7 +28,7 @@ dependencies:
     repository: file://charts/service-orchestrator
   - name: config-api
     condition: config-api.enabled
-    version: 1.1.9-new-svc-mon
+    version: 2.0.0
     repository: file://charts/config-api
   - name: cell-wrapper
     condition: cell-wrapper.enabled
