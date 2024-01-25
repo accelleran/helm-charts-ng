@@ -175,6 +175,11 @@ netconf:
   extraLabels: {}
   annotations: {}
 
+  authentication:
+    secretName: ""
+    username: "accelleran"
+    password: "accelleran"
+
   initEditConfig:
     config:
       - |-

@@ -22,6 +22,10 @@ name: "{{ $.Release.Name }}-{{ $job.name }}"
 successfulJobsHistoryLimit: 1
 failedJobsHistoryLimit: 0 # will be restarted anyway
 
+envFrom:
+  - secretRef:
+      name: {{ include "accelleran.cell-wrapper.netconf.secret.authentication.name" $ }}
+
 volumes:
   - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-cron-rpcs
     configMap:
@@ -49,6 +53,10 @@ args:
   - {{ include "accelleran.cell-wrapper.netconf.service.name" $ | quote }}
   - "--port"
   - {{ ((($values.service).ports).netconf).port | default 8300 | quote }}
+  - "--user"
+  - "$(username)"
+  - "--pass"
+  - "$(password)"
   - "--edit"
   - "/rpcs/{{ $job.name }}.xml"
 {{- end -}}

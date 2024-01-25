@@ -57,6 +57,10 @@ top:
 values:
   {{ (mergeOverwrite (deepCopy $values) (fromYaml (include "accelleran.cell-wrapper.netconf.exit.container.valueOverrides" .))) | toYaml | nindent 2 }}
 
+envFrom:
+  - secretRef:
+      name: {{ include "accelleran.cell-wrapper.netconf.secret.authentication.name" $ }}
+
 volumeMounts:
   - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-exit-rpcs
     mountPath: /rpcs
@@ -72,6 +76,10 @@ args:
   - {{ include "accelleran.cell-wrapper.netconf.service.name" $ | quote }}
   - "--port"
   - {{ ((($values.service).ports).netconf).port | default 8300 | quote }}
+  - "--user"
+  - "$(username)"
+  - "--pass"
+  - "$(password)"
   {{- range $index, $configRpc := $values.exitEditConfig.config }}
   {{- $configRpc = tpl $configRpc $ -}}
   {{- if $configRpc }}

@@ -22,3 +22,9 @@ Number of configured RUs
 {{- $ := . -}}
 {{ (($.Values.netconf).service).name | default (printf "%s-%s" (include "accelleran.common.name" (dict "top" $ "values" ($.Values).netconf)) (include "accelleran.common.bootstrap.instanceId" (dict "top" $ "values" ($.Values).netconf))) }}
 {{- end -}}
+
+
+{{- define "accelleran.cell-wrapper.netconf.secret.authentication.name" -}}
+{{- $ := . -}}
+{{ (($.Values.netconf).authentication).secretName | default (printf "%s-netconf-authentication" (include "accelleran.common.fullname" (dict "top" $ "values" $.Values.netconf))) }}
+{{- end -}}
