@@ -176,6 +176,7 @@ netconf:
   annotations: {}
 
   authentication:
+    create: true
     secretName: ""
     username: "accelleran"
     password: "accelleran"
