@@ -2,7 +2,7 @@ apiVersion: v2
 name: dash-front-back-end
 description: The Accelleran Dashboard
 type: application
-version: 4.4.4
+version: 5.0.0
 appVersion: 4.7.0
 dependencies:
   - name: common

@@ -12,7 +12,7 @@ dependencies:
   # smo
   - name: dash-front-back-end
     condition: dash-front-back-end.enabled
-    version: 4.4.4
+    version: 5.0.0
     repository: file://charts/dash-front-back-end
   - name: network-state-monitor
     condition: network-state-monitor.enabled

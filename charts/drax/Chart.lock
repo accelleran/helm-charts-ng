@@ -4,7 +4,7 @@ dependencies:
   version: 0.1.0
 - name: dash-front-back-end
   repository: file://charts/dash-front-back-end
-  version: 4.4.4
+  version: 5.0.0
 - name: network-state-monitor
   repository: file://charts/network-state-monitor
   version: 0.1.0
@@ -56,5 +56,5 @@ dependencies:
 - name: redis
   repository: https://charts.bitnami.com/bitnami/
   version: 18.5.0
-digest: sha256:65b3cbbee830870c4e666f6ba8cb06783cdc662ac4da90eb912dcbd1c89ca4db
-generated: "2024-01-25T15:17:19.724969259+01:00"
+digest: sha256:4fcebe05b45c2425721d68ff00cc45de792973c562dcbfce7fc666ece8a5d73e
+generated: "2024-01-26T12:26:12.572919577+01:00"
