@@ -179,7 +179,7 @@ command:
   - "/bin/sh"
   - "-c"
   - |
-    until kcat -b "${KAFKA_HOSTNAME}:${KAFKA_PORT}" -t kafka-cluster-init -C -o beginning -e
+    until kcat -b "${KAFKA_HOSTNAME}:${KAFKA_PORT}" -t kafka-cluster-init -C -o -1 -e
     do
       sleep 1
     done
