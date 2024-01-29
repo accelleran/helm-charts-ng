@@ -1,0 +1,11 @@
+{{- include
+      "accelleran.common.service"
+      (dict
+        "top" $
+        "values" (mergeOverwrite
+          (deepCopy (index $.Values "cu-cp"))
+          (dict "service" (index $.Values "sctp-f1" "service"))
+          (dict "service" (dict "name" (include "accelleran.cu-cp.f1.service.name" .)))
+        )
+      )
+-}}

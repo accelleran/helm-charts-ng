@@ -25,6 +25,10 @@
     "charts/cell-wrapper-config": {
       "component": "cell-wrapper-config",
       "package-name": "cell-wrapper-config"
+    },
+    "charts/cu-cp": {
+      "component": "cu-cp",
+      "package-name": "cu-cp"
     }
   }
 }
