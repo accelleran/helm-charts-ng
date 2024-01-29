@@ -1,0 +1,318 @@
+global:
+
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+  imagePullSecrets:
+    - name: accelleran-secret
+
+  nodeSelector: {}
+
+
+# Number of components
+#   Description:  You have to specify the amount of different components that should be supported.
+#                 Therefore, you have to specify:
+#                 - the number of UP stacks that will be used, explicitly split between regular and xdp UP stacks
+#                   (xdp up stacks need a list with details to determine the number of components)
+numberOfUpStacks: 2
+xdpUpStacks: []
+# - # nodeSelector, nodeSelectorOverride and nodeName are optional, but at least one of them should probably be used
+#   # Otherwise in multi-node clusters, there's no way to know which Node the XDP Pod will be assigned to
+#   # and it's unlikely the interface/IP information is correct
+#   # nodeSelectorOverride is similar to nodeSelector but if specified only those labels will be used for this Pod
+#   nodeSelector:
+#     example-label: example-value
+#   nodeSelectorOverride:
+#     override-label: override-value
+#   nodeName: example-node-name
+
+#   uplink:
+#     address: "127.0.0.1"
+#     mtu: 1460  # optional, default 1460, only minimum MTU (compared with downlink) is used
+
+#   downlink:
+#     address: "127.0.0.2"
+#     mtu: 1460  # optional, default 1460, only minimum MTU (compared with uplink) is used
+
+
+bootstrap:
+  create: true
+  name: ""
+
+  # CU-UP Instance ID
+  #   Description:  The Instance ID of the CU-UP component that
+  #                 will be used in the bootstrap file.
+  #                 The Instance ID must consist of lower case alphanumeric characters
+  #                 or '-', start with an alphabetic character, and end with an alphanumeric
+  #                 character (e.g. 'my-name',  or 'abc-123', regex used for validation is
+  #                 '^[a-z0-9-]+$'). The Instance ID also cannot be longer than 19 characters!
+  #
+  #   Example:
+  # instanceId: "cuup-1"
+  #
+  instanceId: "cuup-1"
+
+  redis:
+    enabled: true
+    hostname: ""
+    port: 0
+
+  nats:
+    enabled: true
+    hostname: ""
+    port: 0
+
+drax:
+  technology: "5g"
+  role: "5g"
+
+
+cu-up:
+  enabled: true
+
+  nameOverride: "cu-up"
+  fullnameOverride: ""
+
+  initImage:
+    redis:
+      repository: accelleran/acc-generic-img
+      tag: "0.8.0-dev.2"
+      pullPolicy: IfNotPresent
+    nats:
+      repository: accelleran/acc-generic-img
+      tag: "0.8.0-dev.2"
+      pullPolicy: IfNotPresent
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+
+netconf:
+  enabled: true
+
+  nameOverride: "netconf"
+  fullnameOverride: ""
+
+  containerName: "netconf"
+
+  image:
+    repository: accelleran/cuup-netconf
+    tag: ""
+    pullPolicy: IfNotPresent
+
+  readinessProbe:
+    exec:
+      command:
+        - "test"
+        - "-f"
+        - "ready"
+    initialDelaySeconds: 15
+    periodSeconds: 30
+
+  service:
+    enabled: true
+    name: ""
+    type: "ClusterIP"
+    ports:
+      netconf:
+        protocol: "TCP"
+        port: 8300
+        targetPort: null
+        nodePort: null
+
+
+controller-up:
+  enabled: true
+
+  nameOverride: "controller-up"
+  fullnameOverride: ""
+
+  containerName: "controller-up"
+
+  image:
+    repository: accelleran/controllerupappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+
+pm-controller-up:
+  enabled: true
+
+  nameOverride: "pm-controller-up"
+  fullnameOverride: ""
+
+  containerName: "pm-controller-up"
+
+  image:
+    repository: accelleran/pmcontrollerupappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+
+res-mgr-up:
+  enabled: true
+
+  nameOverride: "res-mgr-up"
+  fullnameOverride: ""
+
+  containerName: "res-mgr-up"
+
+  image:
+    repository: accelleran/resmgrupappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+
+e1-sctp-up:
+  enabled: true
+
+  nameOverride: "e1-sctp-up"
+  fullnameOverride: ""
+
+  containerName: "e1-sctp-up"
+
+  image:
+    repository: accelleran/e1sctpupappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+
+ups:
+  enabled: true
+
+  nameOverride: "ups"
+  fullnameOverride: ""
+
+  containerName: "ups"
+
+  initImage:
+    loadBalancerIP:
+      repository: accelleran/acc-generic-img
+      tag: "0.8.0-dev.2"
+      pullPolicy: IfNotPresent
+
+  image:
+    repository: accelleran/upsappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+  args:
+    - "--downlink"
+    - "${DOWNLINK}"
+    - "--uplink"
+    - "${UPLINK}"
+    - "--bind"
+    - "${BIND}"
+
+  service:
+    enabled: true
+    name: ""
+    type: "LoadBalancer"
+    ports:
+      gtp-u:
+        appProtocol: "gtp-user"
+        protocol: "UDP"
+        port: 2152
+        targetPort: 0
+        nodePort: 0
+    loadBalancerIP: ""
+    externalTrafficPolicy: "Local"
+
+  serviceAccount:
+    create: true
+    annotations: {}
+    name: ""
+
+  rbac:
+    enabled: true
+    rules:
+      - apiGroups:
+        - ""
+        resources:
+        - services
+        verbs:
+        - get
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+
+xdp-ups:
+  enabled: true
+
+  nameOverride: "xdp-ups"
+  fullnameOverride: ""
+
+  containerName: "xdp-ups"
+
+  image:
+    repository: accelleran/xdpupsappl
+    tag: ""
+    pullPolicy: IfNotPresent
+
+  args:
+    - "--downlink"
+    - "${DOWNLINK}"
+    - "--uplink"
+    - "${UPLINK}"
+
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext:
+    # XDP UPS needs to run as root
+    runAsUser: 0
+    runAsGroup: 0
+    privileged: true
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+nats:
+  enabled: true
+
+  natsBox:
+    enabled: false
+
+redis:
+  enabled: true
+
+  architecture: standalone
+  auth:
+    enabled: false

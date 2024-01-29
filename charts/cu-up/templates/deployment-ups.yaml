@@ -1,0 +1,120 @@
+{{ range until (atoi (include "accelleran.cu-up.upsCount" $)) }}
+---
+{{ include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.cu-up.ups.deployment.args" (list $ .)))
+}}
+{{ end }}
+
+
+{{- define "accelleran.cu-up.ups.deployment.args" -}}
+{{- $ := first . -}}
+{{- $values := index $.Values "ups" -}}
+
+{{- $ordinal := index . 1 -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{ $values | toYaml | nindent 2 }}
+
+name: {{ printf "%s-%d" (include "accelleran.common.fullname" (dict "top" $ "values" $values)) $ordinal }}
+
+selectorLabels:
+  app.kubernetes.io/name: "ups"
+  app.kubernetes.io/instance: {{ include "accelleran.common.instance" (dict "top" $ "values" $values) | quote }}
+  up-stack-id: {{ $ordinal | quote }}
+
+volumes:
+- name: config
+  emptyDir: {}
+
+initContainers:
+- {{ fromYaml (include "accelleran.common.init.redis" (fromYaml (include "accelleran.cu-up.init.args" $))) | toYaml | nindent 2 }}
+- {{ fromYaml (include "accelleran.common.init.nats" (fromYaml (include "accelleran.cu-up.init.args" $))) | toYaml | nindent 2 }}
+- {{ fromYaml (include "accelleran.cu-up.ups.init.gtp-u-lb-ip" (list $ $ordinal)) | toYaml | nindent 2 }}
+
+env:
+  - name: __APPNAME
+    value: ups
+  - name: __APPID
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+  - name: BIND
+    valueFrom:
+      fieldRef:
+        fieldPath: status.podIP
+{{- with (include "accelleran.common.bootstrap.instanceId" (dict "top" $)) }}
+  - name: INSTANCE_FILTER
+    value: {{ . | quote }}
+{{- end }}
+envFrom:
+  - configMapRef:
+      name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+
+volumeMounts:
+  - name: config
+    mountPath: /config
+{{- end -}}
+
+
+{{- define "accelleran.cu-up.ups.init.gtp-u-lb-ip" -}}
+{{- $ := first . -}}
+{{- $ordinal := index . 1 -}}
+
+{{- include
+      "accelleran.common.init.container"
+      (include "accelleran.cu-up.ups.init.gtp-u-lb-ip.args" (list $ $ordinal) | fromYaml)
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.cu-up.ups.init.gtp-u-lb-ip.args" -}}
+{{- $ := first . -}}
+{{- $values := index $.Values "ups" -}}
+
+{{- $image := ($values.initImage).loadBalancerIP -}}
+
+{{- $ordinal := index . 1 -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{
+    (mergeOverwrite
+      (deepCopy $values)
+      (dict "image" $image)
+    ) | toYaml | nindent 2
+  }}
+
+name: "gtp-u-lb-ip"
+command:
+- "/bin/sh"
+- "-c"
+- |
+  /bin/sh <<'EOF'
+  service_name={{ include "accelleran.cu-up.gtp-u.service.name" (list $ $ordinal) | quote }}
+  namespace={{ $.Release.Namespace | quote }}
+
+  retry_delay=5
+
+  while [ -z "$gtp_ip" ]; do
+      gtp_ip=$(kubectl get service ${service_name} -n ${namespace} -o jsonpath="{.status.loadBalancer.ingress[0].ip}")
+
+      if [ -z "$gtp_ip" ] ; then
+          echo "${service_name} has no loadbalancer IP - trying again in ${retry_delay}s"
+          sleep "${retry_delay}"
+      fi
+  done
+
+  echo "${service_name} has loadbalancer IP ${gtp_ip}"
+
+  echo "DOWNLINK=$gtp_ip" >> /config/env
+  echo "UPLINK=$gtp_ip" >> /config/env
+  EOF
+
+volumeMounts:
+- name: config
+  mountPath: /config
+{{- end -}}

@@ -1,0 +1,88 @@
+{{- if and (gt (atoi (include "accelleran.cu-up.upsCount" $)) 0) (gt (atoi (include "accelleran.cu-up.xdpUpsCount" $)) 0) -}}
+{{- fail "XDP UP Stacks can only be specified if numberOfUpStacks is set to 0" -}}
+{{- end -}}
+
+{{- range $ordinal, $xdpUpStack := $.Values.xdpUpStacks }}
+---
+{{ include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.cu-up.xdp-ups.deployment.args" (list $ $ordinal $xdpUpStack)))
+}}
+{{ end }}
+
+
+{{- define "accelleran.cu-up.xdp-ups.deployment.args" -}}
+{{- $ := first . -}}
+{{- $values := index $.Values "xdp-ups" -}}
+
+{{- $ordinal := index . 1 -}}
+{{- $xdpUpStack := index . 2 -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+values:
+  {{- /* omit nodeName and nodeSelector in original values to give overridden values precedence */ -}}
+  {{
+    (mergeOverwrite
+      (omit (deepCopy $values) "nodeName" "nodeSelector")
+      (include "accelleran.cu-up.xdp-ups.deployment.args.values" . | fromYaml)
+    ) | toYaml | nindent 2
+  }}
+
+name: {{ printf "%s-%d" (include "accelleran.common.fullname" (dict "top" $ "values" $values)) $ordinal }}
+
+initContainers:
+- {{ fromYaml (include "accelleran.common.init.redis" (fromYaml (include "accelleran.cu-up.init.args" $))) | toYaml | nindent 2 }}
+- {{ fromYaml (include "accelleran.common.init.nats" (fromYaml (include "accelleran.cu-up.init.args" $))) | toYaml | nindent 2 }}
+
+env:
+  - name: __APPNAME
+    value: xdpUpStack
+  - name: __APPID
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+  - name: UPLINK
+    value: {{ $xdpUpStack.uplink.address | quote }}
+  - name: DOWNLINK
+    value: {{ $xdpUpStack.downlink.address | quote }}
+  - name: MTU_SIZE
+    value: {{ min ($xdpUpStack.uplink.mtu | default 1460) ($xdpUpStack.downlink.mtu | default 1460) | quote }}
+{{- with (include "accelleran.common.bootstrap.instanceId" (dict "top" $)) }}
+  - name: INSTANCE_FILTER
+    value: {{ . | quote }}
+{{- end }}
+envFrom:
+  - configMapRef:
+      name: {{ include "accelleran.common.bootstrap.configMapName" (dict "top" $) | quote }}
+{{- end -}}
+
+
+{{- define "accelleran.cu-up.xdp-ups.deployment.args.values" -}}
+{{- $ := first . -}}
+{{- $values := index $.Values "xdp-ups" -}}
+
+{{- $ordinal := index . 1 -}}
+{{- $xdpUpStack := index . 2 -}}
+
+{{- with $xdpUpStack.nodeName }}
+nodeName: {{ . }}
+{{ end -}}
+
+{{- if $xdpUpStack.nodeSelectorOverride -}}
+nodeSelector:
+  {{ $xdpUpStack.nodeSelectorOverride | toYaml | nindent 4 }}
+{{- else if or $xdpUpStack.nodeSelector (or ($values.nodeSelector) ($.Values.global).nodeSelector)  }}
+nodeSelector:
+{{- if $values.nodeSelector }}
+  {{ $values.nodeSelector | toYaml | nindent 2 }}
+{{- else if ($.Values.global).nodeSelector }}
+  {{ $.Values.global.nodeSelector | toYaml | nindent 2 }}
+{{- end -}}
+
+{{- with $xdpUpStack.nodeSelector }}
+  {{ . | toYaml | nindent 2 }}
+{{- end -}}
+{{- end -}}
+
+{{- end -}}
