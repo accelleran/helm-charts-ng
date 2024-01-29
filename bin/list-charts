@@ -22,11 +22,12 @@ function error() {
 list_application_charts=false
 list_library_charts=false
 
-list_ignored_install_charts=false
+list_charts_to_ignore_for_test=false
+list_charts_to_test=false
 
 list_chart_names=false
 
-while getopts ":halinp" opt; do
+while getopts ":halitnp" opt; do
     case ${opt} in
         h )
             usage
@@ -38,7 +39,10 @@ while getopts ":halinp" opt; do
             list_library_charts=true
         ;;
         i )
-            list_ignored_install_charts=true
+            list_charts_to_ignore_for_test=true
+        ;;
+        t )
+            list_charts_to_test=true
         ;;
         n )
             list_chart_names=true
@@ -53,13 +57,15 @@ while getopts ":halinp" opt; do
 done
 shift $((OPTIND -1))
 
-if [[ "${list_application_charts}" == false && "${list_library_charts}" == false &&"${list_ignored_install_charts}" == false ]]; then
+if [[ "${list_application_charts}" == false && "${list_library_charts}" == false && "${list_charts_to_ignore_for_test}" == false && "${list_charts_to_test}" == false ]]; then
     list_application_charts=true
     list_library_charts=true
 fi
 
-if [[ "${list_ignored_install_charts}" == true ]]; then
-    chart_paths=$(find "${GIT_ROOT}"/charts/ -type d -exec test -f {}/Chart.yaml -a -f {}/.ct-install-ignore \; -print)
+if [[ "${list_charts_to_ignore_for_test}" == true ]]; then
+    chart_paths=$(find "${GIT_ROOT}"/charts/ -type d -exec sh -c 'test -f ${0}/Chart.yaml -a -f ${0}/.ct-install-ignore && echo ${0}/Chart.yaml' {} \;)
+elif [[ "${list_charts_to_test}" == true ]]; then
+    chart_paths=$(find "${GIT_ROOT}"/charts/ -type d -exec sh -c 'test -f ${0}/Chart.yaml -a ! -f ${0}/.ct-install-ignore && yq -e '\''.type == "application"'\'' ${0}/Chart.yaml >/dev/null 2>&1 && echo ${0}' {} \;)
 elif [[ "${list_application_charts}" == true && "${list_library_charts}" == true ]]; then
     chart_paths=$(find "${GIT_ROOT}"/charts/ -type f -name 'Chart.yaml')
 elif [[ "${list_application_charts}" == true ]]; then
