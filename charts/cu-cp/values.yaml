@@ -125,13 +125,13 @@ netconf:
         nodePort: null
 
 
-gnb-controller:
+gnb-ctrl:
   enabled: true
 
-  nameOverride: "gnb-controller"
+  nameOverride: "gnb-ctrl"
   fullnameOverride: ""
 
-  containerName: "gnb-controller"
+  containerName: "gnb-ctrl"
 
   image:
     repository: accelleran/gnbcontrollerappl
@@ -139,13 +139,13 @@ gnb-controller:
     pullPolicy: IfNotPresent
 
 
-amf-controller:
+amf-ctrl:
   enabled: true
 
-  nameOverride: "amf-controller"
+  nameOverride: "amf-ctrl"
   fullnameOverride: ""
 
-  containerName: "amf-controller"
+  containerName: "amf-ctrl"
 
   image:
     repository: accelleran/amfcontrollerappl
@@ -153,13 +153,13 @@ amf-controller:
     pullPolicy: IfNotPresent
 
 
-cu-up-controller:
+cu-up-ctrl:
   enabled: true
 
-  nameOverride: "cu-up-controller"
+  nameOverride: "cu-up-ctrl"
   fullnameOverride: ""
 
-  containerName: "cu-up-controller"
+  containerName: "cu-up-ctrl"
 
   image:
     repository: accelleran/cuupcontrollerappl
@@ -167,13 +167,13 @@ cu-up-controller:
     pullPolicy: IfNotPresent
 
 
-du-controller:
+du-ctrl:
   enabled: true
 
-  nameOverride: "du-controller"
+  nameOverride: "du-ctrl"
   fullnameOverride: ""
 
-  containerName: "du-controller"
+  containerName: "du-ctrl"
 
   image:
     repository: accelleran/ducontrollerappl
@@ -181,13 +181,13 @@ du-controller:
     pullPolicy: IfNotPresent
 
 
-pm-controller:
+pm-ctrl:
   enabled: true
 
-  nameOverride: "pm-controller"
+  nameOverride: "pm-ctrl"
   fullnameOverride: ""
 
-  containerName: "pm-controller"
+  containerName: "pm-ctrl"
 
   image:
     repository: accelleran/pmcontrollerappl

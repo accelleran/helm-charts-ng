@@ -8,7 +8,7 @@
 
 {{- define "accelleran.cu-cp.du-ctrl.container.args" -}}
 {{- $ := . -}}
-{{- $values := index $.Values "du-controller" -}}
+{{- $values := index $.Values "du-ctrl" -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}

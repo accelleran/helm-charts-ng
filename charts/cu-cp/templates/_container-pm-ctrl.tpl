@@ -8,7 +8,7 @@
 
 {{- define "accelleran.cu-cp.pm-ctrl.container.args" -}}
 {{- $ := . -}}
-{{- $values := index $.Values "pm-controller" -}}
+{{- $values := index $.Values "pm-ctrl" -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}

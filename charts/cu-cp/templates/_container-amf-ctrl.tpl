@@ -8,7 +8,7 @@
 
 {{- define "accelleran.cu-cp.amf-ctrl.container.args" -}}
 {{- $ := . -}}
-{{- $values := index $.Values "amf-controller" -}}
+{{- $values := index $.Values "amf-ctrl" -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}

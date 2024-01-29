@@ -8,7 +8,7 @@
 
 {{- define "accelleran.cu-cp.gnb-ctrl.container.args" -}}
 {{- $ := . -}}
-{{- $values := index $.Values "gnb-controller" -}}
+{{- $values := index $.Values "gnb-ctrl" -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}
