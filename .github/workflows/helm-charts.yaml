@@ -26,7 +26,7 @@ jobs:
       lib_chart_names: ${{ steps.list-lib-charts.outputs.chart_names }}
       ignored_install_chart_names: ${{ steps.list-ignored-install-charts.outputs.chart_names }}
       # renovate: github_repository=metallb/metallb versioning=semver
-      metallb_version: v0.13.12
+      metallb_version: v0.14.2
     timeout-minutes: 1
     steps:
       - name: Expose variables
