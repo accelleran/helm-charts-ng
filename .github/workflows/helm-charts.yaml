@@ -21,10 +21,12 @@ jobs:
       is_pull_request: ${{ github.event_name == 'pull_request' }}
       target_branch: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.ref || github.ref_name }}
       charts: ${{ steps.list-charts.outputs.charts }}
-      app_charts: ${{ steps.list-app-charts.outputs.charts }}
-      lib_charts: ${{ steps.list-lib-charts.outputs.charts }}
-      lib_chart_names: ${{ steps.list-lib-charts.outputs.chart_names }}
-      ignored_install_chart_names: ${{ steps.list-ignored-install-charts.outputs.chart_names }}
+      charts_to_lint: ${{ steps.list-charts.outputs.charts_to_lint }}
+      charts_to_test: ${{ steps.list-charts.outputs.charts_to_test }}
+      app_charts: ${{ steps.list-charts.outputs.app_charts }}
+      lib_charts: ${{ steps.list-charts.outputs.lib_charts }}
+      lib_chart_names: ${{ steps.list-charts.outputs.lib_chart_names }}
+      chart_names_to_ignore_for_test: ${{ steps.list-charts.outputs.chart_names_to_ignore_for_test }}
       # renovate: github_repository=metallb/metallb versioning=semver
       metallb_version: v0.14.2
     timeout-minutes: 1
@@ -37,22 +39,14 @@ jobs:
 
       - name: List charts
         id: list-charts
-        run: echo "charts=$(./bin/list-charts -p)" >> $GITHUB_OUTPUT
-
-      - name: List application charts
-        id: list-app-charts
-        run: echo "charts=$(./bin/list-charts -a -p)" >> $GITHUB_OUTPUT
-      
-      - name: List library charts
-        id: list-lib-charts
         run: |
-          echo "charts=$(./bin/list-charts -l -p)" >> $GITHUB_OUTPUT
-          echo "chart_names=$(./bin/list-charts -l -n)" >> $GITHUB_OUTPUT
-
-      - name: List charts to exclude from install
-        id: list-ignored-install-charts
-        run: |
-          echo "chart_names=$(./bin/list-charts -i -n)" >> $GITHUB_OUTPUT
+          echo "charts=$(./bin/list-charts -p)" >> $GITHUB_OUTPUT
+          echo "charts_to_lint=$(./bin/list-charts -p)" >> $GITHUB_OUTPUT
+          echo "charts_to_test=$(./bin/list-charts -t -p)" >> $GITHUB_OUTPUT
+          echo "app_charts=$(./bin/list-charts -a -p)" >> $GITHUB_OUTPUT
+          echo "lib_charts=$(./bin/list-charts -l -p)" >> $GITHUB_OUTPUT
+          echo "lib_chart_names=$(./bin/list-charts -l -n)" >> $GITHUB_OUTPUT
+          echo "chart_names_to_ignore_for_test=$(./bin/list-charts -i -n)" >> $GITHUB_OUTPUT
 
   lint-charts:
     name: Lint Charts
@@ -85,7 +79,7 @@ jobs:
       - name: List changed
         id: list-changed
         run: |
-          changed_charts="${{ needs.vars.outputs.charts }}"
+          changed_charts="${{ needs.vars.outputs.charts_to_lint }}"
           if [ "${{ needs.vars.outputs.is_pull_request }}" == "true" ]; then
             changed_charts="$(ct list-changed --config etc/ct.yaml --target-branch ${{ needs.vars.outputs.target_branch }})"
           fi
@@ -108,7 +102,17 @@ jobs:
 
       - name: Lint charts
         if: ${{ steps.list-changed.outputs.changed == 'true' }}
-        run: ct lint --config etc/ct.yaml ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch "{0}"', needs.vars.outputs.target_branch) || format('--charts "{0}"', needs.vars.outputs.charts) }}
+        run: >-
+          ct
+          lint
+          --config etc/ct.yaml
+          ${{
+            needs.vars.outputs.is_pull_request == 'true' && (
+              format('--target-branch "{0}"', needs.vars.outputs.target_branch)
+            ) || (
+              format('--charts "{0}"', needs.vars.outputs.charts_to_lint)
+            )
+          }}
 
   test-charts:
     name: Test Charts
@@ -141,9 +145,15 @@ jobs:
       - name: List changed
         id: list-changed
         run: |
-          changed_charts="${{ needs.vars.outputs.app_charts }}"
+          changed_charts="${{ needs.vars.outputs.charts_to_test }}"
           if [ "${{ needs.vars.outputs.is_pull_request }}" == "true" ]; then
-            changed_charts="$(ct list-changed --config etc/ct.yaml --target-branch ${{ needs.vars.outputs.target_branch }})"
+            changed_charts="$( \
+              ct list-changed \
+                --config etc/ct.yaml \
+                --target-branch ${{ needs.vars.outputs.target_branch }} \
+                ${{ (needs.vars.outputs.lib_chart_names && format('--excluded-charts "{0}"', needs.vars.outputs.lib_chart_names)) }} \
+                ${{ (needs.vars.outputs.chart_names_to_ignore_for_test && format('--excluded-charts "{0}"', needs.vars.outputs.chart_names_to_ignore_for_test)) }} \
+            )"
           fi
 
           if [[ -n "${changed_charts}" ]]; then
@@ -210,9 +220,15 @@ jobs:
           install
           --namespace default
           --config etc/ct.yaml
-          ${{ needs.vars.outputs.lib_chart_names && format('--excluded-charts "{0}"', needs.vars.outputs.lib_chart_names) }}
-          ${{ needs.vars.outputs.ignored_install_chart_names && format('--excluded-charts "{0}"', needs.vars.outputs.ignored_install_chart_names) }}
-          ${{ needs.vars.outputs.is_pull_request == 'true' && format('--target-branch "{0}"', needs.vars.outputs.target_branch) || format('--charts "{0}"', needs.vars.outputs.app_charts) }}
+          ${{
+            needs.vars.outputs.is_pull_request == 'true' && (
+              format('--target-branch "{0}"', needs.vars.outputs.target_branch) &&
+              (needs.vars.outputs.lib_chart_names && format(' --excluded-charts "{0}"', needs.vars.outputs.lib_chart_names)) &&
+              (needs.vars.outputs.chart_names_to_ignore_for_test && format(' --excluded-charts "{0}"', needs.vars.outputs.chart_names_to_ignore_for_test))
+            ) || (
+              format('--charts "{0}"', needs.vars.outputs.charts_to_test)
+            )
+          }}
 
   release-charts:
     name: Release Charts
