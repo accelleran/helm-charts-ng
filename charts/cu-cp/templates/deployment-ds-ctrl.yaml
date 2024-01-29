@@ -26,9 +26,7 @@ volumes:
 initContainers:
 - {{ fromYaml (include "accelleran.common.init.redis" (fromYaml (include "accelleran.cu-cp.init.args" .))) | toYaml | nindent 2 }}
 - {{ fromYaml (include "accelleran.common.init.nats" (fromYaml (include "accelleran.cu-cp.init.args" .))) | toYaml | nindent 2 }}
-{{- range $index, $ordinal := until ($values.autoscaling.factorReplicas | int) }}
-- {{ include "accelleran.cu-cp.ds-ctrl.init.container" (list $ $ordinal) | nindent 2 }}
-{{- end }}
+- {{ include "accelleran.cu-cp.ds-ctrl.init.container" $ | nindent 2 }}
 
 containers:
 {{- range $index, $ordinal := until ($values.autoscaling.factorReplicas | int) }}
@@ -69,16 +67,15 @@ containers:
 
 
 {{- define "accelleran.cu-cp.ds-ctrl.init.container.args" -}}
-{{- $ := first . -}}
+{{- $ := . -}}
 {{- $values := index $.Values "ds-ctrl" -}}
-{{- $ordinal := index . 1 -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}
 values:
   {{ $values | toYaml | nindent 2 }}
 
-name: {{ printf "%s-%d-app-id" $values.containerName $ordinal | quote }}
+name: {{ printf "%s-app-ids" $values.containerName | quote }}
 command:
 - "/bin/sh"
 - "-c"
@@ -86,8 +83,10 @@ command:
   /bin/sh <<'EOF'
   #!/bin/sh
 
+{{- range $index, $ordinal := until ($values.autoscaling.factorReplicas | int) }}
   app_id=${POD_NAME}-{{ $ordinal }}
-  echo "__APPID=${app_id}" >> /config/env
+  echo "__APPID=${app_id}" >> /config-{{ $ordinal }}/env
+{{- end }}
   EOF
 
 env:
@@ -96,8 +95,10 @@ env:
       fieldRef:
         fieldPath: metadata.name
 volumeMounts:
+{{- range $index, $ordinal := until ($values.autoscaling.factorReplicas | int) }}
 - name: {{ printf "config-%d" $ordinal | quote }}
-  mountPath: /config
+  mountPath: {{ printf "/config-%d" $ordinal | quote }}
+{{- end }}
 {{- end -}}
 
 
