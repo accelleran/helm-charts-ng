@@ -1,13 +1,13 @@
 {{- $values := index $.Values "netconf" -}}
-{{- if ($values.initEditConfig).config -}}
+{{- if ($values.exitEditConfig).config -}}
 {{- include
       "accelleran.common.job"
-      (fromYaml (include "accelleran.cell-wrapper.netconf.init.job.args" .))
+      (fromYaml (include "accelleran.cell-wrapper.netconf.exit.job.args" .))
 -}}
 {{- end -}}
 
 
-{{- define "accelleran.cell-wrapper.netconf.init.job.args" -}}
+{{- define "accelleran.cell-wrapper.netconf.exit.job.args" -}}
 {{- $ := . -}}
 {{- $values := index $.Values "netconf" -}}
 
@@ -18,59 +18,59 @@ values:
     (mergeOverwrite
       (deepCopy $values)
       (dict "annotations" (dict
-        "helm.sh/hook" "post-install,post-upgrade,post-rollback"
+        "helm.sh/hook" "pre-delete,pre-upgrade,pre-rollback"
         "helm.sh/hook-delete-policy" "before-hook-creation,hook-succeeded"
       ))
     ) | toYaml | nindent 2
   }}
 
-name: "{{ .Release.Name }}-netconf-init-config"
+name: "{{ .Release.Name }}-netconf-exit-config"
 backoffLimit: 2
 
 volumes:
-  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-init-rpcs
+  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-exit-rpcs
     configMap:
-      name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-init-rpcs
+      name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-exit-rpcs
       defaultMode: 0777
 
 containers:
-  - {{ fromYaml (include "accelleran.cell-wrapper.netconf.init.container" .) | toYaml | nindent 4 }}
+  - {{ fromYaml (include "accelleran.cell-wrapper.netconf.exit.container" .) | toYaml | nindent 4 }}
 {{- end -}}
 
 
-{{- define "accelleran.cell-wrapper.netconf.init.container" -}}
+{{- define "accelleran.cell-wrapper.netconf.exit.container" -}}
 {{- $ := . -}}
 {{- $values := $.Values.netconf -}}
 {{- include
       "accelleran.common.container"
-      (fromYaml (include "accelleran.cell-wrapper.netconf.init.container.args" $))
+      (fromYaml (include "accelleran.cell-wrapper.netconf.exit.container.args" $))
 -}}
 {{- end -}}
 
 
-{{- define "accelleran.cell-wrapper.netconf.init.container.args" -}}
+{{- define "accelleran.cell-wrapper.netconf.exit.container.args" -}}
 {{- $ := . -}}
 {{- $values := $.Values.netconf -}}
 
 top:
   {{ $ | toYaml | nindent 2 }}
 values:
-  {{ (mergeOverwrite (deepCopy $values) (fromYaml (include "accelleran.cell-wrapper.netconf.init.container.valueOverrides" .))) | toYaml | nindent 2 }}
+  {{ (mergeOverwrite (deepCopy $values) (fromYaml (include "accelleran.cell-wrapper.netconf.exit.container.valueOverrides" .))) | toYaml | nindent 2 }}
 
 envFrom:
   - secretRef:
       name: {{ include "accelleran.cell-wrapper.netconf.secret.authentication.name" $ }}
 
 volumeMounts:
-  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-init-rpcs
+  - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-exit-rpcs
     mountPath: /rpcs
 {{- end -}}
 
 
-{{- define "accelleran.cell-wrapper.netconf.init.container.valueOverrides" -}}
+{{- define "accelleran.cell-wrapper.netconf.exit.container.valueOverrides" -}}
 {{- $ := . -}}
 {{- $values := $.Values.netconf -}}
-containerName: netconf-init-config
+containerName: netconf-exit-config
 args:
   - "--host"
   - {{ include "accelleran.cell-wrapper.netconf.service.name" $ | quote }}
@@ -80,11 +80,11 @@ args:
   - "$(username)"
   - "--pass"
   - "$(password)"
-  {{- range $index, $configRpc := $values.initEditConfig.config }}
+  {{- range $index, $configRpc := $values.exitEditConfig.config }}
   {{- $configRpc = tpl $configRpc $ -}}
   {{- if $configRpc }}
   - "--edit"
-  - "/rpcs/init-edit-config-{{- $index -}}.xml"
+  - "/rpcs/exit-edit-config-{{- $index -}}.xml"
   {{- end }}
   {{- end }}
 {{- end -}}

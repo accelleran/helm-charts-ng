@@ -9,13 +9,6 @@ global:
   # Documentation: https://accelleran.atlassian.net/wiki/spaces/GS/pages/2298183683/Configuration
   config:
 
-    # Deletes the existing config from the cell-wrapper
-    #   Description:  Deletes the existing of the cell wrapper.
-    #   Value type:   boolean
-    #   Example:
-    # deleteExistingConfig: true
-    deleteExistingConfig: true
-
     # Global cell wrapper config
     global:
 
@@ -70,7 +63,7 @@ global:
     #   #   Example:
     #   # install: |-
     #   #   <type>effnet</type>
-    #   #   <ssh-connection-details xc:operation="create">
+    #   #   <ssh-connection-details xc:operation="replace">
     #   #     <host>127.0.0.1</host>
     #   #     <port>22</port>
     #   #     <username>root</username>
@@ -84,7 +77,7 @@ global:
     #   #   Value type:   string
     #   #   Example:
     #   # internal: |-
-    #   #   <auto-repair xc:operation="create">
+    #   #   <auto-repair xc:operation="replace">
     #   #     <enable>true</enable>
     #   #   </auto-repair>
     #   internal: null
@@ -125,7 +118,7 @@ global:
     #     #   Example:
     #     # install: |-
     #     #   <type>benetel650</type>
-    #     #   <ssh-connection-details xc:operation="create">
+    #     #   <ssh-connection-details xc:operation="replace">
     #     #     <host>127.0.0.1</host>
     #     #     <port>22</port>
     #     #     <username>root</username>
@@ -139,8 +132,8 @@ global:
     #     #   Value type:   string
     #     #   Example:
     #     # internal: |-
-    #     #   <health-check xc:operation="create">
-    #     #     <host-reachability xc:operation="create">
+    #     #   <health-check xc:operation="replace">
+    #     #     <host-reachability xc:operation="replace">
     #     #         <timeout>5</timeout>
     #     #     </host-reachability>
     #     #   </health-check>
@@ -175,38 +168,32 @@ netconf:
   containerName: "netconf"
 
   image:
-    repository: accelleran/cw-netconf
+    repository: accelleran/ncclient
     pullPolicy: IfNotPresent
     tag: ""
 
   extraLabels: {}
   annotations: {}
 
+  authentication:
+    create: true
+    secretName: ""
+    username: "accelleran"
+    password: "accelleran"
+
   initEditConfig:
     config:
       - |-
-        {{- if .Values.global.config.deleteExistingConfig -}}
-        <cw-install xmlns="http://accelleran.com/ns/yang/accelleran-cw-install" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
-        {{- end -}}
-      - |-
-        {{- if .Values.global.config.deleteExistingConfig -}}
-        <cw-internal xmlns="http://accelleran.com/ns/yang/accelleran-cw-internal" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
-        {{- end -}}
-      - |-
-        {{- if .Values.global.config.deleteExistingConfig -}}
-        <cw-ran xmlns="http://accelleran.com/ns/yang/accelleran-cw-ran" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
-        {{- end -}}
-      - |-
-        <cw-install xmlns="http://accelleran.com/ns/yang/accelleran-cw-install" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
+        <cw-install xmlns="http://accelleran.com/ns/yang/accelleran-cw-install" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
           {{- range $index, $du := .Values.global.config.dus }}
-          <du xc:operation="create">
+          <du xc:operation="replace">
             <name>{{ $du.name }}</name>
             {{- with $du.install }}
             {{- . | nindent 4 }}
             {{- end }}
           </du>
           {{ range $index, $ru := $du.rus }}
-          <ru xc:operation="create">
+          <ru xc:operation="replace">
             <name>{{ $ru.name }}</name>
             {{- with $ru.install }}
             {{- . | nindent 4 }}
@@ -220,16 +207,16 @@ netconf:
           {{- end }}
         </cw-install>
       - |-
-        <cw-internal xmlns="http://accelleran.com/ns/yang/accelleran-cw-internal" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
+        <cw-internal xmlns="http://accelleran.com/ns/yang/accelleran-cw-internal" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
           {{- range $index, $du := .Values.global.config.dus }}
-          <du xc:operation="create">
+          <du xc:operation="replace">
             <name>{{ $du.name }}</name>
             {{- with $du.internal }}
             {{- . | nindent 4 }}
             {{- end }}
           </du>
           {{ range $index, $ru := $du.rus }}
-          <ru xc:operation="create">
+          <ru xc:operation="replace">
             <name>{{ $ru.name }}</name>
             {{- with $ru.internal }}
             {{- . | nindent 4 }}
@@ -242,9 +229,9 @@ netconf:
           {{- end }}
         </cw-internal>
       - |-
-        <cw-ran xmlns="http://accelleran.com/ns/yang/accelleran-cw-ran" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="create">
+        <cw-ran xmlns="http://accelleran.com/ns/yang/accelleran-cw-ran" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
           {{- range $index, $du := .Values.global.config.dus }}
-          <du xc:operation="create">
+          <du xc:operation="replace">
             <name>{{ $du.name }}</name>
             {{- with $du.ran }}
             {{- . | nindent 4 }}
@@ -255,6 +242,15 @@ netconf:
           {{ . | nindent 2 }}
           {{- end }}
         </cw-ran>
+
+  exitEditConfig:
+    config:
+      - |-
+        <cw-install xmlns="http://accelleran.com/ns/yang/accelleran-cw-install" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
+      - |-
+        <cw-internal xmlns="http://accelleran.com/ns/yang/accelleran-cw-internal" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
+      - |-
+        <cw-ran xmlns="http://accelleran.com/ns/yang/accelleran-cw-ran" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
 
   service:
     name: ""
