@@ -18,9 +18,6 @@ accelleranLicense:
   enabled: true
   licenseSecretName: "accelleran-license"
 
-command:
-  - "/app/main"
-
 podSecurityContext: {}
   # fsGroup: 2000
 
