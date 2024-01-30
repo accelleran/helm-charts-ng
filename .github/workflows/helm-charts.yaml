@@ -222,9 +222,11 @@ jobs:
           --config etc/ct.yaml
           ${{
             needs.vars.outputs.is_pull_request == 'true' && (
-              format('--target-branch "{0}"', needs.vars.outputs.target_branch) &&
-              (needs.vars.outputs.lib_chart_names && format(' --excluded-charts "{0}"', needs.vars.outputs.lib_chart_names)) &&
-              (needs.vars.outputs.chart_names_to_ignore_for_test && format(' --excluded-charts "{0}"', needs.vars.outputs.chart_names_to_ignore_for_test))
+              format('--target-branch "{0}" --excluded-charts "{1}" --excluded-charts "{2}"',
+                needs.vars.outputs.target_branch,
+                needs.vars.outputs.lib_chart_names,
+                needs.vars.outputs.chart_names_to_ignore_for_test
+              )
             ) || (
               format('--charts "{0}"', needs.vars.outputs.charts_to_test)
             )
