@@ -43,7 +43,7 @@ fullnameOverride: ""
 initImage:
   repository: accelleran/acc-generic-img
   pullPolicy: IfNotPresent
-  tag: "0.8.0-dev.2"
+  tag: "0.8.0"
 
 image:
   repository: accelleran/dash-front-back-end
