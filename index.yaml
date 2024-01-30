@@ -7930,6 +7930,28 @@ entries:
     urls:
     - https://github.com/accelleran/helm-charts-ng/releases/download/cu-cp-7.0.0-rc.0/cu-cp-7.0.0-rc.0.tgz
     version: 7.0.0-rc.0
+  - apiVersion: v2
+    appVersion: R4.3.5_leffe
+    created: "2024-01-30T20:31:27.408606259Z"
+    dependencies:
+    - name: common
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 0.1.1
+    - condition: nats.enabled
+      name: nats
+      repository: https://nats-io.github.io/k8s/helm/charts/
+      version: 1.1.7
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami/
+      version: 18.9.1
+    description: Accelleran 5G CU-CP Components
+    digest: 06fed5f538dacb9e46f28c8a008a63c843211e1e3a8a85579adc8365466c57d5
+    name: cu-cp
+    type: application
+    urls:
+    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-cp-7.0.0-rc.0/cu-cp-7.0.0-rc.0.tgz
+    version: 7.0.0-rc.0
   cu-up:
   - apiVersion: v2
     appVersion: R4.3.5_leffe
@@ -8036,6 +8058,28 @@ entries:
       version: 18.9.1
     description: Accelleran 5G CU-UP Components
     digest: 2acfb13f55932848dc7fed4081384667086d7633953f00849a5279565e262b30
+    name: cu-up
+    type: application
+    urls:
+    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-up-7.0.0-rc.0/cu-up-7.0.0-rc.0.tgz
+    version: 7.0.0-rc.0
+  - apiVersion: v2
+    appVersion: R4.3.5_leffe
+    created: "2024-01-30T20:31:27.534801757Z"
+    dependencies:
+    - name: common
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 0.1.1
+    - condition: nats.enabled
+      name: nats
+      repository: https://nats-io.github.io/k8s/helm/charts/
+      version: 1.1.7
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami/
+      version: 18.9.1
+    description: Accelleran 5G CU-UP Components
+    digest: 0c4a1aeecedee83c22ab70a2f5d5ac9bc5ef9d4313b3192fd0bbb524c8017290
     name: cu-up
     type: application
     urls:
@@ -12234,4 +12278,4 @@ entries:
     urls:
     - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-1.0.0/xapp-hello-world-1.0.0.tgz
     version: 1.0.0
-generated: "2024-01-30T17:28:09.292306046Z"
+generated: "2024-01-30T20:31:27.535380036Z"
