@@ -54,11 +54,11 @@ cw-ctrl:
     redis:
       repository: accelleran/acc-generic-img
       pullPolicy: IfNotPresent
-      tag: "0.8.0-dev.2"
+      tag: "0.8.0"
     nats:
       repository: accelleran/acc-generic-img
       pullPolicy: IfNotPresent
-      tag: "0.8.0-dev.2"
+      tag: "0.8.0"
 
   image:
     repository: accelleran/cw-ctrl

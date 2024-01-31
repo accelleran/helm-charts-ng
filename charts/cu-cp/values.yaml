@@ -65,11 +65,11 @@ cu-cp:
   initImage:
     redis:
       repository: accelleran/acc-generic-img
-      tag: "0.8.0-dev.2"
+      tag: "0.8.0"
       pullPolicy: IfNotPresent
     nats:
       repository: accelleran/acc-generic-img
-      tag: "0.8.0-dev.2"
+      tag: "0.8.0"
       pullPolicy: IfNotPresent
 
   serviceAccount:
@@ -427,7 +427,7 @@ ds-ctrl:
 
   initImage:
     repository: accelleran/acc-generic-img
-    tag: "0.8.0-dev.2"
+    tag: "0.8.0"
     pullPolicy: IfNotPresent
 
   image:
