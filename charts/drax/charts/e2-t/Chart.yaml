@@ -1,0 +1,18 @@
+apiVersion: v2
+name: e2-t
+description: The E2 Termination
+type: application
+version: 1.1.0
+appVersion: "e2-5.2.4"
+dependencies:
+  - name: common
+    version: 0.2.0
+    repository: https://accelleran.github.io/helm-charts-ng/
+  - name: nats
+    condition: nats.enabled
+    version: 1.1.6
+    repository: https://nats-io.github.io/k8s/helm/charts/
+  - name: redis
+    condition: redis.enabled
+    version: 18.5.0
+    repository: https://charts.bitnami.com/bitnami/

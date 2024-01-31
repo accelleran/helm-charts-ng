@@ -1,0 +1,36 @@
+{{- include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.dash-front-back-end.deployment.args" $))
+-}}
+
+{{- define "accelleran.dash-front-back-end.deployment.args" -}}
+{{- $ := . -}}
+{{- $fullname := include "accelleran.common.fullname" (dict "top" $) -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+{{- with tpl $.Values.config.draxVersionConfigmap $ }}
+env:
+  - name: DRAX_VERSION
+    valueFrom:
+      configMapKeyRef:
+        name: {{ . }}
+        key: draxVersion
+{{- end }}
+
+volumes:
+  - name: {{ $fullname }}-core-ui
+    configMap: 
+      name: {{ $fullname }}-core-ui
+  - name: {{ $fullname }}-server
+    configMap:
+      name: {{ $fullname }}-server
+volumeMounts:
+  - name: {{ $fullname }}-core-ui
+    mountPath: /usr/src/dashboard/core-ui/build/config.js
+    subPath: "config.js"
+  - name: {{ $fullname }}-server
+    mountPath: /usr/src/dashboard/server/config.json
+    subPath: "config.json"
+{{- end -}}

@@ -1,0 +1,33 @@
+{{- $values := $.Values.grafana -}}
+
+{{- if $values.dashboardsConfigMaps }}
+{{- range $provider, $configMapName := $values.dashboardsConfigMaps }}
+---
+{{
+  include
+    "accelleran.common.configMap"
+    (fromYaml (include "accelleran.drax.grafanaDashboards.configMap.args" (dict
+      "top" $
+      "provider" $provider
+      "configMapName" $configMapName
+    )))
+}}
+{{- end }}
+{{- end }}
+
+
+{{- define "accelleran.drax.grafanaDashboards.configMap.args" -}}
+{{- $ := get . "top" | required "The top context needs to be provided to drax grafana dashboards configmap args" -}}
+{{- $provider := get . "provider" | required "The provider needs to be provided to drax grafana dashboards configmap args" -}}
+{{- $configMapName := get . "configMapName" | required "The configmap name needs to be provided to drax grafana dashboards configmap args" -}}
+
+{{- $file := printf "%s.json" $provider -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+name: {{ tpl $configMapName $ | quote }}
+
+data:
+  {{ $file }}: {{ $.Files.Get (printf "configuration/grafana/dashboards/%s" $file) | toYaml | nindent 4 }}
+{{- end -}}

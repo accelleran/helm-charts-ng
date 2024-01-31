@@ -1,0 +1,97 @@
+apiVersion: v2
+name: drax
+description: Accelleran's dRAX helm chart
+type: application
+version: 7.0.0-rc.0
+
+dependencies:
+  - name: common
+    version: 0.1.1
+    repository: https://accelleran.github.io/helm-charts-ng/
+
+  # smo
+  - name: dash-front-back-end
+    condition: dash-front-back-end.enabled
+    version: 5.0.0
+    repository: file://charts/dash-front-back-end
+  - name: network-state-monitor
+    condition: network-state-monitor.enabled
+    version: 0.1.0
+    repository: file://charts/network-state-monitor
+  - name: service-monitor
+    condition: service-monitor.enabled
+    version: 1.0.0
+    repository: file://charts/service-monitor
+  - name: service-orchestrator
+    condition: service-orchestrator.enabled
+    version: 1.0.0
+    repository: file://charts/service-orchestrator
+  - name: config-api
+    condition: config-api.enabled
+    version: 2.0.0
+    repository: file://charts/config-api
+  - name: cell-wrapper
+    condition: cell-wrapper.enabled
+    version: 3.0.0
+    repository: https://accelleran.github.io/helm-charts-ng/
+
+  # ric
+  - name: e2-t
+    condition: e2-t.enabled
+    version: 1.1.0
+    repository: file://charts/e2-t
+
+  # xapps
+  - name: pm-counters
+    condition: pm-counters.enabled
+    version: 1.0.3
+    repository: file://charts/pm-counters
+
+  # infrastructure
+  - name: golang-nkafka
+    alias: golang-nkafka-5g
+    condition: global.enable5G
+    version: 1.2.1
+    repository: file://charts/golang-nkafka
+
+  # external
+
+  # monitoring
+  - name: grafana
+    condition: grafana.enabled
+    version: 7.0.21
+    repository: https://grafana.github.io/helm-charts
+  - name: prometheus
+    condition: prometheus.enabled
+    version: 25.8.2
+    repository: https://prometheus-community.github.io/helm-charts
+  - name: loki-stack
+    condition: loki-stack.enabled
+    version: 2.9.10
+    repository: https://grafana.github.io/helm-charts
+  - name: influxdb
+    condition: influxdb.enabled
+    version: 4.12.5
+    repository: https://helm.influxdata.com/
+  - name: vector
+    condition: global.enable5G
+    version: 0.30.0
+    repository: https://helm.vector.dev
+  - name: kminion
+    condition: kminion.enabled
+    version: 0.12.0
+    repository: https://raw.githubusercontent.com/redpanda-data/kminion/master/charts/archives
+
+  # infrastructure
+  - name: kafka
+    condition: kafka.enabled
+    version: 26.5.0
+    repository: https://charts.bitnami.com/bitnami/
+  - name: nats
+    condition: nats.enabled
+    version: 1.1.6
+    repository: https://nats-io.github.io/k8s/helm/charts/
+  - name: redis
+    condition: redis.enabled
+    version: 18.5.0
+    repository: https://charts.bitnami.com/bitnami/

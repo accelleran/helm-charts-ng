@@ -1,0 +1,16 @@
+################################################################################
+
+Accelleran Config API {{ $.Chart.Version }}
+
+Deployed Accelleran Config API [{{ $.Release.Name }}]
+with the following details:
+
+  Tag: {{ include "accelleran.common.appVersion" (dict "top" $) }}
+
+  Service monitor: {{ $.Values.config.service_monitor_host }}:{{ $.Values.config.service_monitor_port }}
+
+Discover the IPs given to the services using the following command and
+its EXTERNAL-IP column:
+  $ kubectl get service
+
+################################################################################

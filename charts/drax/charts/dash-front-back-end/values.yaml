@@ -1,0 +1,95 @@
+global:
+  enable4G: false
+  enable5G: true
+
+config:
+  config_id: "production"
+  defaultServiceNamespace: "default"
+  defaultOranNamespace: "default"
+  grafanaURL: "10.20.20.20"
+  grafanaPort: "30300"
+  nodeApiURL: "10.20.20.20"
+  nodePort: "30315"
+  kafkaUrl: "{{ .Release.Name }}-kafka"
+  kafkaPort: "9092"
+  svcOrchestratorHost: "{{ .Release.Name }}-service-orchestrator"
+  svcOrchestratorPort: "80"
+  networkStateMonitorHost: "{{ .Release.Name }}-network-state-monitor"
+  networkStateMonitorPort: "5000"
+  configApiHost: "{{ .Release.Name }}-config-api"
+  configApiPort: "80"
+  svcMonitorHost: "{{ .Release.Name }}-service-monitor"
+  svcMonitorPort: "80"
+  pcixAppPodName: "accelleran-drax-pci-010-pci-xapp-api"
+  pcixAppPort: "80"
+  ksqldbPodName: "10.20.20.20"
+  ksqldbPort: "30533"
+  LteRadioControllerLabel: "4G-Radio-Controller"
+  apiUrl: "10.20.20.20"
+  websocketPort: "31316"
+  topologyExpired: 5000
+  draxVersionConfigmap: ""
+  kafkaTopics:
+    - "accelleran.drax.5g.ric.raw.cu_state"
+    - "accelleran.drax.5g.ric.raw.ue_measurements"
+    - "accelleran.drax.4g.ric.raw.network_state"
+    - "accelleran.drax.all.ric.processed.anr"
+
+replicaCount: 1
+
+nameOverride: ""
+fullnameOverride: ""
+
+initImage:
+  repository: accelleran/acc-generic-img
+  pullPolicy: IfNotPresent
+  tag: "0.8.0"
+
+image:
+  repository: accelleran/dash-front-back-end
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: 
+  - name: accelleran-secret
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: 
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  runAsUser: 0
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+service:
+  enabled: true
+  name: ""
+  type: NodePort
+  ports:
+    http:
+      port: 5000
+      targetPort: 5000
+      nodePort: 31315
+      protocol: TCP
+    websocket:
+      port: 5001
+      targetPort: 5001
+      nodePort: 31316
+      protocol: TCP

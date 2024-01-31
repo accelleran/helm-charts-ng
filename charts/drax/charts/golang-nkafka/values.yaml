@@ -1,0 +1,95 @@
+mode: "5g"
+
+bootstrap:
+  create: true
+  name: ""
+  nats:
+    enabled: true
+    hostname: ""
+    port: 0
+  kafka:
+    enabled: true
+    hostname: ""
+    port: 0
+
+config:
+  natsConnectionParameters:
+    connectTimeout: 5000
+    maxReconnects: 120
+    reconnectWait: 5000
+
+  natsKafkaTopics:
+    override: false
+    # defaultKafkaTopic: "accelleran.drax.5g.ric.raw.messages"
+    # translations:
+    #   - natsSubject: "5G_CUUP_BEACON_INFO"
+    #     kafkaTopic: "accelleran.drax.5g.ric.raw.cu_state"
+    #   - natsSubject: "5G_CUUP_BEACON_INFO_UPDATED"
+    #     kafkaTopic: "accelleran.drax.5g.ric.raw.cu_state"
+    #   - natsSubject: "5G_AMF_BEACON_INFO"
+    #     kafkaTopic: "accelleran.drax.5g.ric.raw.cu_state"
+    #   - natsSubject: "5G_DU_BEACON_INFO"
+    #     kafkaTopic: "accelleran.drax.5g.ric.raw.cu_state"
+    #   - natsSubject: "5G_MEAS_INFO.ENB=*.DU=*.CELL=*.UE=*"
+    #     kafkaTopic: "accelleran.drax.5g.ric.raw.ue_measurements"
+    #   - natsSubject: "PM-REPORT-COUNTERS"
+    #     kafkaTopic: "accelleran.drax.5g.ric.raw.pm_counters"
+    #   - natsSubject: "5G_COUNTERS_INFO"
+    #     kafkaTopic: "accelleran.drax.5g.ric.raw.pm_counters"
+    #   - natsSubject: "CUCP_COUNTERS_INFO"
+    #     kafkaTopic: "accelleran.drax.5g.ric.raw.pm_counters"
+
+nameOverride: ""
+fullnameOverride: ""
+
+replicaCount: 1
+
+initImage:
+  nats:
+    repository: accelleran/acc-generic-img
+    pullPolicy: IfNotPresent
+    tag: "0.8.0"
+  kafka:
+    repository: accelleran/acc-generic-img
+    pullPolicy: IfNotPresent
+    tag: "0.8.0"
+
+image:
+  repository: accelleran/golang-nkafka-5g
+  pullPolicy: IfNotPresent
+  tag: "1.3.4_R4.3.4_leffe_CW3.0.0"
+
+imagePullSecrets:
+  - name: accelleran-secret
+
+accelleranLicense:
+  enabled: true
+  licenseSecretName: "accelleran-license"
+
+command:
+  - "/home/nats-kafka"
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext:
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  runAsUser: 0
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

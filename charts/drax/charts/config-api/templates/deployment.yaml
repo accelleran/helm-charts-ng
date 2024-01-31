@@ -1,0 +1,22 @@
+{{- include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.config-api.deployment.args" $))
+-}}
+
+{{- define "accelleran.config-api.deployment.args" -}}
+{{- $ := . -}}
+{{- $fullname := include "accelleran.common.fullname" (dict "top" $) -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+volumes:
+  - name: {{ $fullname }}-config
+    configMap:
+      name: {{ $fullname }}-config
+volumeMounts:
+  - name: {{ $fullname }}-config
+    mountPath: "./app/config_api.env"
+    subPath: "config_api.env"
+    readOnly: true
+{{- end -}}

@@ -1,0 +1,45 @@
+{{- include
+      "accelleran.common.configMap"
+      (fromYaml (include "accelleran.pm-counters.configMap.args" .))
+-}}
+
+{{- define "accelleran.pm-counters.configMap.args" -}}
+{{- $ := . -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+name: {{ include "accelleran.common.fullname" (dict "top" $) }}-config
+
+data:
+  xapp_configuration.py: |-
+    configuration = {
+        "metadata": {
+            "name": "{{ $.Release.Name }}",
+            "configName": "",
+            "namespace": "{{ $.Release.Namespace }}"
+        },
+        "description": "{{ $.Chart.Description }}",
+        "last_modified": "14/08/2020 22:17:00",
+        'config': {
+            {{ range .Values.draxConfig }}
+            {{ if eq .type "int" }}
+            '{{ .name }}': {{ .value }},
+            {{ else }}
+            '{{ .name }}': '{{ tpl .value $ }}',
+            {{ end }}
+            {{ end }}
+
+            {{ range .Values.xappConfig }}
+            {{ if eq .type "int" }}
+            '{{ .name }}': {{ .value }},
+            {{ else }}
+            '{{ .name }}': '{{ tpl .value $ }}',
+            {{ end }}
+            {{ end }}
+
+        },
+        "jsonSchemaOptions": {},
+        "uiSchemaOptions": {}
+    }
+{{- end -}}

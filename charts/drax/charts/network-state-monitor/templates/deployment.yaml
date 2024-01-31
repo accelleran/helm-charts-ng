@@ -1,0 +1,24 @@
+{{- include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.network-state-monitor.deployment.args" $))
+-}}
+
+{{- define "accelleran.network-state-monitor.deployment.args" -}}
+{{- $ := . -}}
+{{- $fullname := include "accelleran.common.fullname" (dict "top" $) -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+initContainers:
+- {{ fromYaml (include "accelleran.common.init.kafka" (dict "top" $)) | toYaml | nindent 2 }}
+
+volumes:
+  - name: {{ $fullname }}-config
+    configMap:
+      name: {{ $fullname }}-config
+volumeMounts:
+  - name: {{ $fullname }}-config
+    mountPath: /usr/local/bin/go-networkstatemonitor/bin/config.json
+    subPath: "config.json"
+{{- end -}}

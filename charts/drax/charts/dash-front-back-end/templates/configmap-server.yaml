@@ -1,0 +1,47 @@
+{{- include
+      "accelleran.common.configMap"
+      (fromYaml (include "accelleran.dash-front-back-end.configMap.server.args" .))
+-}}
+
+{{- define "accelleran.dash-front-back-end.configMap.server.args" -}}
+{{- $ := . -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+name: {{ include "accelleran.common.fullname" (dict "top" $) }}-server
+
+data:
+  config.json: |
+    {
+      "production": {
+        "config_id": "{{ .Values.config.config_id }}",
+        "defaultServiceNamespace": "{{ tpl .Values.config.defaultServiceNamespace . }}",
+        "defaultOranNamespace": "{{ tpl .Values.config.defaultOranNamespace . }}",
+        "node_port": {{ .Values.service.ports.http.port }},
+        "grafanaURL": "{{ tpl .Values.config.grafanaURL . }}",
+        "grafanaPort": "{{ .Values.config.grafanaPort }}",
+        "nodeApiURL": "{{ tpl .Values.config.nodeApiURL . }}",
+        "nodeApiPort": "{{ .Values.service.ports.http.port }}",
+        "kafkaURL": "{{ tpl .Values.config.kafkaUrl . }}",
+        "kafkaPort": "{{ tpl .Values.config.kafkaPort . }}",
+        "svcOrchestratorHost": "{{ tpl .Values.config.svcOrchestratorHost . }}",
+        "svcOrchestratorPort": "{{ tpl .Values.config.svcOrchestratorPort . }}",
+        "networkStateMonitorHost": "{{ tpl .Values.config.networkStateMonitorHost . }}",
+        "networkStateMonitorPort": "{{ tpl .Values.config.networkStateMonitorPort . }}",
+        "configApiHost": "{{ tpl .Values.config.configApiHost . }}",
+        "configApiPort": "{{ tpl .Values.config.configApiPort . }}",
+        "svcMonitorHost": "{{ tpl .Values.config.svcMonitorHost . }}",
+        "svcMonitorPort": "{{ tpl .Values.config.svcMonitorPort . }}",
+        "pcixAppPodName": "{{ tpl .Values.config.pcixAppPodName . }}",
+        "pcixAppPort": "{{ tpl .Values.config.pcixAppPort . }}",
+        "ksqldbPodName": "{{ tpl .Values.config.ksqldbPodName . }}",
+        "ksqldbPort": "{{ tpl .Values.config.ksqldbPort . }}",
+        "LteRadioControllerLabel": "{{ tpl .Values.config.LteRadioControllerLabel . }}",
+        "topologyExpired": {{ .Values.config.topologyExpired }},
+        "enable5G": {{ .Values.global.enable5G }},
+        "enable4G": {{ .Values.global.enable4G }},
+        "kafkaTopics": {{ .Values.config.kafkaTopics | toJson }}
+      }
+    }
+{{- end -}}

@@ -1,0 +1,10 @@
+apiVersion: v2
+name: service-orchestrator
+description: The dRAX Service Orchestrator
+type: application
+version: 1.0.0
+appVersion: 1.0.2
+dependencies:
+  - name: common
+    version: 0.2.0
+    repository: https://accelleran.github.io/helm-charts-ng/

@@ -1,0 +1,20 @@
+{{- include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.service-orchestrator.deployment.args" $))
+-}}
+
+{{- define "accelleran.service-orchestrator.deployment.args" -}}
+{{- $ := . -}}
+{{- $fullname := include "accelleran.common.fullname" (dict "top" $) -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+env:
+  - name: KUBE_IP
+    value: "{{ tpl .Values.kubeIp $ }}"
+  - name: DEFAULT_5G_VERSION
+    value: "{{ tpl .Values.default5gVersion $ }}"
+  - name: DEFAULT_DEV_ENV_VERSION
+    value: "{{ tpl .Values.defaultDevEnvVersion $ }}"
+{{- end -}}

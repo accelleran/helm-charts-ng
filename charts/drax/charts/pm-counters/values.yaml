@@ -1,0 +1,76 @@
+drax:
+  role: "xapp"
+
+draxConfig:
+  - name: "KAFKA_URL"
+    type: string
+    value: "{{ $.Release.Name }}-kafka.{{ $.Release.Namespace }}"
+  - name: "KAFKA_PORT"
+    type: string
+    value: "9092"
+
+xappConfig:
+  - name: "LOG_LEVEL"
+    type: int
+    value: 20
+  - name: "PM_COUNTER_TOPIC"
+    type: string
+    value: "accelleran.drax.5g.ric.raw.pm_counters"
+  - name: "PROCESSED_PM_COUNTER_TOPIC"
+    type: string
+    value: "accelleran.drax.5g.ric.processed.pm_counters"
+
+nameOverride: ""
+fullnameOverride: ""
+
+replicaCount: 1
+
+initImage:
+  kafka:
+    repository: accelleran/acc-generic-img
+    pullPolicy: IfNotPresent
+    tag: "0.8.0"
+
+image:
+  repository: accelleran/acc-fiveg-pmcounters
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets:
+  - name: accelleran-secret
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+service:
+  enabled: true
+  name: ""
+  type: ClusterIP
+  ports:
+    http:
+      port: 8000
+      protocol: TCP
+      nodePort: null # 30515

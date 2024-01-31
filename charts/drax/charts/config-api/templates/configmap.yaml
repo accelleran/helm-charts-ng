@@ -1,0 +1,20 @@
+{{- include
+      "accelleran.common.configMap"
+      (fromYaml (include "accelleran.config-api.configMap.args" .))
+-}}
+
+{{- define "accelleran.config-api.configMap.args" -}}
+{{- $ := . -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+name: {{ include "accelleran.common.fullname" (dict "top" $) }}-config
+
+data:
+  config_api.env: |
+    DEFAULT_SERVICE_NAMESPACE_5G = "{{ tpl .Values.config.default_service_namespace_5g . }}"
+    DEFAULT_ORAN_NAMESPACE_4G = "{{ tpl .Values.config.default_oran_namespace_4g . }}"
+    SERVICE_MONITOR_HOST = "{{ tpl .Values.config.service_monitor_host . }}"
+    SERVICE_MONITOR_PORT = "{{ tpl .Values.config.service_monitor_port . }}"
+{{- end -}}

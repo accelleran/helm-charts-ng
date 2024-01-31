@@ -1,0 +1,16 @@
+################################################################################
+
+Accelleran Service Monitor {{ $.Chart.Version }}
+
+Deployed Accelleran Service Monitor [{{ $.Release.Name }}]
+with the following details:
+
+  Tag: {{ include "accelleran.common.appVersion" (dict "top" $) }}
+
+  Monitored namespaces: {{ $.Values.monitoredNamespaces }}
+
+Discover the IPs given to the services using the following command and
+its EXTERNAL-IP column:
+  $ kubectl get service
+
+################################################################################

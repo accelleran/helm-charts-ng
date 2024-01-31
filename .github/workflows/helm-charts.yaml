@@ -213,6 +213,18 @@ jobs:
           --docker-username=${{ secrets.DOCKER_LOGIN }}
           --docker-password=${{ secrets.DOCKER_ACCESS_TOKEN }}
 
+      - name: Create accelleran license
+        if: ${{ steps.list-changed.outputs.changed == 'true' }}
+        run: |-
+          cat <<EOF > license.crt
+          ${{ secrets.ACCELLERAN_LICENSE }}
+          EOF
+
+          kubectl create secret generic \
+          --namespace default \
+          accelleran-license \
+          --from-file=license.crt
+
       - name: Test charts
         if: ${{ steps.list-changed.outputs.changed == 'true' }}
         run: >-

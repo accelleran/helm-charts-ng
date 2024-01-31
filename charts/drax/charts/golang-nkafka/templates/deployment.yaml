@@ -1,0 +1,87 @@
+{{- include
+      "accelleran.common.deployment"
+      (fromYaml (include "accelleran.golang-nkafka.deployment.args" $))
+-}}
+
+{{- define "accelleran.golang-nkafka.deployment.args" -}}
+{{- $ := . -}}
+{{- $fullname := include "accelleran.common.fullname" (dict "top" $) -}}
+
+top:
+  {{ $ | toYaml | nindent 2 }}
+
+initContainers:
+- {{ fromYaml (include "accelleran.common.init.kafka" (dict "top" $ "values" (fromYaml (include "accelleran.golang-nkafka.disabledLicenseValues" .)))) | toYaml | nindent 2 }}
+- {{ fromYaml (include "accelleran.common.init.nats" (dict "top" $ "values" (fromYaml (include "accelleran.golang-nkafka.disabledLicenseValues" .)))) | toYaml | nindent 2 }}
+- {{ fromYaml (include "accelleran.golang-nkafka.init.config" $) | toYaml | nindent 2 }}
+
+env:
+- name: "NATS_KAFKA_BRIDGE_CONFIG"
+  value: "/nkafka.conf"
+
+volumes:
+- name: {{ $fullname }}-config-volume
+  emptyDir: {}
+- name: {{ $fullname }}-config
+  configMap:
+    name: {{ $fullname }}-config
+{{ if .Values.config.natsKafkaTopics.override }}
+- name: {{ $fullname }}-kafkatopics
+  configMap:
+    name: {{ $fullname }}-kafkatopics
+{{ end }}
+volumeMounts:
+- name: {{ $fullname }}-config
+  mountPath: /nkafka.conf
+  subPath: "nkafka.conf"
+- name: {{ $fullname }}-config-volume
+  mountPath: /config
+{{- end -}}
+
+
+{{- define "accelleran.golang-nkafka.disabledLicenseValues" -}}
+{{-
+  (mergeOverwrite
+    $.Values
+    (dict
+      "accelleranLicense"
+      (dict
+        "enabled" false
+      )
+    )
+  ) | toYaml
+-}}
+{{- end -}}
+
+
+{{- define "accelleran.golang-nkafka.init.config" -}}
+{{- $ := . -}}
+{{- $fullname := include "accelleran.common.fullname" (dict "top" $) -}}
+
+name: create-config
+{{ if eq (include "accelleran.common.drax.license.enabled" (dict "top" $)) "true" }}
+image: "{{ $.Values.image.repository }}-license:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+{{ else }}
+image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+{{ end }}
+imagePullPolicy: {{ $.Values.image.pullPolicy }}
+volumeMounts:
+  - name: {{ $fullname }}-config-volume
+    mountPath: /config
+  {{ if $.Values.config.natsKafkaTopics.override }}
+  - name: {{ $fullname }}-kafkatopics
+    mountPath: /KafkaTopics.toml
+    subPath: "KafkaTopics.toml"
+  {{ end }}
+command:
+  - "/usr/bin/python3"
+args:
+  - /home/conf/generate_nats_to_kafka_connections.py
+  - /home/conf/KafkaTopics.toml
+  - /home/conf/Topics.toml
+  - "{{ include "accelleran.common.bootstrap.kafka.hostname" (dict "top" .) }}:{{ include "accelleran.common.bootstrap.kafka.port" (dict "top" .) }}"
+  - /config/Connections.conf
+{{ if eq (tpl $.Values.mode $) "5g" }}
+  - --asterisk_prefix
+{{ end }}
+{{- end -}}

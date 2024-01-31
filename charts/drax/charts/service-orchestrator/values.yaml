@@ -1,0 +1,79 @@
+kubeIp: "10.55.1.2"
+default5gVersion: "6"
+defaultDevEnvVersion: "2"
+
+nameOverride: ""
+fullnameOverride: ""
+
+replicaCount: 1
+
+image:
+  repository: accelleran/service-orchestrator
+  pullPolicy: IfNotPresent
+  #pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: accelleran-secret
+
+accelleranLicense:
+  enabled: true
+  licenseSecretName: "accelleran-license"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+    add:
+      # Required for binding port 80
+      # Could be replaced by sysctl net.ipv4.ip_unprivileged_port_start=0, which is marked safe from K8S 1.22
+      - NET_BIND_SERVICE
+  # readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 10000
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+service:
+  enabled: true
+  name: ""
+  type: ClusterIP
+  ports:
+    http:
+      port: 80
+      targetPort: 80
+      nodePort: null
+      protocol: TCP
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+rbac:
+  enabled: true
+  rules:
+    - apiGroups:
+        - "*"
+      resources:
+        - "*"
+      verbs:
+        - "*"

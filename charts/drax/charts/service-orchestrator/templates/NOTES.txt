@@ -1,0 +1,17 @@
+################################################################################
+
+Accelleran Service Orchestrator {{ $.Chart.Version }}
+
+Deployed Accelleran Service Orchestrator [{{ $.Release.Name }}]
+with the following details:
+
+  Tag: {{ include "accelleran.common.appVersion" (dict "top" $) }}
+
+  Default 5G version: {{ $.Values.default5gVersion }}
+  Default dev env version: {{ $.Values.defaultDevEnvVersion }}
+
+Discover the IPs given to the services using the following command and
+its EXTERNAL-IP column:
+  $ kubectl get service
+
+################################################################################

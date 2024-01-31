@@ -1,0 +1,57 @@
+drax:
+  role: ric
+  technology: null
+
+config:
+  default_service_namespace_5g: "default"
+  default_oran_namespace_4g: "default"
+  service_monitor_host: "{{ .Release.Name }}-service-monitor"
+  service_monitor_port: "80"
+
+nameOverride: ""
+fullnameOverride: ""
+
+replicaCount: 1
+
+image:
+  repository: accelleran/config-api
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets:
+  - name: accelleran-secret
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext:
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  runAsUser: 0
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+service:
+  enabled: true
+  name: ""
+  type: ClusterIP
+  ports:
+    http:
+      port: 80
+      targetPort: 80
+      protocol: TCP

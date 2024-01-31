@@ -1,0 +1,10 @@
+apiVersion: v2
+name: dash-front-back-end
+description: The Accelleran Dashboard
+type: application
+version: 5.0.0
+appVersion: 4.7.0
+dependencies:
+  - name: common
+    version: 0.2.0
+    repository: https://accelleran.github.io/helm-charts-ng/
