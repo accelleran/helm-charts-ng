@@ -1,0 +1,12 @@
+dependencies:
+- name: common
+  repository: https://accelleran.github.io/helm-charts-ng/
+  version: 0.1.1
+- name: nats
+  repository: https://nats-io.github.io/k8s/helm/charts/
+  version: 1.1.6
+- name: redis
+  repository: https://charts.bitnami.com/bitnami/
+  version: 18.5.0
+digest: sha256:a492b4ba1cea505c30aef10c1d370c70a899e4b198eeee3599b6f27b98afe28e
+generated: "2024-01-31T14:38:13.253520555+01:00"
