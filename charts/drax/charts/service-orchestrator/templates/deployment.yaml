@@ -17,4 +17,13 @@ env:
     value: "{{ tpl .Values.default5gVersion $ }}"
   - name: DEFAULT_DEV_ENV_VERSION
     value: "{{ tpl .Values.defaultDevEnvVersion $ }}"
+
+volumes:
+  - name: {{ $fullname }}-config
+    configMap:
+      name: {{ $fullname }}-config
+volumeMounts:
+  - name: {{ $fullname }}-config
+    mountPath: /app/config.json
+    subPath: "config.json"
 {{- end -}}
