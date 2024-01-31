@@ -110,7 +110,7 @@ e2-t-sctp:
         protocol: "SCTP"
         port: 38482
         targetPort: null
-        nodePort: null # 31900
+        nodePort: null  # 31900
 
 
 e2-t-ap:

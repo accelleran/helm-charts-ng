@@ -50,13 +50,13 @@ image:
   pullPolicy: IfNotPresent
   tag: ""
 
-imagePullSecrets: 
+imagePullSecrets:
   - name: accelleran-secret
 
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: 
+securityContext:
   # capabilities:
   #   drop:
   #   - ALL

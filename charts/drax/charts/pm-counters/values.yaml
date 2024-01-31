@@ -73,4 +73,4 @@ service:
     http:
       port: 8000
       protocol: TCP
-      nodePort: null # 30515
+      nodePort: null  # 30515
