@@ -1,3 +1,5 @@
+global: {}
+
 # Namespaces to monitor, comma "," seperated
 monitoredNamespaces: "{{ .Release.Namespace }}"
 

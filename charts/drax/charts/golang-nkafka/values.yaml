@@ -1,3 +1,5 @@
+global: {}
+
 mode: "5g"
 
 bootstrap:
