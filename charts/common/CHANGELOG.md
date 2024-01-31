@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/accelleran/helm-charts-ng/compare/common-0.1.1...common-0.1.2) (2024-01-31)
+
+
+### Bug Fixes
+
+* Fix error in partOf when global undefined ([d4f518f](https://github.com/accelleran/helm-charts-ng/commit/d4f518f3cd549b72acb4f1a9db6467194e435225))
+
 ## [0.1.1](https://github.com/accelleran/helm-charts-ng/compare/common-0.1.0...common-0.1.1) (2024-01-29)
 
 
