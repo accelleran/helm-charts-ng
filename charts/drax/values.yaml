@@ -235,9 +235,14 @@ kafka:
 
   controller:
     replicaCount: 3
+    automountServiceAccountToken: true
+
+  broker:
+    automountServiceAccountToken: true
 
   provisioning:
     enabled: true
+    automountServiceAccountToken: true
     replicationFactor: 1
     numPartitions: 1
     topics:
@@ -271,6 +276,7 @@ kafka:
   metrics:
     kafka:
       enabled: false
+      automountServiceAccountToken: true
 
     jmx:
       enabled: true
