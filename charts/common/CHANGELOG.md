@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.0](https://github.com/accelleran/helm-charts-ng/compare/common-0.1.2...common-0.2.0) (2024-02-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* fix fallback to globally defined accelleran license details
+
+### Bug Fixes
+
+* Fix fallback to globally defined accelleran license details ([f1b1534](https://github.com/accelleran/helm-charts-ng/commit/f1b1534261b0d437a9d6ff956092e03515c8579f))
+
 ## [0.1.2](https://github.com/accelleran/helm-charts-ng/compare/common-0.1.1...common-0.1.2) (2024-01-31)
 
 
