@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/accelleran/helm-charts-ng/compare/cell-wrapper-config-0.2.0...cell-wrapper-config-0.2.1) (2024-02-02)
+
+
+### Bug Fixes
+
+* **deps:** Update Helm release common to v0.2.0 ([1aac9cc](https://github.com/accelleran/helm-charts-ng/commit/1aac9ccce09460dba36b5beed8e4f7eb45fb0a3e))
+
 ## [0.2.0](https://github.com/accelleran/helm-charts-ng/compare/cell-wrapper-config-0.1.0...cell-wrapper-config-0.2.0) (2024-02-01)
 
 
