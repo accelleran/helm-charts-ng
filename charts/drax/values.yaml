@@ -248,9 +248,13 @@ kafka:
   controller:
     replicaCount: 3
     automountServiceAccountToken: true
+    persistence:
+      size: 1Gi
 
   broker:
     automountServiceAccountToken: true
+    persistence:
+      size: 1Gi
 
   provisioning:
     enabled: true
@@ -341,6 +345,10 @@ redis:
   auth:
     enabled: false
 
+  master:
+    persistence:
+      size: 1Gi
+
 
 prometheus:
   enabled: true
@@ -372,6 +380,7 @@ prometheus:
     persistentVolume:
       enabled: true
       storageClassName: ""
+      size: 2Gi
     statefulSet:
       enabled: true
       labels:
@@ -423,6 +432,7 @@ grafana:
     type: pvc
     enabled: true
     storageClassName: ""
+    size: 1Gi
 
   service:
     enabled: true
@@ -608,7 +618,7 @@ influxdb:
     # existingClaim: ""
     # storageClass: ""
     accessMode: ReadWriteOnce
-    size: 8Gi
+    size: 2Gi
 
   service:
     type: ClusterIP
