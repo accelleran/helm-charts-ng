@@ -27,10 +27,6 @@ securityContext:
   capabilities:
     drop:
       - ALL
-    add:
-      # Required for binding port 80
-      # Could be replaced by sysctl net.ipv4.ip_unprivileged_port_start=0, which is marked safe from K8S 1.22
-      - NET_BIND_SERVICE
   # readOnlyRootFilesystem: true
   runAsNonRoot: true
   runAsUser: 10000
