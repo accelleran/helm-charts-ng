@@ -19,16 +19,16 @@ global:
   #   Description:  In order to use the Accelleran products, you need to have a license from Accelleran.
   #                 Please contact Accelleran to get the license.
   #                 The license file should be saved as a Kubernetes secret. The name of the secret should be
-  #                 supplied here under the "licenseSecretName" field.
+  #                 supplied here under the "secretName" field.
   #                 To create the secret you can use the following command:
   #                 kubectl create secret generic accelleran-license --from-file=license.crt
   #
   # Value type:     enabled: string
-  #                 licenseSecretName: string
+  #                 secretName: string
   #
   accelleranLicense:
-    enabled: "true"
-    licenseSecretName: "accelleran-license"
+    enabled: true
+    secretName: "accelleran-license"
 
 
 bootstrap:
@@ -123,12 +123,20 @@ service-monitor:
 
   monitoredNamespaces: "{{ .Release.Namespace }}"
 
+  accelleranLicense:
+    enabled: "{{ $.Values.global.accelleranLicense.enabled }}"
+    secretName: "{{ $.Values.global.accelleranLicense.secretName }}"
+
 
 service-orchestrator:
   # Enable/disable installation of the Service Orchestrator
   enabled: true
 
   kubeIp: "{{ .Values.global.kubeIp }}"
+
+  accelleranLicense:
+    enabled: "{{ $.Values.global.accelleranLicense.enabled }}"
+    secretName: "{{ $.Values.global.accelleranLicense.secretName }}"
 
 
 config-api:
@@ -195,6 +203,10 @@ golang-nkafka-5g:
       #   - natsSubject: "PM-REPORT-COUNTERS"
       #     kafkaTopic: "accelleran.drax.5g.ric.raw.pm_counters"
       #   ...
+
+  accelleranLicense:
+    enabled: "{{ $.Values.global.accelleranLicense.enabled }}"
+    secretName: "{{ $.Values.global.accelleranLicense.secretName }}"
 
 
 kafka:

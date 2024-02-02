@@ -31,7 +31,7 @@ imagePullSecrets:
 
 accelleranLicense:
   enabled: true
-  licenseSecretName: "accelleran-license"
+  secretName: "accelleran-license"
 
 podAnnotations: {}
 

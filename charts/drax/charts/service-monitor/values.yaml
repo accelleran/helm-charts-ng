@@ -18,7 +18,7 @@ imagePullSecrets:
 
 accelleranLicense:
   enabled: true
-  licenseSecretName: "accelleran-license"
+  secretName: "accelleran-license"
 
 podSecurityContext: {}
   # fsGroup: 2000
