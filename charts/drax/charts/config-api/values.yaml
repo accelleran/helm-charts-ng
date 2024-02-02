@@ -23,6 +23,9 @@ image:
 imagePullSecrets:
   - name: accelleran-secret
 
+accelleranLicense:
+  enabled: false
+
 podSecurityContext: {}
   # fsGroup: 2000
 

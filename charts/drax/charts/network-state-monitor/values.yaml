@@ -34,6 +34,9 @@ image:
 imagePullSecrets:
   - name: accelleran-secret
 
+accelleranLicense:
+  enabled: false
+
 initImage:
   kafka:
     repository: accelleran/acc-generic-img
