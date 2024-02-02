@@ -2,8 +2,12 @@
 {{- $ := get . "top" | required "The top context needs to be provided to common drax license enabled" -}}
 {{- $values := get . "values" | default $.Values -}}
 
-{{- if ($values.accelleranLicense).enabled -}}
+{{- if ne ($values.accelleranLicense).enabled nil -}}
 {{- tpl (toString ($values.accelleranLicense).enabled) $ -}}
+{{- else if ne (($.Values.global).accelleranLicense).enabled nil -}}
+{{- tpl (toString (($.Values.global).accelleranLicense).enabled) $ -}}
+{{- else -}}
+false
 {{- end -}}
 {{- end -}}
 
@@ -12,7 +16,14 @@
 {{- $ := get . "top" | required "The top context needs to be provided to common drax license name" -}}
 {{- $values := get . "values" | default $.Values -}}
 
-{{ tpl $values.accelleranLicense.licenseSecretName $ }}
+
+{{- if ne ($values.accelleranLicense).secretName nil -}}
+{{- tpl ($values.accelleranLicense).secretName $ -}}
+{{- else if ne (($.Values.global).accelleranLicense).secretName nil -}}
+{{- tpl (($.Values.global).accelleranLicense).secretName $ -}}
+{{- else -}}
+accelleran-license
+{{- end -}}
 {{- end -}}
 
 
