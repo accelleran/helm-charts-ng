@@ -51,7 +51,7 @@ dependencies:
   - name: golang-nkafka
     alias: golang-nkafka-5g
     condition: global.enable5G
-    version: 1.2.1
+    version: 1.2.2
     repository: file://charts/golang-nkafka
 
   # external
