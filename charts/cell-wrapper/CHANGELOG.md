@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.0.2](https://github.com/accelleran/helm-charts-ng/compare/cell-wrapper-3.0.1...cell-wrapper-3.0.2) (2024-02-05)
+
+
+### Bug Fixes
+
+* **deps:** Update cell-wrapper app version to 3.0.1 ([59ec732](https://github.com/accelleran/helm-charts-ng/commit/59ec732e98d16ab9a2ee028a026246d133056716))
+* **deps:** Update Helm release nats to v1.1.8 ([a8a95a6](https://github.com/accelleran/helm-charts-ng/commit/a8a95a6497b996ddc798ecc710ed50b29474f8c5))
+* **deps:** Update Helm release redis to v18.12.1 ([4c36bdd](https://github.com/accelleran/helm-charts-ng/commit/4c36bddfa8d0feaaeda5384aa087956b75ee3ff6))
+
 ## [3.0.1](https://github.com/accelleran/helm-charts-ng/compare/cell-wrapper-3.0.0...cell-wrapper-3.0.1) (2024-02-02)
 
 
