@@ -19,7 +19,7 @@ dependencies:
   version: 2.0.0
 - name: cell-wrapper
   repository: https://accelleran.github.io/helm-charts-ng/
-  version: 3.0.1
+  version: 3.0.2
 - name: e2-t
   repository: file://charts/e2-t
   version: 1.1.0
@@ -56,5 +56,5 @@ dependencies:
 - name: redis
   repository: https://charts.bitnami.com/bitnami/
   version: 18.12.1
-digest: sha256:f71c0508207c3cc7657206df9113ccdeed9e0528869b9fd02f662c823e8f3352
-generated: "2024-02-05T17:12:18.488294128+01:00"
+digest: sha256:28754ec1be93be20f805137623c90b5198dc4a6af269a908c215639cb7c85c88
+generated: "2024-02-06T08:35:21.419798672Z"
