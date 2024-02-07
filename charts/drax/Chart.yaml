@@ -79,8 +79,8 @@ dependencies:
     repository: https://helm.vector.dev
   - name: kminion
     condition: kminion.enabled
-    version: 0.12.0
-    repository: https://raw.githubusercontent.com/redpanda-data/kminion/master/charts/archives
+    version: 0.12.4
+    repository: https://charts.redpanda.com
 
   # infrastructure
   - name: kafka
