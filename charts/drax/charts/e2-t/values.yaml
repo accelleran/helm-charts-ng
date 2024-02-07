@@ -109,13 +109,13 @@ e2-t-sctp:
   service:
     enabled: true
     name: ""
-    type: "ClusterIP"
+    type: "NodePort"
     ports:
       e2-sctp:
         protocol: "SCTP"
         port: 38482
         targetPort: null
-        nodePort: null  # 31900
+        nodePort: 31900
 
 
 e2-t-ap:
