@@ -2,8 +2,8 @@ apiVersion: v2
 name: service-orchestrator
 description: The dRAX Service Orchestrator
 type: application
-version: 1.1.0
-appVersion: 1.0.2
+version: 1.1.1
+appVersion: 1.0.3
 dependencies:
   - name: common
     version: 0.2.0
