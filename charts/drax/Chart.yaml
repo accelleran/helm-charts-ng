@@ -75,7 +75,7 @@ dependencies:
     repository: https://helm.influxdata.com/
   - name: vector
     condition: global.enable5G
-    version: 0.30.0
+    version: 0.30.2
     repository: https://helm.vector.dev
   - name: kminion
     condition: kminion.enabled
