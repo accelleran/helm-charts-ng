@@ -588,14 +588,6 @@ loki-stack:
     config:
       clients:
         - url: http://{{ .Release.Name }}-loki.{{ .Release.Namespace }}:3100/loki/api/v1/push
-    podLabels:
-      drax/role: ric
-      drax/component-name: fluent-bit
-
-    serviceLabels:
-      drax/role: ric
-      drax/component-name: fluent-bit
-
     nodeSelector: {}
   loki:
     enabled: true
