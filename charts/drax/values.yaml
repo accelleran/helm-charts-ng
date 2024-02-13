@@ -488,22 +488,22 @@ grafana:
     dashboardproviders.yaml:
       apiVersion: 1
       providers:
-        - name: "4g-monitoring-dashboard"
-          orgId: 1
-          folder: ""
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/4g-monitoring-dashboard
-        - name: "custom-dashboard"
-          orgId: 1
-          folder: ""
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/custom-dashboard
+        # - name: "4g-monitoring-dashboard"
+        #   orgId: 1
+        #   folder: ""
+        #   type: file
+        #   disableDeletion: false
+        #   editable: true
+        #   options:
+        #     path: /var/lib/grafana/dashboards/4g-monitoring-dashboard
+        # - name: "custom-dashboard"
+        #   orgId: 1
+        #   folder: ""
+        #   type: file
+        #   disableDeletion: false
+        #   editable: true
+        #   options:
+        #     path: /var/lib/grafana/dashboards/custom-dashboard
         - name: "loki-log-dashboard"
           orgId: 1
           folder: ""
@@ -512,14 +512,14 @@ grafana:
           editable: true
           options:
             path: /var/lib/grafana/dashboards/loki-log-dashboard
-        - name: "5g-health-dashboard"
-          orgId: 1
-          folder: ""
-          type: file
-          disableDeletion: false
-          editable: true
-          options:
-            path: /var/lib/grafana/dashboards/5g-health-dashboard
+        # - name: "5g-health-dashboard"
+        #   orgId: 1
+        #   folder: ""
+        #   type: file
+        #   disableDeletion: false
+        #   editable: true
+        #   options:
+        #     path: /var/lib/grafana/dashboards/5g-health-dashboard
         - name: "5g-monitoring-dashboard"
           orgId: 1
           folder: ""
@@ -562,10 +562,10 @@ grafana:
             path: /var/lib/grafana/dashboards/nats-dashboard
 
   dashboardsConfigMaps:
-    4g-monitoring-dashboard: "{{ .Release.Name }}-grafana-4g-monitoring-dashboard"
-    custom-dashboard: "{{ .Release.Name }}-grafana-custom-dashboard"
+    # 4g-monitoring-dashboard: "{{ .Release.Name }}-grafana-4g-monitoring-dashboard"
+    # custom-dashboard: "{{ .Release.Name }}-grafana-custom-dashboard"
     loki-log-dashboard: "{{ .Release.Name }}-grafana-loki-log-dashboard"
-    5g-health-dashboard: "{{ .Release.Name }}-grafana-5g-health-dashboard"
+    # 5g-health-dashboard: "{{ .Release.Name }}-grafana-5g-health-dashboard"
     5g-monitoring-dashboard: "{{ .Release.Name }}-grafana-5g-monitoring-dashboard"
     5g-cucp-pm-counters: "{{ .Release.Name }}-grafana-5g-cucp-pm-counters"
     5g-cuup-pm-counters: "{{ .Release.Name }}-grafana-5g-cuup-pm-counters"
