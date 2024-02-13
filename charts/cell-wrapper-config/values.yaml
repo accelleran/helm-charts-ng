@@ -42,6 +42,16 @@ global:
       #   <!-- Global CW RAN config -->
       ran: null
 
+      # Global cell wrapper config
+      #   Description:  Sets the global configuration of the cell wrapper.
+      #                 This should be xml that would be contained within the root
+      #                 "configuration" container.
+      #   Value type:   string
+      #   Example:
+      # install: |-
+      #   <!-- Global CW config -->
+      configuration: null
+
     # DU configurations
     #   Description:  Sets the DUs the cell wrapper should control.
     dus: []
@@ -242,6 +252,12 @@ netconf:
           {{ . | nindent 2 }}
           {{- end }}
         </cw-ran>
+      - |-
+        <configuration xmlns="http://accelleran.com/ns/yang/accelleran-cw-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace">
+          {{- with .Values.global.config.global.configuration }}
+          {{ . | nindent 2}}
+          {{- end }}
+        </configuration>
 
   exitEditConfig:
     config:
@@ -291,6 +307,8 @@ netconf:
           {{- end }}
         </cw-ran>
         {{- end }}
+      - |-
+        <configuration xmlns="http://accelleran.com/ns/yang/accelleran-cw-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
 
   service:
     name: ""
