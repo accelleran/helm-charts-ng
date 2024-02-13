@@ -850,7 +850,7 @@ kminion:
     config:
       kafka:
         brokers:
-          - "drax-kafka:9092"
+          - "{{ $.Release.Name }}-kafka.{{ $.Release.Namespace }}:9092"
         clientId: "kminion"
         retryInitConnection: true
 
