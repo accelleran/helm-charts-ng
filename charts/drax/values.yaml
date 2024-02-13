@@ -671,9 +671,9 @@ vector:
   args:
     - --config-dir
     - "/etc/vector/"
-  env:
-    - name: VECTOR_LOG
-      value: "info"
+  env: []
+    # - name: VECTOR_LOG
+    #   value: "info"
   envFrom: []
 
   config:
