@@ -7830,6 +7830,20 @@ entries:
   cell-wrapper-config:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2024-02-13T11:25:52.228606421Z"
+    dependencies:
+    - name: common
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 0.2.0
+    description: Accelleran's cell-wrapper config helm chart
+    digest: 5abeb9e99ba6e429719c82f9ef8dd8d5482f696363505423210ff9e5c9adbdcb
+    name: cell-wrapper-config
+    type: application
+    urls:
+    - https://github.com/accelleran/helm-charts-ng/releases/download/cell-wrapper-config-0.2.2/cell-wrapper-config-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2024-02-02T10:03:00.17573807Z"
     dependencies:
     - name: common
@@ -11427,6 +11441,92 @@ entries:
       version: 18.12.1
     description: Accelleran's dRAX helm chart
     digest: 408480fd664adce7f9831e3c9c77e2c069067c176f12125fce2b0daef199aa26
+    name: drax
+    type: application
+    urls:
+    - https://github.com/accelleran/helm-charts-ng/releases/download/drax-7.0.0-rc.3/drax-7.0.0-rc.3.tgz
+    version: 7.0.0-rc.3
+  - apiVersion: v2
+    created: "2024-02-13T11:25:52.457102122Z"
+    dependencies:
+    - name: common
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 0.2.0
+    - condition: dash-front-back-end.enabled
+      name: dash-front-back-end
+      repository: file://charts/dash-front-back-end
+      version: 5.0.0
+    - condition: network-state-monitor.enabled
+      name: network-state-monitor
+      repository: file://charts/network-state-monitor
+      version: 0.1.0
+    - condition: service-monitor.enabled
+      name: service-monitor
+      repository: file://charts/service-monitor
+      version: 1.0.0
+    - condition: service-orchestrator.enabled
+      name: service-orchestrator
+      repository: file://charts/service-orchestrator
+      version: 1.1.1
+    - condition: config-api.enabled
+      name: config-api
+      repository: file://charts/config-api
+      version: 2.0.0
+    - condition: cell-wrapper.enabled
+      name: cell-wrapper
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 3.0.2
+    - condition: e2-t.enabled
+      name: e2-t
+      repository: file://charts/e2-t
+      version: 1.1.0
+    - condition: pm-counters.enabled
+      name: pm-counters
+      repository: file://charts/pm-counters
+      version: 1.1.0
+    - alias: golang-nkafka-5g
+      condition: global.enable5G
+      name: golang-nkafka
+      repository: file://charts/golang-nkafka
+      version: 1.2.2
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 7.3.0
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 25.11.1
+    - condition: loki-stack.enabled
+      name: loki-stack
+      repository: https://grafana.github.io/helm-charts
+      version: 2.10.1
+    - condition: influxdb.enabled
+      name: influxdb
+      repository: https://helm.influxdata.com/
+      version: 4.12.5
+    - condition: global.enable5G
+      name: vector
+      repository: https://helm.vector.dev
+      version: 0.30.2
+    - condition: kminion.enabled
+      name: kminion
+      repository: https://charts.redpanda.com
+      version: 0.12.5
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami/
+      version: 26.8.5
+    - condition: nats.enabled
+      name: nats
+      repository: https://nats-io.github.io/k8s/helm/charts/
+      version: 1.1.8
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami/
+      version: 18.12.1
+    description: Accelleran's dRAX helm chart
+    digest: ecb3d18312350dc0da22a9f711496ffd300c74ff0cf53fe0d2c3c2c5ebcaaecb
     name: drax
     type: application
     urls:
@@ -16994,4 +17094,4 @@ entries:
     urls:
     - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-1.0.0/xapp-hello-world-1.0.0.tgz
     version: 1.0.0
-generated: "2024-02-13T11:14:43.55827441Z"
+generated: "2024-02-13T11:25:52.457820016Z"
