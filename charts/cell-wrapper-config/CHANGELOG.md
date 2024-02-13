@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.2](https://github.com/accelleran/helm-charts-ng/compare/cell-wrapper-config-0.2.1...cell-wrapper-config-0.2.2) (2024-02-13)
+
+
+### Features
+
+* Allow to set log configuration ([bac292e](https://github.com/accelleran/helm-charts-ng/commit/bac292e597014ddccdc12c71ccaa5e8e8170eefa))
+
+
+### Bug Fixes
+
+* Fix deleting all DUs iso only the configured ones ([5456d4a](https://github.com/accelleran/helm-charts-ng/commit/5456d4a5199a308a5fdcc32e5958d085ff900074))
+
 ## [0.2.1](https://github.com/accelleran/helm-charts-ng/compare/cell-wrapper-config-0.2.0...cell-wrapper-config-0.2.1) (2024-02-02)
 
 
