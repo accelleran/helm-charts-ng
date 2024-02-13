@@ -304,6 +304,11 @@ kafka:
 nats:
   enabled: true
 
+  global:
+    labels:
+      drax/technology: 5g
+      drax/component-name: nats
+
   natsBox:
     enabled: false
 
@@ -340,6 +345,10 @@ nats:
 
 redis:
   enabled: true
+
+  commonLabels:
+    drax/technology: 5g
+    drax/component-name: redis
 
   architecture: standalone
   auth:
