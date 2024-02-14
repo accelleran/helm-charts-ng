@@ -7971,30 +7971,8 @@ entries:
     - https://github.com/accelleran/helm-charts-ng/releases/download/cu-cp-7.0.0-rc.1/cu-cp-7.0.0-rc.1.tgz
     version: 7.0.0-rc.1
   - apiVersion: v2
-    appVersion: R4.3.5_leffe
-    created: "2024-01-29T09:21:55.735129241Z"
-    dependencies:
-    - name: common
-      repository: https://accelleran.github.io/helm-charts-ng/
-      version: 0.1.1
-    - condition: nats.enabled
-      name: nats
-      repository: https://nats-io.github.io/k8s/helm/charts/
-      version: 1.1.7
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami/
-      version: 18.5.0
-    description: Accelleran 5G CU-CP Components
-    digest: c62854c4d599cad966bbab43a846a39425e23b538055b696f30b9d3512319ee8
-    name: cu-cp
-    type: application
-    urls:
-    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-cp-7.0.0-rc.0/cu-cp-7.0.0-rc.0.tgz
-    version: 7.0.0-rc.0
-  - apiVersion: v2
     appVersion: R4.3.8_leffe
-    created: "2024-02-06T08:31:16.60880074Z"
+    created: "2024-02-14T17:37:08.971792877Z"
     dependencies:
     - name: common
       repository: https://accelleran.github.io/helm-charts-ng/
@@ -8006,21 +7984,21 @@ entries:
     - condition: redis.enabled
       name: redis
       repository: https://charts.bitnami.com/bitnami/
-      version: 18.12.1
+      version: 18.13.0
     description: Accelleran 5G CU-CP Components
-    digest: a78ca2bdaed7abfdc3a189f27fd8ad42776780ae0f287861efbfdc859d5304a0
+    digest: 9c729b604c81349c7105d96b0d80255a67fa44aea5cc8a4b93ef679cf553bd39
     name: cu-cp
     type: application
     urls:
-    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-cp-7.0.0-rc.0/cu-cp-7.0.0-rc.0.tgz
-    version: 7.0.0-rc.0
+    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-cp-7.0.0-rc.1/cu-cp-7.0.0-rc.1.tgz
+    version: 7.0.0-rc.1
   - apiVersion: v2
     appVersion: R4.3.5_leffe
-    created: "2024-01-30T17:28:09.174959149Z"
+    created: "2024-02-01T11:10:00.920414371Z"
     dependencies:
     - name: common
       repository: https://accelleran.github.io/helm-charts-ng/
-      version: 0.1.1
+      version: 0.1.2
     - condition: nats.enabled
       name: nats
       repository: https://nats-io.github.io/k8s/helm/charts/
@@ -8028,9 +8006,31 @@ entries:
     - condition: redis.enabled
       name: redis
       repository: https://charts.bitnami.com/bitnami/
-      version: 18.9.1
+      version: 18.12.0
     description: Accelleran 5G CU-CP Components
-    digest: 8d114a8c74a3f50e9c8bfe63061ef6956fc603667fab980cab1576c0e44d922f
+    digest: 1f5da97220ff45030baafb516be090b351e005545d1349ce31efcc3b4a13c1b5
+    name: cu-cp
+    type: application
+    urls:
+    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-cp-7.0.0-rc.0/cu-cp-7.0.0-rc.0.tgz
+    version: 7.0.0-rc.0
+  - apiVersion: v2
+    appVersion: R4.3.5_leffe
+    created: "2024-02-05T09:26:15.699540559Z"
+    dependencies:
+    - name: common
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 0.2.0
+    - condition: nats.enabled
+      name: nats
+      repository: https://nats-io.github.io/k8s/helm/charts/
+      version: 1.1.7
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami/
+      version: 18.12.1
+    description: Accelleran 5G CU-CP Components
+    digest: 6fc39b3615d5b9a72182517fd1eeecc5427ca766564042296a12f4aeaa8fdf90
     name: cu-cp
     type: application
     urls:
@@ -8235,22 +8235,22 @@ entries:
     - https://github.com/accelleran/helm-charts-ng/releases/download/cu-cp-7.0.0-rc.0/cu-cp-7.0.0-rc.0.tgz
     version: 7.0.0-rc.0
   - apiVersion: v2
-    appVersion: R4.3.5_leffe
-    created: "2024-02-01T11:10:00.920414371Z"
+    appVersion: R4.3.8_leffe
+    created: "2024-02-06T08:31:16.60880074Z"
     dependencies:
     - name: common
       repository: https://accelleran.github.io/helm-charts-ng/
-      version: 0.1.2
+      version: 0.2.0
     - condition: nats.enabled
       name: nats
       repository: https://nats-io.github.io/k8s/helm/charts/
-      version: 1.1.7
+      version: 1.1.8
     - condition: redis.enabled
       name: redis
       repository: https://charts.bitnami.com/bitnami/
-      version: 18.12.0
+      version: 18.12.1
     description: Accelleran 5G CU-CP Components
-    digest: 1f5da97220ff45030baafb516be090b351e005545d1349ce31efcc3b4a13c1b5
+    digest: a78ca2bdaed7abfdc3a189f27fd8ad42776780ae0f287861efbfdc859d5304a0
     name: cu-cp
     type: application
     urls:
@@ -8280,11 +8280,11 @@ entries:
     version: 7.0.0-rc.0
   - apiVersion: v2
     appVersion: R4.3.5_leffe
-    created: "2024-02-05T09:26:15.699540559Z"
+    created: "2024-01-30T17:28:09.174959149Z"
     dependencies:
     - name: common
       repository: https://accelleran.github.io/helm-charts-ng/
-      version: 0.2.0
+      version: 0.1.1
     - condition: nats.enabled
       name: nats
       repository: https://nats-io.github.io/k8s/helm/charts/
@@ -8292,9 +8292,9 @@ entries:
     - condition: redis.enabled
       name: redis
       repository: https://charts.bitnami.com/bitnami/
-      version: 18.12.1
+      version: 18.9.1
     description: Accelleran 5G CU-CP Components
-    digest: 6fc39b3615d5b9a72182517fd1eeecc5427ca766564042296a12f4aeaa8fdf90
+    digest: 8d114a8c74a3f50e9c8bfe63061ef6956fc603667fab980cab1576c0e44d922f
     name: cu-cp
     type: application
     urls:
@@ -8586,6 +8586,28 @@ entries:
     urls:
     - https://github.com/accelleran/helm-charts-ng/releases/download/cu-cp-7.0.0-rc.0/cu-cp-7.0.0-rc.0.tgz
     version: 7.0.0-rc.0
+  - apiVersion: v2
+    appVersion: R4.3.5_leffe
+    created: "2024-01-29T09:21:55.735129241Z"
+    dependencies:
+    - name: common
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 0.1.1
+    - condition: nats.enabled
+      name: nats
+      repository: https://nats-io.github.io/k8s/helm/charts/
+      version: 1.1.7
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami/
+      version: 18.5.0
+    description: Accelleran 5G CU-CP Components
+    digest: c62854c4d599cad966bbab43a846a39425e23b538055b696f30b9d3512319ee8
+    name: cu-cp
+    type: application
+    urls:
+    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-cp-7.0.0-rc.0/cu-cp-7.0.0-rc.0.tgz
+    version: 7.0.0-rc.0
   cu-up:
   - apiVersion: v2
     appVersion: R4.3.8_leffe
@@ -8632,30 +8654,8 @@ entries:
     - https://github.com/accelleran/helm-charts-ng/releases/download/cu-up-7.0.0-rc.1/cu-up-7.0.0-rc.1.tgz
     version: 7.0.0-rc.1
   - apiVersion: v2
-    appVersion: R4.3.5_leffe
-    created: "2024-01-29T09:21:55.943702982Z"
-    dependencies:
-    - name: common
-      repository: https://accelleran.github.io/helm-charts-ng/
-      version: 0.1.1
-    - condition: nats.enabled
-      name: nats
-      repository: https://nats-io.github.io/k8s/helm/charts/
-      version: 1.1.7
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami/
-      version: 18.5.0
-    description: Accelleran 5G CU-UP Components
-    digest: 3e1b9e7b363a24d21dfe8800a8533cf9b7f50a0eb30a3402a043f8b528e18682
-    name: cu-up
-    type: application
-    urls:
-    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-up-7.0.0-rc.0/cu-up-7.0.0-rc.0.tgz
-    version: 7.0.0-rc.0
-  - apiVersion: v2
     appVersion: R4.3.8_leffe
-    created: "2024-02-06T08:31:16.744871231Z"
+    created: "2024-02-14T17:37:09.11640773Z"
     dependencies:
     - name: common
       repository: https://accelleran.github.io/helm-charts-ng/
@@ -8667,21 +8667,21 @@ entries:
     - condition: redis.enabled
       name: redis
       repository: https://charts.bitnami.com/bitnami/
-      version: 18.12.1
+      version: 18.13.0
     description: Accelleran 5G CU-UP Components
-    digest: 8b98c384149b48755ce3ad922f9722f941f896fba337e0e9555748a6e25b3bdb
+    digest: d70e2740e36bc89943f0760355dcc9e7872eb45e8f2d0077a45508e59cd38181
     name: cu-up
     type: application
     urls:
-    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-up-7.0.0-rc.0/cu-up-7.0.0-rc.0.tgz
-    version: 7.0.0-rc.0
+    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-up-7.0.0-rc.1/cu-up-7.0.0-rc.1.tgz
+    version: 7.0.0-rc.1
   - apiVersion: v2
     appVersion: R4.3.5_leffe
-    created: "2024-01-30T17:28:09.291710995Z"
+    created: "2024-02-01T11:10:01.18094151Z"
     dependencies:
     - name: common
       repository: https://accelleran.github.io/helm-charts-ng/
-      version: 0.1.1
+      version: 0.1.2
     - condition: nats.enabled
       name: nats
       repository: https://nats-io.github.io/k8s/helm/charts/
@@ -8689,9 +8689,31 @@ entries:
     - condition: redis.enabled
       name: redis
       repository: https://charts.bitnami.com/bitnami/
-      version: 18.9.1
+      version: 18.12.0
     description: Accelleran 5G CU-UP Components
-    digest: 2acfb13f55932848dc7fed4081384667086d7633953f00849a5279565e262b30
+    digest: a2c9abad908f408f97c12ae859cd4cb4f7a7203a1eb726bf12a4795f0939a881
+    name: cu-up
+    type: application
+    urls:
+    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-up-7.0.0-rc.0/cu-up-7.0.0-rc.0.tgz
+    version: 7.0.0-rc.0
+  - apiVersion: v2
+    appVersion: R4.3.5_leffe
+    created: "2024-02-05T09:26:15.841945207Z"
+    dependencies:
+    - name: common
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 0.2.0
+    - condition: nats.enabled
+      name: nats
+      repository: https://nats-io.github.io/k8s/helm/charts/
+      version: 1.1.7
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami/
+      version: 18.12.1
+    description: Accelleran 5G CU-UP Components
+    digest: fa97842a9ac83802ecca23e71679d6cd47f658772fcdcaeafe682a12a18ca97a
     name: cu-up
     type: application
     urls:
@@ -8896,22 +8918,22 @@ entries:
     - https://github.com/accelleran/helm-charts-ng/releases/download/cu-up-7.0.0-rc.0/cu-up-7.0.0-rc.0.tgz
     version: 7.0.0-rc.0
   - apiVersion: v2
-    appVersion: R4.3.5_leffe
-    created: "2024-02-01T11:10:01.18094151Z"
+    appVersion: R4.3.8_leffe
+    created: "2024-02-06T08:31:16.744871231Z"
     dependencies:
     - name: common
       repository: https://accelleran.github.io/helm-charts-ng/
-      version: 0.1.2
+      version: 0.2.0
     - condition: nats.enabled
       name: nats
       repository: https://nats-io.github.io/k8s/helm/charts/
-      version: 1.1.7
+      version: 1.1.8
     - condition: redis.enabled
       name: redis
       repository: https://charts.bitnami.com/bitnami/
-      version: 18.12.0
+      version: 18.12.1
     description: Accelleran 5G CU-UP Components
-    digest: a2c9abad908f408f97c12ae859cd4cb4f7a7203a1eb726bf12a4795f0939a881
+    digest: 8b98c384149b48755ce3ad922f9722f941f896fba337e0e9555748a6e25b3bdb
     name: cu-up
     type: application
     urls:
@@ -8941,11 +8963,11 @@ entries:
     version: 7.0.0-rc.0
   - apiVersion: v2
     appVersion: R4.3.5_leffe
-    created: "2024-02-05T09:26:15.841945207Z"
+    created: "2024-01-30T17:28:09.291710995Z"
     dependencies:
     - name: common
       repository: https://accelleran.github.io/helm-charts-ng/
-      version: 0.2.0
+      version: 0.1.1
     - condition: nats.enabled
       name: nats
       repository: https://nats-io.github.io/k8s/helm/charts/
@@ -8953,9 +8975,9 @@ entries:
     - condition: redis.enabled
       name: redis
       repository: https://charts.bitnami.com/bitnami/
-      version: 18.12.1
+      version: 18.9.1
     description: Accelleran 5G CU-UP Components
-    digest: fa97842a9ac83802ecca23e71679d6cd47f658772fcdcaeafe682a12a18ca97a
+    digest: 2acfb13f55932848dc7fed4081384667086d7633953f00849a5279565e262b30
     name: cu-up
     type: application
     urls:
@@ -9242,6 +9264,28 @@ entries:
       version: 18.12.1
     description: Accelleran 5G CU-UP Components
     digest: a309b2411deb4dfae64ca8fb9dc32170221d48299ec8ce0773088f65960d13a1
+    name: cu-up
+    type: application
+    urls:
+    - https://github.com/accelleran/helm-charts-ng/releases/download/cu-up-7.0.0-rc.0/cu-up-7.0.0-rc.0.tgz
+    version: 7.0.0-rc.0
+  - apiVersion: v2
+    appVersion: R4.3.5_leffe
+    created: "2024-01-29T09:21:55.943702982Z"
+    dependencies:
+    - name: common
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 0.1.1
+    - condition: nats.enabled
+      name: nats
+      repository: https://nats-io.github.io/k8s/helm/charts/
+      version: 1.1.7
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami/
+      version: 18.5.0
+    description: Accelleran 5G CU-UP Components
+    digest: 3e1b9e7b363a24d21dfe8800a8533cf9b7f50a0eb30a3402a043f8b528e18682
     name: cu-up
     type: application
     urls:
@@ -10711,6 +10755,92 @@ entries:
       version: 18.13.0
     description: Accelleran's dRAX helm chart
     digest: 516f036f934b3a942d6dd1d39c4a35af5f3fb1b875d451ae9aea97e08053522c
+    name: drax
+    type: application
+    urls:
+    - https://github.com/accelleran/helm-charts-ng/releases/download/drax-7.0.0-rc.4/drax-7.0.0-rc.4.tgz
+    version: 7.0.0-rc.4
+  - apiVersion: v2
+    created: "2024-02-14T17:37:09.335341486Z"
+    dependencies:
+    - name: common
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 0.2.0
+    - condition: dash-front-back-end.enabled
+      name: dash-front-back-end
+      repository: file://charts/dash-front-back-end
+      version: 5.0.0
+    - condition: network-state-monitor.enabled
+      name: network-state-monitor
+      repository: file://charts/network-state-monitor
+      version: 0.1.0
+    - condition: service-monitor.enabled
+      name: service-monitor
+      repository: file://charts/service-monitor
+      version: 1.0.0
+    - condition: service-orchestrator.enabled
+      name: service-orchestrator
+      repository: file://charts/service-orchestrator
+      version: 1.1.1
+    - condition: config-api.enabled
+      name: config-api
+      repository: file://charts/config-api
+      version: 2.0.0
+    - condition: cell-wrapper.enabled
+      name: cell-wrapper
+      repository: https://accelleran.github.io/helm-charts-ng/
+      version: 3.0.2
+    - condition: e2-t.enabled
+      name: e2-t
+      repository: file://charts/e2-t
+      version: 1.1.0
+    - condition: pm-counters.enabled
+      name: pm-counters
+      repository: file://charts/pm-counters
+      version: 1.1.0
+    - alias: golang-nkafka-5g
+      condition: global.enable5G
+      name: golang-nkafka
+      repository: file://charts/golang-nkafka
+      version: 1.2.2
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 7.3.0
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 25.11.1
+    - condition: loki-stack.enabled
+      name: loki-stack
+      repository: https://grafana.github.io/helm-charts
+      version: 2.10.1
+    - condition: influxdb.enabled
+      name: influxdb
+      repository: https://helm.influxdata.com/
+      version: 4.12.5
+    - condition: global.enable5G
+      name: vector
+      repository: https://helm.vector.dev
+      version: 0.31.0
+    - condition: kminion.enabled
+      name: kminion
+      repository: https://charts.redpanda.com
+      version: 0.12.5
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami/
+      version: 26.8.5
+    - condition: nats.enabled
+      name: nats
+      repository: https://nats-io.github.io/k8s/helm/charts/
+      version: 1.1.8
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami/
+      version: 18.13.0
+    description: Accelleran's dRAX helm chart
+    digest: 2310a1e08eb53d16ec67646ecd2ff170b711a50fcfe4ac06f475eae16ff7a0ce
     name: drax
     type: application
     urls:
@@ -17396,4 +17526,4 @@ entries:
     urls:
     - https://github.com/accelleran/helm-charts-ng/releases/download/xapp-hello-world-1.0.0/xapp-hello-world-1.0.0.tgz
     version: 1.0.0
-generated: "2024-02-13T17:37:37.417564216Z"
+generated: "2024-02-14T17:37:09.336310399Z"
