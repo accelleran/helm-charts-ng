@@ -6,6 +6,11 @@ on:
       - main
       - releases/**
   pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
 
 permissions:
   contents: read
@@ -19,6 +24,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - name: Lint PR title
+        if: github.event_name == 'pull_request'
+        uses: amannn/action-semantic-pull-request@v5.4.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          wip: true  # Allows to prefix PR with '[WIP]' when draft PRs are not possible
 
       - name: Lint commits
         uses: wagoid/commitlint-github-action@v5
