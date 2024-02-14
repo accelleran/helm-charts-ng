@@ -30,8 +30,6 @@ jobs:
         uses: amannn/action-semantic-pull-request@v5.4.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          wip: true  # Allows to prefix PR with '[WIP]' when draft PRs are not possible
 
       - name: Lint commits
         uses: wagoid/commitlint-github-action@v5
