@@ -34,7 +34,7 @@ dependencies:
   version: 7.3.0
 - name: prometheus
   repository: https://prometheus-community.github.io/helm-charts
-  version: 25.11.1
+  version: 25.12.0
 - name: loki-stack
   repository: https://grafana.github.io/helm-charts
   version: 2.10.1
@@ -56,5 +56,5 @@ dependencies:
 - name: redis
   repository: https://charts.bitnami.com/bitnami/
   version: 18.13.0
-digest: sha256:f7f9ab4c4f3aa1b93d5c56d41d677cfc84f51b20ff79af84a3a2425403af766c
-generated: "2024-02-15T14:22:06.415690854Z"
+digest: sha256:7d685bcdfd7fa8be97eefb0f6b3c08fd8762adc9acc8fb69094efea0bdf87be0
+generated: "2024-02-15T16:35:09.368419477Z"
