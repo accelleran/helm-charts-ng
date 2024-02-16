@@ -1,9 +1,9 @@
 {{- include
       "accelleran.common.deployment"
-      (fromYaml (include "accelleran.dash-front-back-end.deployment.args" $))
+      (fromYaml (include "accelleran.dashboard.deployment.args" $))
 -}}
 
-{{- define "accelleran.dash-front-back-end.deployment.args" -}}
+{{- define "accelleran.dashboard.deployment.args" -}}
 {{- $ := . -}}
 {{- $fullname := include "accelleran.common.fullname" (dict "top" $) -}}
 

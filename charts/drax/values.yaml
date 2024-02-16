@@ -49,7 +49,7 @@ bootstrap:
     port: 0
 
 
-dash-front-back-end:
+dashboard:
   enabled: true
 
   bootstrap:
