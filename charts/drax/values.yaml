@@ -278,6 +278,14 @@ kafka:
 
   externalAccess:
     enabled: true
+    controller:
+      service:
+        type: "NodePort"
+        useHostIPs: true
+    broker:
+      service:
+        type: "NodePort"
+        useHostIPs: true
     autoDiscovery:
       enabled: true
 
