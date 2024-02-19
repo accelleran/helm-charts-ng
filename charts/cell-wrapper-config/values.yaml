@@ -314,7 +314,11 @@ netconf:
         </cw-ran>
         {{- end }}
       - |-
+        {{- if .Values.global.config.global.configuration }}
         <configuration xmlns="http://accelleran.com/ns/yang/accelleran-cw-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="delete"/>
+        {{ else }}
+        <configuration xmlns="http://accelleran.com/ns/yang/accelleran-cw-config" xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xc:operation="replace"/>
+        {{- end }}
 
   service:
     name: ""
