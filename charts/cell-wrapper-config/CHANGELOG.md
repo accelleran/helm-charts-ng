@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.3](https://github.com/accelleran/helm-charts-ng/compare/cell-wrapper-config-0.2.2...cell-wrapper-config-0.2.3) (2024-02-19)
+
+
+### Bug Fixes
+
+* Add wait init container to prevent failure due to netconf not being ready yet ([#86](https://github.com/accelleran/helm-charts-ng/issues/86)) ([dd01537](https://github.com/accelleran/helm-charts-ng/commit/dd0153789c5472a303458e8526ba335409602021))
+* Prevent deletions for undefined config parts ([#88](https://github.com/accelleran/helm-charts-ng/issues/88)) ([9351480](https://github.com/accelleran/helm-charts-ng/commit/935148088043250fdfb9aff0a9995a35c3bde72c))
+
 ## [0.2.2](https://github.com/accelleran/helm-charts-ng/compare/cell-wrapper-config-0.2.1...cell-wrapper-config-0.2.2) (2024-02-13)
 
 
