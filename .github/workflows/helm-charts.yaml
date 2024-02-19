@@ -61,8 +61,8 @@ jobs:
 
       - name: Set up Helm
         uses: azure/setup-helm@v4.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up python
         uses: actions/setup-python@v5
@@ -127,8 +127,8 @@ jobs:
 
       - name: Set up Helm
         uses: azure/setup-helm@v4.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up python
         uses: actions/setup-python@v5
@@ -265,8 +265,8 @@ jobs:
 
       - name: Install Helm
         uses: azure/setup-helm@v4.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add helm repositories
         run: ./bin/add-repos
