@@ -177,6 +177,12 @@ netconf:
 
   containerName: "netconf"
 
+  initImage:
+    netconf:
+      repository: accelleran/acc-generic-img
+      pullPolicy: IfNotPresent
+      tag: "0.8.0"
+
   image:
     repository: accelleran/ncclient
     pullPolicy: IfNotPresent

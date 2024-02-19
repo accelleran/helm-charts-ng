@@ -33,6 +33,9 @@ volumes:
       name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-init-rpcs
       defaultMode: 0777
 
+initContainers:
+  - {{ fromYaml (include "accelleran.cell-wrapper.netconf.wait.container" .) | toYaml | nindent 4 }}
+
 containers:
   - {{ fromYaml (include "accelleran.cell-wrapper.netconf.init.container" .) | toYaml | nindent 4 }}
 {{- end -}}
