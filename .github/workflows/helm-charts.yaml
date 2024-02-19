@@ -60,9 +60,9 @@ jobs:
           fetch-depth: ${{ needs.vars.outputs.is_pull_request == 'true' && '0' || '1' }}
 
       - name: Set up Helm
-        uses: azure/setup-helm@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: azure/setup-helm@v4.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up python
         uses: actions/setup-python@v5
@@ -126,9 +126,9 @@ jobs:
           fetch-depth: ${{ needs.vars.outputs.is_pull_request == 'true' && '0' || '1' }}
 
       - name: Set up Helm
-        uses: azure/setup-helm@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: azure/setup-helm@v4.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up python
         uses: actions/setup-python@v5
@@ -264,9 +264,9 @@ jobs:
         uses: git-actions/set-user@v1
 
       - name: Install Helm
-        uses: azure/setup-helm@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: azure/setup-helm@v4.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add helm repositories
         run: ./bin/add-repos
