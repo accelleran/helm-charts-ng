@@ -593,17 +593,9 @@ grafana:
 loki-stack:
   enabled: true
   promtail:
-    enabled: false
-  fluent-bit:
-    enabled: true
-    podLabels:
-      drax/role: ric
-      drax/component-name: fluent-bit
-
-    serviceLabels:
-      drax/role: ric
-      drax/component-name: fluent-bit
-
+    config:
+      clients:
+        - url: http://{{ .Release.Name }}-loki.{{ .Release.Namespace }}:3100/loki/api/v1/push
     nodeSelector: {}
   loki:
     enabled: true
