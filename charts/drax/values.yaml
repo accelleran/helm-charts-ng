@@ -886,3 +886,6 @@ kminion:
 
       logger:
         level: info
+
+  tests:
+    enabled: false

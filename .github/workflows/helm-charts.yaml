@@ -243,6 +243,7 @@ jobs:
               format('--charts "{0}"', needs.vars.outputs.charts_to_test)
             )
           }}
+          --helm-extra-set-args "--set=kafka.provisioning.useHelmHooks=false"
 
   release-charts:
     name: Release Charts
