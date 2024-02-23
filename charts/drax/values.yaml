@@ -635,7 +635,7 @@ influxdb:
   podLabels:
     drax/role: ric
     drax/component-name: influxdb
-  
+
   nodeSelector: {}
   backup:
     nodeSelector: {}
