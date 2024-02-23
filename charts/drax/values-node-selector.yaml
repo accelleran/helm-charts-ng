@@ -1,0 +1,67 @@
+global:
+  nodeSelector:
+    drax.accelleran.com/schedule: "true"
+
+kafka:
+  controller:
+    nodeSelector:
+      drax.accelleran.com/schedule: "true"
+  broker:
+    nodeSelector:
+      drax.accelleran.com/schedule: "true"
+  metrics:
+    kafka:
+      nodeSelector:
+        drax.accelleran.com/schedule: "true"
+  provisioning:
+    nodeSelector:
+      drax.accelleran.com/schedule: "true"
+
+nats:
+  podTemplate:
+    merge:
+      spec:
+        nodeSelector:
+          drax.accelleran.com/schedule: "true"
+
+redis:
+  master:
+    nodeSelector:
+      drax.accelleran.com/schedule: "true"
+  replica:
+    nodeSelector:
+      drax.accelleran.com/schedule: "true"
+
+prometheus:
+  nodeSelector:
+    drax.accelleran.com/schedule: "true"
+  prometheus-pushgateway:
+    nodeSelector:
+      drax.accelleran.com/schedule: "true"
+  kube-state-metrics:
+    nodeSelector:
+      drax.accelleran.com/schedule: "true"
+
+grafana:
+  nodeSelector:
+    drax.accelleran.com/schedule: "true"
+
+loki-stack:
+  loki:
+    nodeSelector:
+      drax.accelleran.com/schedule: "true"
+
+influxdb:
+  nodeSelector:
+    drax.accelleran.com/schedule: "true"
+  backup:
+    nodeSelector:
+      drax.accelleran.com/schedule: "true"
+
+vector:
+  nodeSelector:
+    drax.accelleran.com/schedule: "true"
+
+kminion:
+  nodeSelector:
+    drax.accelleran.com/schedule: "true"
