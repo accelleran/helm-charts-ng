@@ -30,6 +30,7 @@ global:
     enabled: true
     secretName: "accelleran-license"
 
+  nodeSelector: {}
 
 bootstrap:
   create: true
@@ -248,17 +249,20 @@ kafka:
   controller:
     replicaCount: 3
     automountServiceAccountToken: true
+    nodeSelector: {}
     persistence:
       size: 1Gi
 
   broker:
     automountServiceAccountToken: true
+    nodeSelector: {}
     persistence:
       size: 1Gi
 
   provisioning:
     enabled: true
     automountServiceAccountToken: true
+    nodeSelector: {}
     replicationFactor: 1
     numPartitions: 1
     topics:
@@ -301,6 +305,7 @@ kafka:
     kafka:
       enabled: false
       automountServiceAccountToken: true
+      nodeSelector: {}
 
     jmx:
       enabled: true
@@ -363,8 +368,11 @@ redis:
     enabled: false
 
   master:
+    nodeSelector: {}
     persistence:
       size: 1Gi
+  replica:
+    nodeSelector: {}
 
 
 prometheus:
@@ -376,6 +384,12 @@ prometheus:
 
   prometheus-node-exporter:
     enabled: true
+
+  prometheus-pushgateway:
+    nodeSelector: {}
+
+  kube-state-metrics:
+    nodeSelector: {}
 
   serviceAccounts:
     kubeStateMetrics:
@@ -621,6 +635,10 @@ influxdb:
   podLabels:
     drax/role: ric
     drax/component-name: influxdb
+  
+  nodeSelector: {}
+  backup:
+    nodeSelector: {}
 
   persistence:
     enabled: true
@@ -659,6 +677,8 @@ vector:
   fullnameOverride: ""
 
   role: "Stateless-Aggregator"
+
+  nodeSelector: {}
 
   image:
     repository: timberio/vector
@@ -853,6 +873,8 @@ vector:
 
 kminion:
   enabled: true
+
+  nodeSelector: {}
 
   kminion:
     # See reference config: https://github.com/cloudhut/kminion/blob/master/docs/reference-config.yaml
