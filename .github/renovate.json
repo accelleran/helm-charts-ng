@@ -4,6 +4,7 @@
   "semanticCommitType": "fix",
   "semanticCommitScope": "deps",
   "commitMessagePrefix": "fix(deps):",
+  "commitMessageLowerCase": "auto",
   "dependencyDashboard": true,
   "dependencyDashboardApproval": false,
   "dependencyDashboardAutoclose": false,
