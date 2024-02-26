@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/accelleran/helm-charts-ng/compare/cell-wrapper-config-0.2.3...cell-wrapper-config-0.2.4) (2024-02-26)
+
+
+### Bug Fixes
+
+* Fix volume mount failing cronjobs ([40550e2](https://github.com/accelleran/helm-charts-ng/commit/40550e2c578d89a4e2cf8edce1d9ee14d48fa1f5))
+
 ## [0.2.3](https://github.com/accelleran/helm-charts-ng/compare/cell-wrapper-config-0.2.2...cell-wrapper-config-0.2.3) (2024-02-19)
 
 
