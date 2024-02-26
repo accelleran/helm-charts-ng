@@ -481,6 +481,8 @@ grafana:
   adminPassword: accelleran
 
   grafana.ini:
+    auth.basic:
+      enabled: false
     auth.anonymous:
       enabled: true
       # Organization name that should be used for unauthenticated users
