@@ -2,6 +2,15 @@ global:
   enable4G: false
   enable5G: true
 
+bootstrap:
+  create: true
+  name: ""
+
+  kafka:
+    enabled: true
+    hostname: ""
+    port: 0
+
 config:
   config_id: "production"
   defaultServiceNamespace: "default"
@@ -41,9 +50,10 @@ nameOverride: ""
 fullnameOverride: ""
 
 initImage:
-  repository: accelleran/acc-generic-img
-  pullPolicy: IfNotPresent
-  tag: "0.8.0"
+  kafka:
+    repository: accelleran/acc-generic-img
+    pullPolicy: IfNotPresent
+    tag: "0.8.0"
 
 image:
   repository: accelleran/dash-front-back-end
