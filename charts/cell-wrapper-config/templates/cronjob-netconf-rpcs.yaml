@@ -35,7 +35,6 @@ volumes:
 volumeMounts:
   - name: {{ include "accelleran.common.fullname" (dict "top" $ "values" $values) }}-cron-rpcs
     mountPath: /rpcs
-    subPath: {{ $job.name }}.xml
 {{- end }}
 
 
