@@ -1,5 +1,5 @@
 apiVersion: v2
-name: dash-front-back-end
+name: dashboard
 description: The Accelleran Dashboard
 type: application
 version: 5.0.0

@@ -10,10 +10,10 @@ dependencies:
     repository: https://accelleran.github.io/helm-charts-ng/
 
   # smo
-  - name: dash-front-back-end
-    condition: dash-front-back-end.enabled
+  - name: dashboard
+    condition: dashboard.enabled
     version: 5.0.0
-    repository: file://charts/dash-front-back-end
+    repository: file://charts/dashboard
   - name: network-state-monitor
     condition: network-state-monitor.enabled
     version: 0.1.0

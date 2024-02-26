@@ -1,9 +1,9 @@
 {{- include
       "accelleran.common.configMap"
-      (fromYaml (include "accelleran.dash-front-back-end.configMap.server.args" .))
+      (fromYaml (include "accelleran.dashboard.configMap.server.args" .))
 -}}
 
-{{- define "accelleran.dash-front-back-end.configMap.server.args" -}}
+{{- define "accelleran.dashboard.configMap.server.args" -}}
 {{- $ := . -}}
 
 top:

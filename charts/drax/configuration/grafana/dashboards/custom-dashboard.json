@@ -1265,7 +1265,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "(kube_pod_container_status_running{pod=~\".*-dash-front-back-end.*\"} or kube_pod_container_status_running{pod=~\"kube-apiserver-.*\"}-1)",
+          "expr": "(kube_pod_container_status_running{pod=~\".*-dashboard.*\"} or kube_pod_container_status_running{pod=~\"kube-apiserver-.*\"}-1)",
           "format": "table",
           "hide": false,
           "instant": true,

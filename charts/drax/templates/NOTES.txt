@@ -8,9 +8,9 @@
 
 ## Accelleran dRAX {{ $.Chart.Version }}
 
-{{ if index .Values "dash-front-back-end" "enabled" -}}
+{{ if index .Values "dashboard" "enabled" -}}
 ## dRAX Dashboard
-{{ .Values.global.kubeIp }}:{{ index .Values "dash-front-back-end" "service" "ports" "http" "nodePort" }}
+{{ .Values.global.kubeIp }}:{{ index .Values "dashboard" "service" "ports" "http" "nodePort" }}
 {{- end }}
 
 {{ if index .Values "grafana" "enabled" -}}
