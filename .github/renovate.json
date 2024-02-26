@@ -1,10 +1,5 @@
 {
   "branchPrefix": "renovate/",
-  "semanticCommits": "enabled",
-  "semanticCommitType": "fix",
-  "semanticCommitScope": "deps",
-  "commitMessagePrefix": "fix(deps):",
-  "commitMessageLowerCase": "auto",
   "dependencyDashboard": true,
   "dependencyDashboardApproval": false,
   "dependencyDashboardAutoclose": false,
@@ -12,9 +7,10 @@
   "extends": [
     "config:base",
     ":semanticCommits",
+    ":semanticCommitTypeAll(fix)",
     ":automergeMinor"
   ],
-  "helmv3": {
+"helmv3": {
     "fileMatch": [
       "(^|/)Chart\\.yaml$"
     ],
