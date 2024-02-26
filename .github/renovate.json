@@ -3,6 +3,10 @@
   "dependencyDashboard": true,
   "dependencyDashboardApproval": false,
   "dependencyDashboardAutoclose": false,
+  "reviewers": [
+    "ben-foxmoore",
+    "Wielewout"
+  ],
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
