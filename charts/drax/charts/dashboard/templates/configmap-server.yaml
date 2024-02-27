@@ -22,7 +22,7 @@ data:
         "grafanaURL": "{{ tpl .Values.config.grafanaURL . }}",
         "grafanaPort": "{{ .Values.config.grafanaPort }}",
         "nodeApiURL": "{{ tpl .Values.config.nodeApiURL . }}",
-        "nodeApiPort": "{{ .Values.service.ports.http.port }}",
+        "nodeApiPort": "{{ .Values.service.ports.http.nodePort }}",
         "kafkaURL": "{{ tpl .Values.config.kafkaUrl . }}",
         "kafkaPort": "{{ tpl .Values.config.kafkaPort . }}",
         "svcOrchestratorHost": "{{ tpl .Values.config.svcOrchestratorHost . }}",
