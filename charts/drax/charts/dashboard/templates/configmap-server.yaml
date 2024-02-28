@@ -16,7 +16,8 @@ data:
     {
       "production": {
         "config_id": "{{ .Values.config.config_id }}",
-        "defaultServiceNamespace": "{{ tpl .Values.config.defaultServiceNamespace . }}",
+        "defaultServiceName": "{{ include "accelleran.common.service.name" (dict "top" $) }}",
+        "defaultServiceNamespace": "{{ tpl .Release.Namespace . }}",
         "defaultOranNamespace": "{{ tpl .Values.config.defaultOranNamespace . }}",
         "node_port": {{ .Values.service.ports.http.port }},
         "grafanaURL": "{{ tpl .Values.config.grafanaURL . }}",
