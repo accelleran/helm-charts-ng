@@ -13,7 +13,6 @@ bootstrap:
 
 config:
   config_id: "production"
-  defaultServiceNamespace: "default"
   defaultOranNamespace: "default"
   grafanaURL: "10.20.20.20"
   grafanaPort: "30300"
