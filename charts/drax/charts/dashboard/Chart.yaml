@@ -3,7 +3,7 @@ name: dashboard
 description: The Accelleran Dashboard
 type: application
 version: 5.0.0
-appVersion: 4.7.0
+appVersion: 5.0.0
 dependencies:
   - name: common
     version: 0.2.0
