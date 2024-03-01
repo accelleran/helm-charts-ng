@@ -17,7 +17,6 @@ config:
   grafanaURL: "10.20.20.20"
   grafanaPort: "30300"
   nodeApiURL: "10.20.20.20"
-  nodePort: "30315"
   kafkaUrl: "{{ .Release.Name }}-kafka"
   kafkaPort: "9092"
   svcOrchestratorHost: "{{ .Release.Name }}-service-orchestrator"
@@ -33,7 +32,6 @@ config:
   ksqldbPodName: "10.20.20.20"
   ksqldbPort: "30533"
   LteRadioControllerLabel: "4G-Radio-Controller"
-  apiUrl: "10.20.20.20"
   websocketPort: "31316"
   topologyExpired: 5000
   draxVersionConfigmap: ""

@@ -89,8 +89,6 @@ dashboard:
     LteRadioControllerLabel: "4G-Radio-Controller"
     draxVersionConfigmap: "{{ $.Release.Name }}-version"
 
-    # The IP that is set here must be globally available so that any browser can reach it, so that the front end can communicate to the backend. Preferable, use the publicly exposed IP that can reach the Kubernetes Advertise IP. If only a private Kubernetes Advertise IP is set here, the dRAX Dashbaord will only work when openning a browser on a computer that can reach the private Kuebrnetes Advertise IP.
-    apiUrl: "{{ .Values.global.kubeIp }}"
     websocketPort: "31316"
     topologyExpired: 5000
     kafkaTopics:
