@@ -110,8 +110,8 @@ command:
 
   echo "${service_name} has loadbalancer IP ${gtp_ip}"
 
-  echo "DOWNLINK=$gtp_ip" >> /config/env
-  echo "UPLINK=$gtp_ip" >> /config/env
+  echo "NG_U=$gtp_ip" >> /config/env
+  echo "F1_U=$gtp_ip" >> /config/env
   EOF
 
 volumeMounts:

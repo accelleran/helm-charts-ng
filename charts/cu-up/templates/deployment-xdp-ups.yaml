@@ -42,12 +42,12 @@ env:
     valueFrom:
       fieldRef:
         fieldPath: metadata.name
-  - name: UPLINK
-    value: {{ $xdpUpStack.uplink.address | quote }}
-  - name: DOWNLINK
-    value: {{ $xdpUpStack.downlink.address | quote }}
+  - name: NG_U
+    value: {{ index $xdpUpStack "ng-u" "address" | quote }}
+  - name: F1_U
+    value: {{ index $xdpUpStack "f1-u" "address" | quote }}
   - name: MTU_SIZE
-    value: {{ min ($xdpUpStack.uplink.mtu | default 1460) ($xdpUpStack.downlink.mtu | default 1460) | quote }}
+    value: {{ min (index $xdpUpStack "ng-u" "mtu" | default 1460) (index $xdpUpStack "f1-u" "mtu" | default 1460) | quote }}
 {{- with (include "accelleran.common.bootstrap.instanceId" (dict "top" $)) }}
   - name: INSTANCE_FILTER
     value: {{ . | quote }}
