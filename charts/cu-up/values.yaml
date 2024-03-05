@@ -26,13 +26,13 @@ xdpUpStacks: []
 #     override-label: override-value
 #   nodeName: example-node-name
 
-#   uplink:
+#   ng-u:
 #     address: "127.0.0.1"
-#     mtu: 1460  # optional, default 1460, only minimum MTU (compared with downlink) is used
+#     mtu: 1460  # optional, default 1460, only minimum MTU (compared with f1-u) is used
 
-#   downlink:
+#   f1-u:
 #     address: "127.0.0.2"
-#     mtu: 1460  # optional, default 1460, only minimum MTU (compared with uplink) is used
+#     mtu: 1460  # optional, default 1460, only minimum MTU (compared with ng-u) is used
 
 
 bootstrap:
@@ -212,10 +212,10 @@ ups:
     pullPolicy: IfNotPresent
 
   args:
-    - "--downlink"
-    - "${DOWNLINK}"
-    - "--uplink"
-    - "${UPLINK}"
+    - "--ng-u"
+    - "${NG_U}"
+    - "--f1-u"
+    - "${F1_U}"
     - "--bind"
     - "${BIND}"
 
@@ -272,10 +272,10 @@ xdp-ups:
     pullPolicy: IfNotPresent
 
   args:
-    - "--downlink"
-    - "${DOWNLINK}"
-    - "--uplink"
-    - "${UPLINK}"
+    - "--ng-u"
+    - "${NG_U}"
+    - "--f1-u"
+    - "${F1_U}"
 
   hostNetwork: true
   dnsPolicy: ClusterFirstWithHostNet
