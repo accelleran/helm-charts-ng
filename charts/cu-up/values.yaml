@@ -275,7 +275,7 @@ xdp-ups:
     - "--ng-u"
     - "${NG_U}"
     - "--f1-u"
-    - "${F1_u}"
+    - "${F1_U}"
 
   hostNetwork: true
   dnsPolicy: ClusterFirstWithHostNet
