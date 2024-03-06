@@ -75,7 +75,7 @@ data:
 
 {{- if (($.Values.bootstrap).redis).enabled -}}
 {{- $redisHostname := tpl ((($.Values.bootstrap).redis).hostname) $ -}}
-{{- if and (not (($.Values.redis).enabled)) (not $redisHostname) -}}
+{{- if and (eq (include "accelleran.common.bootstrap.configMap.create" .) "true") (not (($.Values.redis).enabled)) (not $redisHostname) -}}
 {{- fail "When redis is disabled a bootstrap redis hostname needs to be provided (bootstrap.redis.hostname)" -}}
 {{- end -}}
 {{- $redisHostname | default (printf "%s-redis-master" $.Release.Name) -}}
@@ -96,7 +96,7 @@ data:
 
 {{- if (($.Values.bootstrap).nats).enabled -}}
 {{- $natsHostname := tpl ((($.Values.bootstrap).nats).hostname) $ -}}
-{{- if and (not (($.Values.nats).enabled)) (not $natsHostname) -}}
+{{- if and (eq (include "accelleran.common.bootstrap.configMap.create" .) "true") (not (($.Values.nats).enabled)) (not $natsHostname) -}}
 {{- fail "When nats is disabled a bootstrap nats hostname needs to be provided (bootstrap.nats.hostname)" -}}
 {{- end -}}
 {{- $natsHostname | default (printf "%s-nats" $.Release.Name) -}}
@@ -117,7 +117,7 @@ data:
 
 {{- if (($.Values.bootstrap).kafka).enabled -}}
 {{- $kafkaHostname := tpl ((($.Values.bootstrap).kafka).hostname) $ -}}
-{{- if and (not (($.Values.kafka).enabled)) (not $kafkaHostname) -}}
+{{- if and (eq (include "accelleran.common.bootstrap.configMap.create" .) "true") (not (($.Values.kafka).enabled)) (not $kafkaHostname) -}}
 {{- fail "When kafka is disabled a bootstrap kafka hostname needs to be provided (bootstrap.kafka.hostname)" -}}
 {{- end -}}
 {{- $kafkaHostname | default (printf "%s-kafka" $.Release.Name) -}}
