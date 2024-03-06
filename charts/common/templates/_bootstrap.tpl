@@ -72,13 +72,8 @@ data:
 
 {{- define "accelleran.common.bootstrap.redis.hostname" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap redis hostname" -}}
-
 {{- if (($.Values.bootstrap).redis).enabled -}}
-{{- $redisHostname := tpl ((($.Values.bootstrap).redis).hostname) $ -}}
-{{- if and (not (($.Values.redis).enabled)) (not $redisHostname) -}}
-{{- fail "When redis is disabled a bootstrap redis hostname needs to be provided (bootstrap.redis.hostname)" -}}
-{{- end -}}
-{{- $redisHostname | default (printf "%s-redis-master" $.Release.Name) -}}
+{{- tpl ((($.Values.bootstrap).redis).hostname | default (printf "%s-redis-master" $.Release.Name)) $ -}}
 {{- end -}}
 {{- end -}}
 
@@ -93,13 +88,8 @@ data:
 
 {{- define "accelleran.common.bootstrap.nats.hostname" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap nats hostname" -}}
-
 {{- if (($.Values.bootstrap).nats).enabled -}}
-{{- $natsHostname := tpl ((($.Values.bootstrap).nats).hostname) $ -}}
-{{- if and (not (($.Values.nats).enabled)) (not $natsHostname) -}}
-{{- fail "When nats is disabled a bootstrap nats hostname needs to be provided (bootstrap.nats.hostname)" -}}
-{{- end -}}
-{{- $natsHostname | default (printf "%s-nats" $.Release.Name) -}}
+{{- tpl ((($.Values.bootstrap).nats).hostname | default (printf "%s-nats" $.Release.Name)) $ -}}
 {{- end -}}
 {{- end -}}
 
@@ -114,13 +104,8 @@ data:
 
 {{- define "accelleran.common.bootstrap.kafka.hostname" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap kafka hostname" -}}
-
 {{- if (($.Values.bootstrap).kafka).enabled -}}
-{{- $kafkaHostname := tpl ((($.Values.bootstrap).kafka).hostname) $ -}}
-{{- if and (not (($.Values.kafka).enabled)) (not $kafkaHostname) -}}
-{{- fail "When kafka is disabled a bootstrap kafka hostname needs to be provided (bootstrap.kafka.hostname)" -}}
-{{- end -}}
-{{- $kafkaHostname | default (printf "%s-kafka" $.Release.Name) -}}
+{{- tpl ((($.Values.bootstrap).kafka).hostname | default (printf "%s-kafka" $.Release.Name)) $ -}}
 {{- end -}}
 {{- end -}}
 
