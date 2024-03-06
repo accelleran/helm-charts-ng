@@ -57,7 +57,7 @@ data:
 
 {{- define "accelleran.common.bootstrap.instanceId" -}}
 {{- $ := get . "top" | required "The top context needs to be provided to common bootstrap instance id" -}}
-{{- $values := get . "values" | default $.Values -}}
+
 {{- $instanceId := ($.Values.bootstrap).instanceId -}}
 {{- if $instanceId -}}
 {{- $instanceId = tpl (toString $instanceId) $ -}}
