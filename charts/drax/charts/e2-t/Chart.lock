@@ -1,6 +1,6 @@
 dependencies:
 - name: common
-  repository: https://accelleran.github.io/helm-charts-ng/
+  repository: https://accelleran.github.io/helm-charts/
   version: 0.2.2
 - name: nats
   repository: https://nats-io.github.io/k8s/helm/charts/
