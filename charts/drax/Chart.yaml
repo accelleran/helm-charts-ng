@@ -6,7 +6,7 @@ version: 7.0.0-rc.6
 
 dependencies:
   - name: common
-    version: 0.2.0
+    version: 0.2.1
     repository: https://accelleran.github.io/helm-charts-ng/
 
   # smo
