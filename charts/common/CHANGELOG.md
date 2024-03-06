@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/accelleran/helm-charts-ng/compare/common-0.2.0...common-0.2.1) (2024-03-06)
+
+
+### Features
+
+* Give an error message when a service is disabled without setting an (external) hostname ([3b3fc14](https://github.com/accelleran/helm-charts-ng/commit/3b3fc14d50b28adfd3129c489d2093bed6696dec))
+
 ## [0.2.0](https://github.com/accelleran/helm-charts-ng/compare/common-0.1.2...common-0.2.0) (2024-02-02)
 
 
