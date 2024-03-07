@@ -57,10 +57,30 @@ dashboard:
     name: "{{ $.Release.Name }}-bootstrap"
 
   config:
-    grafanaURL: "{{ .Values.global.kubeIp }}"
-    nodeApiURL: "{{ .Values.global.kubeIp }}"
+    defaultOranNamespace: "default"
+    kafkaURL: "{{ .Release.Name }}-kafka"
+    kafkaPort: "9092"
+    svcOrchestratorHost: "{{ .Release.Name }}-service-orchestrator"
+    svcOrchestratorPort: "80"
+    networkStateMonitorHost: "{{ .Release.Name }}-network-state-monitor"
+    networkStateMonitorPort: "5000"
+    configApiHost: "{{ .Release.Name }}-config-api"
+    configApiPort: "80"
+    svcMonitorHost: "{{ .Release.Name }}-service-monitor"
+    svcMonitorPort: "80"
+    pcixAppPodName: "accelleran-drax-pci-010-pci-xapp-api"
+    pcixAppPort: "80"
     ksqldbPodName: "{{ .Values.global.kubeIp }}"
+    ksqldbPort: "30533"
+    LteRadioControllerLabel: "4G-Radio-Controller"
+    kafkaTopics:
+      - "accelleran.drax.5g.ric.raw.cu_state"
+      - "accelleran.drax.5g.ric.raw.ue_measurements"
+      - "accelleran.drax.4g.ric.raw.network_state"
+      - "accelleran.drax.all.ric.processed.anr"
+    topologyExpired: 5000
     draxVersionConfigmap: "{{ $.Release.Name }}-version"
+    grafanaPort: "30300"
 
   service:
     type: NodePort
