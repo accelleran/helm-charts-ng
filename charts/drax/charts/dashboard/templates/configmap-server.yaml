@@ -39,7 +39,8 @@ data:
   config.json: |
     {
       "production": {
-        "defaultServiceName": "{{ include "accelleran.common.service.name" (dict "top" $) }}",
+        "serviceName": "{{ include "accelleran.common.service.name" (dict "top" $) }}",
+        "servicePort": "{{ .Values.service.ports.http.port }}",
         "defaultServiceNamespace": "{{ tpl .Release.Namespace . }}",
         "nodeApiURL: "{{ .Values.global.kubeIp }}",
         "nodeApiPort": "{{ .Values.service.ports.http.nodePort }}",
