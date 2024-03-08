@@ -107,7 +107,7 @@
       "pluginVersion": "10.2.2",
       "targets": [
         {
-          "alias": "Average throughput",
+          "alias": "$tag_cuupId: Average throughput",
           "datasource": {
             "type": "influxdb",
             "uid": "P188D15F60707A73F"
@@ -129,8 +129,8 @@
           "measurement": "uemeasurement.vector",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"measurement.dlGtpThroughput\") *8 FROM \"uemeasurement.vector\" $timeFilter GROUP BY time(1s) ",
-          "rawQuery": false,
+          "query": "SELECT sum(\"measurement.dlGtpThroughput\") *8 FROM \"uemeasurement.vector\" WHERE $timeFilter GROUP BY time(1s), \"cuupId\"::tag fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -143,7 +143,7 @@
               },
               {
                 "params": [],
-                "type": "mean"
+                "type": "sum"
               },
               {
                 "params": [
@@ -246,7 +246,7 @@
       "pluginVersion": "10.2.2",
       "targets": [
         {
-          "alias": "Average throughput",
+          "alias": "$tag_cuupId: Average throughput",
           "datasource": {
             "type": "influxdb",
             "uid": "P188D15F60707A73F"
@@ -268,8 +268,8 @@
           "measurement": "uemeasurement.vector",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"measurement.dlGtpThroughput\") *8 FROM \"uemeasurement.vector\" $timeFilter GROUP BY time(1s) ",
-          "rawQuery": false,
+          "query": "SELECT sum(\"measurement.ulGtpThroughput\") *8 FROM \"uemeasurement.vector\" WHERE $timeFilter GROUP BY time(1s), \"cuupId\"::tag fill(null)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -282,7 +282,7 @@
               },
               {
                 "params": [],
-                "type": "mean"
+                "type": "sum"
               },
               {
                 "params": [
@@ -389,11 +389,16 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "increase(DRB_PDCP_PACKET_DROP_RATE_DL_SNSSAI {} [$__rate_interval])",
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "avg_over_time(DRB_PDCP_PACKET_DROP_RATE_DL_SNSSAI{sst=~\"$sliceType\", sd=~\"$sliceDifferentiator\"}[$MinStep])",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "instant": false,
           "interval": "$MinStep",
-          "legendFormat": "{{instanceId}}",
-          "refId": "A"
+          "legendFormat": "GNB_ID:{{reportedNode}},SST:{{sst}},SD{{sd}}",
+          "refId": "A",
+          "useBackend": false
         }
       ],
       "title": "DRB PDCP PACKET DROP RATE DL PER SNSSAI",
@@ -490,11 +495,16 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "increase(DRB_PDCP_PACKET_DROP_RATE_DL_QOS {qfi=~\"$QFI\"} [$__interval])",
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "avg_over_time(DRB_PDCP_PACKET_DROP_RATE_DL_QOS{qfi=~\"$QFI\"}[$MinStep])",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
           "instant": false,
           "interval": "$MinStep",
-          "legendFormat": "{{instanceId}}",
-          "refId": "A"
+          "legendFormat": "GNB_ID:{{reportedNode}},QFI:{{qfi}}",
+          "refId": "A",
+          "useBackend": false
         }
       ],
       "title": "DRB PDCP PACKET DROP RATE DL PER QFI",
@@ -548,11 +558,12 @@
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
@@ -563,10 +574,11 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
+          "editorMode": "code",
           "expr": "avg_over_time(AVERAGE_DELAY_DL_IN_CUUP_SNSSAI{sd=~\"$sliceDifferentiator\",sst=~\"$sliceType\"}[$__interval])",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{instanceId}}",
+          "legendFormat": "{{instanceId}}GNB_ID:{{reportedNode}},SST:{{sst}},SD{{sd}}",
           "refId": "A"
         }
       ],
@@ -590,7 +602,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -603,6 +616,7 @@
       "id": 84,
       "options": {
         "displayMode": "gradient",
+        "maxVizHeight": 300,
         "minVizHeight": 10,
         "minVizWidth": 0,
         "namePlacement": "auto",
@@ -615,6 +629,7 @@
           "values": false
         },
         "showUnfilled": true,
+        "sizing": "auto",
         "valueMode": "color"
       },
       "pluginVersion": "10.2.2",
@@ -921,11 +936,12 @@
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "textMode": "auto",
         "wideLayout": true
       },
@@ -936,10 +952,11 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
+          "editorMode": "code",
           "expr": "avg_over_time(AVERAGE_DELAY_DL_IN_CUUP_QOS{qfi=~\"$QFI\"}[$__interval])",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{instanceId}}",
+          "legendFormat": "{{instanceId}}{{reportedNode}},QFI:{{qfi}}",
           "refId": "A"
         }
       ],
@@ -951,12 +968,6 @@
       "datasource": {
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
       },
       "gridPos": {
         "h": 3,
@@ -970,7 +981,7 @@
         "content": "<h4 style=\"text-align:center\"> <h4>\n<h4 style=\"text-align:center\"> <h4>\n",
         "mode": "html"
       },
-      "pluginVersion": "7.3.7",
+      "pluginVersion": "10.2.2",
       "targets": [
         {
           "datasource": {
@@ -987,12 +998,6 @@
       "datasource": {
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
       },
       "gridPos": {
         "h": 3,
@@ -1006,7 +1011,7 @@
         "content": "<h4 style=\"text-align:center\"> <h4>\n<h4 style=\"text-align:center\"> <h4>\n",
         "mode": "html"
       },
-      "pluginVersion": "7.3.7",
+      "pluginVersion": "10.2.2",
       "targets": [
         {
           "datasource": {
@@ -1024,12 +1029,6 @@
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "gridPos": {
         "h": 2,
         "w": 4,
@@ -1042,7 +1041,7 @@
         "content": "",
         "mode": "html"
       },
-      "pluginVersion": "7.3.7",
+      "pluginVersion": "10.2.2",
       "targets": [
         {
           "datasource": {
@@ -1057,7 +1056,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 38,
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
@@ -1153,9 +1152,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "30m",
-          "value": "30m"
+          "selected": true,
+          "text": "1m",
+          "value": "1m"
         },
         "hide": 0,
         "includeAll": false,
@@ -1163,7 +1162,7 @@
         "name": "MinStep",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "1m",
             "value": "1m"
           },
@@ -1178,7 +1177,7 @@
             "value": "10m"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "30m",
             "value": "30m"
           },
@@ -1196,7 +1195,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
