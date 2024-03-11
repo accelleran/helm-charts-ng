@@ -107,7 +107,7 @@
       "pluginVersion": "10.2.2",
       "targets": [
         {
-          "alias": "$tag_cuupId: Average throughput",
+          "alias": "$tag_cuupId",
           "datasource": {
             "type": "influxdb",
             "uid": "P188D15F60707A73F"
@@ -246,7 +246,7 @@
       "pluginVersion": "10.2.2",
       "targets": [
         {
-          "alias": "$tag_cuupId: Average throughput",
+          "alias": "$tag_cuupId",
           "datasource": {
             "type": "influxdb",
             "uid": "P188D15F60707A73F"
