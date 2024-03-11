@@ -37,6 +37,10 @@
     "charts/drax": {
       "component": "drax",
       "package-name": "drax"
+    },
+    "charts/xapp-anr": {
+      "component": "xapp-anr",
+      "package-name": "xapp-anr"
     }
   }
 }
