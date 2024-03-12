@@ -43,7 +43,7 @@ dependencies:
   version: 4.12.5
 - name: vector
   repository: https://helm.vector.dev
-  version: 0.31.0
+  version: 0.31.1
 - name: kminion
   repository: https://charts.redpanda.com
   version: 0.12.7
@@ -56,5 +56,5 @@ dependencies:
 - name: redis
   repository: https://charts.bitnami.com/bitnami/
   version: 18.18.0
-digest: sha256:c944a76a1308697b046106dc02313a12e288732d8990e8f65aa391e6c0229f79
-generated: "2024-03-12T11:56:21.85328083Z"
+digest: sha256:8c0c9033bde0f81cdbf4554983b8542a5e35b7ec310d564e0785c15aebe5a0cd
+generated: "2024-03-12T12:11:14.560117868Z"
