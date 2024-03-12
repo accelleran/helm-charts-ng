@@ -3,6 +3,7 @@ name: network-state-monitor
 description: The Accelleran dRAX Network State Monitor
 type: application
 version: 0.1.0
+# renovate: image=accelleran/network-state-monitor
 appVersion: 1.1.0
 dependencies:
   - name: common

@@ -3,6 +3,7 @@ name: config-api
 description: Backend of the Accelleran Dashboard
 type: application
 version: 2.0.0
+# renovate: image=accelleran/config-api
 appVersion: 1.1.14
 dependencies:
   - name: common
