@@ -29,6 +29,8 @@ jobs:
       chart_names_to_ignore_for_test: ${{ steps.list-charts.outputs.chart_names_to_ignore_for_test }}
       # renovate: github_repository=metallb/metallb versioning=semver
       metallb_version: v0.14.3
+      # renovate: github_repository=halkeye/helm-repo-html versioning=semver
+      helm_repo_html_version: v0.2.1
     timeout-minutes: 1
     steps:
       - name: Expose variables
@@ -262,6 +264,9 @@ jobs:
 
       - name: Install Helm
         uses: azure/setup-helm@v4.1.0
+        
+      - name: Install helm repo html plugin
+        run: helm plugin install https://github.com/halkeye/helm-repo-html --version ${{ needs.vars.outputs.helm_repo_html_version }}
 
       - name: Add helm repositories
         run: ./bin/add-repos
@@ -272,6 +277,15 @@ jobs:
           config: etc/cr.yaml
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      
+      - name: Generate repo html index
+        run: |-
+          git checkout gh-pages
+          helm repo-html
+          git add index.html
+          git commit -s -m "Update index.html"
+          git push
+          git checkout -
 
   release-please:
     name: Release
