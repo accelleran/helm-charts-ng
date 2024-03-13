@@ -30,21 +30,23 @@
 
       <h2>Charts</h2>
       <ul>
-      {{range $key, $chartEntry := .Entries }}
+      {{- range $key, $chartEntry := .Entries }}
         <li>
           <p>
             {{ (index $chartEntry 0).Name }}
             (<a href="{{ (index (index $chartEntry 0).Urls 0) }}" title="{{ (index (index $chartEntry 0).Urls 0) }}">
             {{ (index $chartEntry 0).Version }}
+            {{- with (index $chartEntry 0).AppVersion }}
             @
-            {{ (index $chartEntry 0).AppVersion }}
+            {{ . }}
+            {{- end }}
             </a>)
           </p>
           <p>
             {{ (index $chartEntry 0).Description }}
           </p>
         </li>
-      {{end}}
+      {{- end }}
       </ul>
     </section>
     <time datetime="{{ .Generated.Format "2006-01-02T15:04:05" }}" pubdate id="generated">{{ .Generated.Format "Mon Jan 2 2006 03:04:05PM MST-07:00" }}</time>
