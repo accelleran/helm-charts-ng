@@ -282,9 +282,11 @@ jobs:
         run: |-
           git checkout gh-pages
           helm repo-html
-          git add index.html
-          git commit -s -m "Update index.html"
-          git push
+          if ! git diff --exit-code index.html > /dev/null 2>&1 ; then
+            git add index.html
+            git commit -s -m "Update index.html"
+            git push
+          fi
           git checkout -
 
   release-please:
