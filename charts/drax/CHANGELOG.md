@@ -1,5 +1,23 @@
 # Changelog
 
+## [7.0.1](https://github.com/accelleran/helm-charts/compare/drax-7.0.0...drax-7.0.1) (2024-03-14)
+
+
+### Bug Fixes
+
+* **deps:** Update accelleran/service-orchestrator docker tag to v1.1.0 ([8fd83ff](https://github.com/accelleran/helm-charts/commit/8fd83ffa9b8717e1958a029dad09850e1de177a8))
+* **deps:** Update helm release grafana to v7.3.6 ([5b2d2a7](https://github.com/accelleran/helm-charts/commit/5b2d2a7a65cc4c46380c6071be8e4f926e051c76))
+* **deps:** Update helm release grafana to v7.3.7 ([5d3353f](https://github.com/accelleran/helm-charts/commit/5d3353ff63bf702aac84db04dc9b75c0c7554523))
+* **deps:** Update helm release kafka to v27.1.1 ([29ecc84](https://github.com/accelleran/helm-charts/commit/29ecc84fbec131a2079780b0d6ac9d96b8292dfa))
+* **deps:** Update helm release kafka to v27.1.2 ([af16c98](https://github.com/accelleran/helm-charts/commit/af16c98c4c0c64797df4638eff8db302720ec9bc))
+* **deps:** Update helm release nats to v1.1.10 ([9fe5adc](https://github.com/accelleran/helm-charts/commit/9fe5adc45fb5e3c42227ba38abc223a8f0a8c71a))
+* **deps:** Update helm release prometheus to v25.17.0 ([8c2521f](https://github.com/accelleran/helm-charts/commit/8c2521fdda1c1ef7cfa899e34fe598864d50ca57))
+* **deps:** Update helm release redis to v18.19.2 ([5c9df2d](https://github.com/accelleran/helm-charts/commit/5c9df2d3438cfcb9905fadd45d61ede06669f3a0))
+* **deps:** Update helm release vector to v0.31.1 ([3a30299](https://github.com/accelleran/helm-charts/commit/3a3029938613d37480e1aa24d106a321a2a458db))
+* Incorrect alias for CU-UP throughput in Grafana ([7ded86b](https://github.com/accelleran/helm-charts/commit/7ded86b20e627f36830a314fcbb6cdd379b39c47))
+* Incorrect CU PM Counters in Grafana Dashboards ([4b05915](https://github.com/accelleran/helm-charts/commit/4b059153e6a25a1883067d1dc96c17858a509b70))
+* Use MinStep in Grafana UE Monitoring dashboard ([4fa916e](https://github.com/accelleran/helm-charts/commit/4fa916e14315846d0fb86b3520e106a5d6d7f262))
+
 ## [7.0.0](https://github.com/accelleran/helm-charts/compare/drax-v6.5.3...drax-7.0.0) (2024-03-06)
 
 
