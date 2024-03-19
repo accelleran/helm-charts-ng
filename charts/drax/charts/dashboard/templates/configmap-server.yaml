@@ -15,44 +15,42 @@ name: {{ include "accelleran.common.fullname" (dict "top" $) }}-server
 
 # Define required variables
 {{- $requiredVariables := list
-  "defaultOranNamespace"
+  "nodeApiURL"
+  "nodeApiPort"
   "kafkaURL"
   "kafkaPort"
-  "svcOrchestratorHost"
-  "svcOrchestratorPort"
   "networkStateMonitorHost"
   "networkStateMonitorPort"
-  "configApiHost"
-  "configApiPort"
   "svcMonitorHost"
   "svcMonitorPort"
+  "svcOrchestratorHost"
+  "svcOrchestratorPort"
+  "configApiHost"
+  "configApiPort"
   "pcixAppPodName"
   "pcixAppPort"
   "ksqldbPodName"
   "ksqldbPort"
   "LteRadioControllerLabel"
-  "draxVersionConfigmap"
-  "grafanaPort"
 }}
+
+
+{{- range $index, $key := $requiredVariables }}
+  {{- if not (index $config $key) }}
+    {{- fail (printf "Requires %s to be defined in values.yaml" $key) }}
+  {{- end }}
+{{- end }}
+
+
+# Template serviceName if not provided in configuration
+{{- $serviceName := include "accelleran.common.service.name" (dict "top" $) }}
+{{- $config := merge $config (dict "serviceName" $serviceName) }}
+
 
 data:
   config.json: |
     {
-      "production": {
-        "serviceName": "{{ include "accelleran.common.service.name" (dict "top" $) }}",
-        "servicePort": "{{ .Values.service.ports.http.port }}",
-        "defaultServiceNamespace": "{{ tpl .Release.Namespace . }}",
-        "backendServerPort": {{ .Values.config.backendServerPort }},
-        "nodeApiURL: "{{ .Values.global.kubeIp }}",
-        "nodeApiPort": "{{ .Values.service.ports.http.nodePort }}",
-        "topologyExpired": {{ .Values.config.topologyExpired }},
-        "enable5G": {{ .Values.global.enable5G }},
-        "enable4G": {{ .Values.global.enable4G }},
-        "kafkaTopics": {{ .Values.config.kafkaTopics | toJson }},
-        {{- range $index, $key := $requiredVariables }}
-        "{{ $key }}": "{{ index $config $key | required (printf "Requires %s to be defined in values.yaml" $key) }}",
-        {{- end }}
-      }
+      "production": {{ tpl ($config | toPrettyJson) $ | indent 6 | trim }}
     }
 
 {{- end }}
