@@ -37,14 +37,14 @@ name: {{ include "accelleran.common.fullname" (dict "top" $) }}-server
 
 {{- range $index, $key := $requiredVariables }}
   {{- if not (index $config $key) }}
-    {{- fail (printf "Requires %s to be defined in values.yaml" $key) }}
+    {{- fail (printf "Dashboard requires config.%s to be defined in values.yaml" $key) }}
   {{- end }}
 {{- end }}
 
 
-# Template serviceName if not provided in configuration
 {{- $serviceName := include "accelleran.common.service.name" (dict "top" $) }}
-{{- $config := merge $config (dict "serviceName" $serviceName) }}
+# Update the serviceName in config with templated value only if it is empty ""
+{{- merge $config (dict "serviceName" $serviceName) }}
 
 
 data:
