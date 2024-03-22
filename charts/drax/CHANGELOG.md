@@ -1,5 +1,24 @@
 # Changelog
 
+## [7.1.0](https://github.com/accelleran/helm-charts/compare/drax-7.0.1...drax-7.1.0) (2024-03-22)
+
+
+### Features
+
+* Add Mobility tab to CU-CP configuration on Dashboard ([7c9dd57](https://github.com/accelleran/helm-charts/commit/7c9dd57ea068f7024ad6a4018dfca64c3ae72e1c))
+* External neighbors can now be configured via dRAX API ([e102a00](https://github.com/accelleran/helm-charts/commit/e102a006b07e31ec51d1e3948c36491371a1a911))
+* Support O1 VES-style ANR notifications on Dashboard ([7c9dd57](https://github.com/accelleran/helm-charts/commit/7c9dd57ea068f7024ad6a4018dfca64c3ae72e1c))
+
+
+### Bug Fixes
+
+* Average all CU-UP counters across UEs ([b227c4b](https://github.com/accelleran/helm-charts/commit/b227c4b991795fd695ad1c10d1dc35cbfe99b977))
+* **deps:** Update accelleran/config-api docker tag to v1.2.0 ([e102a00](https://github.com/accelleran/helm-charts/commit/e102a006b07e31ec51d1e3948c36491371a1a911))
+* **deps:** Update accelleran/dash-front-back-end docker tag to v5.1.0 ([7c9dd57](https://github.com/accelleran/helm-charts/commit/7c9dd57ea068f7024ad6a4018dfca64c3ae72e1c))
+* **deps:** Update helm release redis to v18.19.3 ([f695a10](https://github.com/accelleran/helm-charts/commit/f695a1095e3ee024236fe2877cf1948eded3e13d))
+* **deps:** Update helm release redis to v18.19.4 ([9f775c0](https://github.com/accelleran/helm-charts/commit/9f775c0798c23260952d7974d0a8707853cebb3d))
+* Fix grafana port injected as int into tpl ([#176](https://github.com/accelleran/helm-charts/issues/176)) ([1a02506](https://github.com/accelleran/helm-charts/commit/1a02506fbd1373b04882f48de8ea6975bf84bb2c))
+
 ## [7.0.1](https://github.com/accelleran/helm-charts/compare/drax-7.0.0...drax-7.0.1) (2024-03-14)
 
 
