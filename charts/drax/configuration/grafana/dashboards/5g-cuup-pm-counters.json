@@ -230,7 +230,6 @@
         "y": 5
       },
       "id": 82,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [],
@@ -369,7 +368,6 @@
         "y": 10
       },
       "id": 60,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [],
@@ -391,7 +389,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "avg_over_time(DRB_PDCP_PACKET_DROP_RATE_DL_SNSSAI{sst=~\"$sliceType\", sd=~\"$sliceDifferentiator\"}[$MinStep])",
+          "expr": "avg by(reportedNode, sd, sst) (avg_over_time(DRB_PDCP_PACKET_DROP_RATE_DL_SNSSAI{sst=~\"$sliceType\", sd=~\"$sliceDifferentiator\"}[$MinStep]))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -475,7 +473,6 @@
         "y": 15
       },
       "id": 79,
-      "links": [],
       "options": {
         "legend": {
           "calcs": [],
@@ -497,7 +494,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "avg_over_time(DRB_PDCP_PACKET_DROP_RATE_DL_QOS{qfi=~\"$QFI\"}[$MinStep])",
+          "expr": "avg by(reportedNode, qfi) (avg_over_time(DRB_PDCP_PACKET_DROP_RATE_DL_QOS{qfi=~\"$QFI\"}[$MinStep]))",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -550,7 +547,6 @@
         "y": 20
       },
       "id": 64,
-      "links": [],
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -567,7 +563,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -575,10 +571,10 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "avg_over_time(AVERAGE_DELAY_DL_IN_CUUP_SNSSAI{sd=~\"$sliceDifferentiator\",sst=~\"$sliceType\"}[$__interval])",
+          "expr": "avg by(reportedNode, sst, sd) (avg_over_time(AVERAGE_DELAY_DL_IN_CUUP_SNSSAI{sd=~\"$sliceDifferentiator\",sst=~\"$sliceType\"}[$__interval]))",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{instanceId}}GNB_ID:{{reportedNode}},SST:{{sst}},SD{{sd}}",
+          "legendFormat": "GNB_ID:{{reportedNode}},SST:{{sst}},SD{{sd}}",
           "refId": "A"
         }
       ],
@@ -602,8 +598,7 @@
                 "value": null
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -632,7 +627,7 @@
         "sizing": "auto",
         "valueMode": "color"
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -928,7 +923,6 @@
         "y": 25
       },
       "id": 78,
-      "links": [],
       "options": {
         "colorMode": "value",
         "graphMode": "none",
@@ -945,7 +939,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -953,10 +947,10 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "avg_over_time(AVERAGE_DELAY_DL_IN_CUUP_QOS{qfi=~\"$QFI\"}[$__interval])",
+          "expr": "avg by(reportedNode, qfi) (avg_over_time(AVERAGE_DELAY_DL_IN_CUUP_QOS{qfi=~\"$QFI\"}[$__interval]))",
           "instant": true,
           "interval": "",
-          "legendFormat": "{{instanceId}}{{reportedNode}},QFI:{{qfi}}",
+          "legendFormat": "{{reportedNode}},QFI:{{qfi}}",
           "refId": "A"
         }
       ],
@@ -976,7 +970,6 @@
         "y": 35
       },
       "id": 67,
-      "links": [],
       "options": {
         "content": "<h4 style=\"text-align:center\"> <h4>\n<h4 style=\"text-align:center\"> <h4>\n",
         "mode": "html"
@@ -1006,7 +999,6 @@
         "y": 38
       },
       "id": 77,
-      "links": [],
       "options": {
         "content": "<h4 style=\"text-align:center\"> <h4>\n<h4 style=\"text-align:center\"> <h4>\n",
         "mode": "html"
@@ -1036,7 +1028,6 @@
         "y": 41
       },
       "id": 56,
-      "links": [],
       "options": {
         "content": "",
         "mode": "html"
@@ -1152,7 +1143,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "1m",
           "value": "1m"
         },
