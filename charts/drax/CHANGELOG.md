@@ -1,5 +1,13 @@
 # Changelog
 
+## [7.1.1](https://github.com/accelleran/helm-charts/compare/drax-7.1.0...drax-7.1.1) (2024-03-26)
+
+
+### Bug Fixes
+
+* **deps:** Update helm release prometheus to v25.18.0 ([7bf4254](https://github.com/accelleran/helm-charts/commit/7bf42542f249c1fbb0c3b65262064797ad64b3bd))
+* **deps:** Update helm release vector to v0.32.0 ([b0319ee](https://github.com/accelleran/helm-charts/commit/b0319ee112d3392ae9c15bf5cc6de4611df5487d))
+
 ## [7.1.0](https://github.com/accelleran/helm-charts/compare/drax-7.0.1...drax-7.1.0) (2024-03-22)
 
 
