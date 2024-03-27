@@ -37,6 +37,10 @@
     "charts/drax": {
       "component": "drax",
       "package-name": "drax"
+    },
+    "charts/xapp-hello-world": {
+      "component": "xapp-hello-world",
+      "package-name": "xapp-hello-world"
     }
   }
 }
